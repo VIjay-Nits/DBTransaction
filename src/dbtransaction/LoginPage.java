@@ -86,8 +86,8 @@ public class LoginPage extends JDialog {
     
     JLabel lblLogin = new JLabel("Login");
     lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 30));
-  // lblLogin.setBounds();
+    lblLogin.setFont(new Font("Tahoma", Font.BOLD, 20));
+    lblLogin.setBounds(390,180,100,25);
     contentPanel.add(lblLogin);
         
     }
