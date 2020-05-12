@@ -35,32 +35,35 @@ public class LoginPage extends JDialog {
     private final JPanel contentPanel = new JPanel();
     
     public LoginPage(){
-        setBounds(20,20,1000,1000);
-        getContentPane().setLayout(new BorderLayout());
-        contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-       getContentPane().add(contentPanel, BorderLayout.CENTER);
-        contentPanel.setLayout(null);
+      setBounds(20,20,1000,1000);
+      getContentPane().setLayout(new BorderLayout());
+      contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+      getContentPane().add(contentPanel, BorderLayout.CENTER);
+      contentPanel.setLayout(null);
         {
-      JLabel lblUsername = new JLabel("UserName");
-      lblUsername.setBounds(389, 376, 63, 20);
+      JLabel lblUsername = new JLabel("Id/Email :");
+      lblUsername.setBounds(270, 220, 130, 20);
+      lblUsername.setFont(new Font("Arial", Font.BOLD, 20));
       contentPanel.add(lblUsername);
         }
         {
-      JLabel lblPassword = new JLabel("Password");
-      lblPassword.setBounds(389, 419, 63, 20);
+      JLabel lblPassword = new JLabel("Password :");
+      lblPassword.setBounds(270, 270, 130, 20);
+      lblPassword.setFont(new Font("Arial", Font.BOLD, 20));
       contentPanel.add(lblPassword);
         }
     
-        username = new JTextField();
-       username.setBounds(473, 376, 152, 20);
-    contentPanel.add(username);
-    username.setColumns(10);
+      username = new JTextField();
+      username.setBounds(400, 220, 200, 25);
+      contentPanel.add(username);
+      username.setColumns(10);
     
-    password = new JPasswordField();
-    password.setBounds(473, 419, 152, 20);
-    contentPanel.add(password);
+      password = new JPasswordField();
+      password.setBounds(400, 270, 200, 25);
+      contentPanel.add(password);
     
     JButton btnLogin = new JButton("Login");
+    JButton btnSignUp = new JButton("SignUp");
     btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,13 +79,15 @@ public class LoginPage extends JDialog {
                 }
             }
         });
-    btnLogin.setBounds();
+    btnLogin.setBounds(320,320,100,25);
     contentPanel.add(btnLogin);
+    btnSignUp.setBounds(460,320,100,25);
+    contentPanel.add(btnSignUp);
     
     JLabel lblLogin = new JLabel("Login");
     lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    lblLogin.setBounds();
+    lblLogin.setFont(new Font("Tahoma", Font.PLAIN, 30));
+  // lblLogin.setBounds();
     contentPanel.add(lblLogin);
         
     }
