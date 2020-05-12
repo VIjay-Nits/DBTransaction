@@ -5,6 +5,8 @@
  */
 package dbtransaction;
 
+import javax.swing.JDialog;
+
 /**
  *
  * @author USER
@@ -15,7 +17,10 @@ public class DBTransaction {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        LoginPage dialog=new LoginPage();
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setTitle("Login Page");
+        dialog.setVisible(true);
     }
     
 }
