@@ -21,6 +21,14 @@ public class DBTransaction {
         dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         dialog.setTitle("Login Page");
         dialog.setVisible(true);
+        TransactionGUI tg=new TransactionGUI();
+       java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TransactionGUI().setVisible(true);
+            }
+        });
+       
+       
     }
     
 }
