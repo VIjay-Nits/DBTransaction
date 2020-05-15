@@ -32,7 +32,7 @@ public class TransactionGUI extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        Add = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -46,25 +46,36 @@ public class TransactionGUI extends javax.swing.JFrame {
         jScrollPane1.setAutoscrolls(true);
         jScrollPane1.setFocusTraversalPolicyProvider(true);
         jScrollPane1.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 jScrollPane1CaretPositionChanged(evt);
             }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
         });
 
-        jMenu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jMenu1.setText("Add");
-        jMenuBar1.add(jMenu1);
+        Add.setBackground(new java.awt.Color(204, 204, 204));
+        Add.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        Add.setText("Add");
+        Add.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Add.setIconTextGap(20);
+        Add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AddMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(Add);
 
         jMenu2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jMenu2.setText("Delete");
         jMenu2.setToolTipText("");
+        jMenu2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jMenu2.setIconTextGap(20);
         jMenuBar1.add(jMenu2);
 
         jMenu3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jMenu3.setText("Logout");
-        jMenu3.setActionCommand("Logout");
+        jMenu3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jMenu3.setIconTextGap(20);
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -80,19 +91,26 @@ public class TransactionGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 244, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-     String userNameSource,userNameDestination;
-     String passwordSource,passwordDestination;
+    
     private void jScrollPane1CaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jScrollPane1CaretPositionChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jScrollPane1CaretPositionChanged
+
+    private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
+        AddTask add=new AddTask();
+       java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AddTask().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_AddMouseClicked
 
     
     
@@ -127,7 +145,7 @@ public class TransactionGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu Add;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;

@@ -5,6 +5,8 @@
  */
 package dbtransaction;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
@@ -28,7 +30,6 @@ public class AddTask extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        javax.swing.JComboBox<String> jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -40,8 +41,9 @@ public class AddTask extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        dbSource = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        dbDestination = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -71,13 +73,6 @@ public class AddTask extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Source:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Database:");
 
         jLabel3.setText("Username:");
@@ -87,17 +82,6 @@ public class AddTask extends javax.swing.JFrame {
         userSource.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 userSourceFocusLost(evt);
-            }
-        });
-        userSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userSourceActionPerformed(evt);
-            }
-        });
-
-        passSource.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passSourceActionPerformed(evt);
             }
         });
 
@@ -112,6 +96,8 @@ public class AddTask extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
+
+        dbSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -128,12 +114,12 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1, 0, 318, Short.MAX_VALUE)
-                    .addComponent(userSource)
+                    .addComponent(userSource, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
                     .addComponent(passSource)
                     .addComponent(jTextField3)
                     .addComponent(jTextField1)
-                    .addComponent(jTextField2))
+                    .addComponent(jTextField2)
+                    .addComponent(dbSource, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -141,8 +127,8 @@ public class AddTask extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(dbSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -169,10 +155,10 @@ public class AddTask extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Destination:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        dbDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        dbDestination.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                dbDestinationActionPerformed(evt);
             }
         });
 
@@ -181,18 +167,6 @@ public class AddTask extends javax.swing.JFrame {
         jLabel5.setText("Username:");
 
         jLabel6.setText("Password:");
-
-        userDestination.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userDestinationActionPerformed(evt);
-            }
-        });
-
-        passDestination.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passDestinationActionPerformed(evt);
-            }
-        });
 
         jLabel8.setText("IP Address:");
 
@@ -215,7 +189,7 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox2, 0, 295, Short.MAX_VALUE)
+                    .addComponent(dbDestination, 0, 295, Short.MAX_VALUE)
                     .addComponent(userDestination)
                     .addComponent(passDestination)
                     .addComponent(jTextField4)
@@ -229,7 +203,7 @@ public class AddTask extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2))
+                    .addComponent(dbDestination))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -369,45 +343,40 @@ public class AddTask extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
+     String userNameSource,userNameDestination;
+     String passwordSource,passwordDestination;
+    
+    
     private void userSourceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userSourceFocusLost
 
     }//GEN-LAST:event_userSourceFocusLost
 
-    private void userSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userSourceActionPerformed
-        
-    }//GEN-LAST:event_userSourceActionPerformed
-
-    private void passSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passSourceActionPerformed
-        passwordSource=passSource.getText().trim();
-    }//GEN-LAST:event_passSourceActionPerformed
-
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void dbDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbDestinationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
-    private void userDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDestinationActionPerformed
-        userNameDestination=userDestination.getText().trim();
-    }//GEN-LAST:event_userDestinationActionPerformed
-
-    private void passDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passDestinationActionPerformed
-        passwordDestination=passDestination.getText().trim();
-    }//GEN-LAST:event_passDestinationActionPerformed
+    }//GEN-LAST:event_dbDestinationActionPerformed
 
     private void verfityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verfityMouseClicked
+        userNameSource=userSource.getText().trim();
+        passwordSource=passSource.getText().trim();
+        userNameDestination=userDestination.getText().trim();
+        passwordDestination=passDestination.getText().trim();
+        
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
-        if(connSource.isConnectioncreated("Oracle"))System.out.println("Source connected");
-        else System.out.println("error");
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
-        if(connDestination.isConnectioncreated("Oracle"))System.out.println("Destination connectd");
-        else {
-            System.out.println("error");
+        if(connSource.isConnectioncreated((String)dbSource.getItemAt(dbSource.getSelectedIndex()))&&
+                connDestination.isConnectioncreated((String)dbDestination.getItemAt(dbDestination.getSelectedIndex()))){
+           JOptionPane.showMessageDialog(null, "Connection Authenticated"); 
+           
+        }else {
+            JOptionPane.showMessageDialog(null, "Connection Authentication Failed");
+       
         }
+        
+        
     }//GEN-LAST:event_verfityMouseClicked
-
+    
+    
+    
     private void verfityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verfityActionPerformed
 
     }//GEN-LAST:event_verfityActionPerformed
@@ -419,41 +388,38 @@ public class AddTask extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddTask().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(AddTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> dbDestination;
+    private javax.swing.JComboBox<String> dbSource;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;

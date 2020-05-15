@@ -86,7 +86,7 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            DriverManager.getConnection("jdbc:postgresql://localhost:5432/example",user,password);
+            DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
