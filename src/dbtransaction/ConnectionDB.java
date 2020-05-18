@@ -5,6 +5,7 @@
  */
 package dbtransaction;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 public class ConnectionDB  {
     String user;
     String password;
+    private Connection connection;
      ConnectionDB(String user,String password){
          this.user=user;
          this.password=password;
@@ -28,6 +30,7 @@ public class ConnectionDB  {
         else if(connName.equals("MsSQL"))return isMsSQLConnected();
         else return isPostgreSQLConnected();
     }
+    public Connection connection(){return connection;}
      
     private boolean isOracleConnected(){
          try {
@@ -39,7 +42,7 @@ public class ConnectionDB  {
          }
        
          try {
-             DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",user,password);
+             connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe",user,password);
          } catch (SQLException ex) {
              Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
              return false;
@@ -54,7 +57,7 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo",user,password);
+            connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/sonoo",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -70,7 +73,7 @@ public class ConnectionDB  {
         }
         try {
             String url= "jdbc:sqlserver://localhost:1433;databaseName = testdb;user="+user+";password = "+password;
-            DriverManager.getConnection(url);
+            connection=DriverManager.getConnection(url);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -86,7 +89,7 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",user,password);
+            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
