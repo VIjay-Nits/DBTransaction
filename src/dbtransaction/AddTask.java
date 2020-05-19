@@ -73,7 +73,7 @@ public class AddTask extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        ColumnName = new javax.swing.JComboBox<>();
+        columnName = new javax.swing.JComboBox<>();
         jTextField6 = new javax.swing.JTextField();
         verify = new javax.swing.JButton();
 
@@ -258,7 +258,16 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel10.setText("Task Name:");
 
-        timeHour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        tableName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tableNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tableNameFocusLost(evt);
+            }
+        });
+
+        timeHour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         timeHour.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         timeHour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +275,7 @@ public class AddTask extends javax.swing.JFrame {
             }
         });
 
-        timeMinute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", " " }));
+        timeMinute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", " " }));
         timeMinute.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel15.setText("Table Name:");
@@ -274,6 +283,17 @@ public class AddTask extends javax.swing.JFrame {
         jLabel16.setText("Column Name:");
 
         jLabel17.setText("Constraint:");
+
+        columnName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                columnNameFocusGained(evt);
+            }
+        });
+        columnName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                columnNameActionPerformed(evt);
+            }
+        });
 
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,7 +316,7 @@ public class AddTask extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tableName)
                     .addComponent(taskName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ColumnName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(columnName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +350,7 @@ public class AddTask extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(ColumnName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(columnName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
@@ -521,6 +541,51 @@ public class AddTask extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dbSourceActionPerformed
 
+    private void columnNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_columnNameActionPerformed
+       
+    }//GEN-LAST:event_columnNameActionPerformed
+
+    private void columnNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_columnNameFocusGained
+        
+    }//GEN-LAST:event_columnNameFocusGained
+      Vector<String>colnames=new Vector<>();
+    private void tableNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableNameFocusLost
+        // TODO add your handling code here:
+        ConnectionDB dbconn=new ConnectionDB(userNameSource, passwordSource);
+        if(dbconn.isConnectioncreated(source)){
+            try{
+            Connection conn=dbconn.connection();
+            Statement st = conn.createStatement();
+            String table=tableName.getText().trim();
+            try{ResultSet results = st.executeQuery("SELECT * FROM "+table);
+                ResultSetMetaData metadata = results.getMetaData();
+            int columnCount = metadata.getColumnCount();
+// Get the column names; column indices start from 1
+            
+            for (int i=1; i<=columnCount; i++) {
+ 
+                    colnames.add(metadata.getColumnName(i));
+                }
+            columnName.setModel(new javax.swing.DefaultComboBoxModel<>(colnames));
+            }catch(Exception re){
+                JOptionPane.showMessageDialog(null, "Problem with the table name");
+           
+            }
+            
+            
+               
+            }catch(SQLException e){
+                System.out.println("SQL exception");
+                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }//GEN-LAST:event_tableNameFocusLost
+
+    private void tableNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableNameFocusGained
+       colnames.removeAllElements();
+       columnName.removeAllItems();
+    }//GEN-LAST:event_tableNameFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -553,7 +618,7 @@ public class AddTask extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ColumnName;
+    private javax.swing.JComboBox<String> columnName;
     private javax.swing.JComboBox<String> dbDestination;
     private javax.swing.JComboBox<String> dbSource;
     private javax.swing.JLabel jLabel1;
