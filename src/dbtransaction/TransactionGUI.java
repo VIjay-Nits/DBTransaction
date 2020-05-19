@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -247,8 +248,14 @@ public class TransactionGUI extends javax.swing.JFrame {
          return scheduledTask;
     }
     public void displayTask() throws SQLException{
-        ArrayList<ScheduledTaskList> list=scheduledTask();
         DefaultTableModel model=(DefaultTableModel)taskTable.getModel();
+        int count=model.getRowCount();
+        while(count-->0){
+            model.removeRow(0);
+        }
+        ArrayList<ScheduledTaskList> list=scheduledTask();
+        
+       
         Object[]row=new Object[6];
         for(int i=0;i<list.size();i++){
             row[0]=list.get(i).getTaskName();
@@ -296,7 +303,13 @@ public class TransactionGUI extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
+ public JTable getTaskTable() {
+        return taskTable;
+    }
 
+    public void setTaskTable(JTable taskTable) {
+        this.taskTable = taskTable;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -308,6 +321,11 @@ public class TransactionGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable taskTable;
+    public javax.swing.JTable taskTable;
     // End of variables declaration//GEN-END:variables
+
+   
+
+    
 }
+

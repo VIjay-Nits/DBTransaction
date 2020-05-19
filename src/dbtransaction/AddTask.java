@@ -5,7 +5,14 @@
  */
 package dbtransaction;
 
-import javax.swing.JOptionPane;
+import java.sql.*;
+
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -102,6 +109,11 @@ public class AddTask extends javax.swing.JFrame {
         });
 
         dbSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        dbSource.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dbSourceActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -248,6 +260,11 @@ public class AddTask extends javax.swing.JFrame {
 
         timeHour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         timeHour.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        timeHour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeHourActionPerformed(evt);
+            }
+        });
 
         timeMinute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", " " }));
         timeMinute.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -374,6 +391,8 @@ public class AddTask extends javax.swing.JFrame {
 
      String userNameSource,userNameDestination;
      String passwordSource,passwordDestination;
+     String source,destination;
+     String hour,minute;
      boolean flagVerify=false;
     
     
@@ -393,11 +412,13 @@ public class AddTask extends javax.swing.JFrame {
         passwordSource=passSource.getText().trim();
         userNameDestination=userDestination.getText().trim();
         passwordDestination=passDestination.getText().trim();
+        source=(String)dbSource.getItemAt(dbSource.getSelectedIndex());
+        destination=(String)dbDestination.getItemAt(dbDestination.getSelectedIndex());
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
-        if(connSource.isConnectioncreated((String)dbSource.getItemAt(dbSource.getSelectedIndex()))&&
-                connDestination.isConnectioncreated((String)dbDestination.getItemAt(dbDestination.getSelectedIndex()))){
+        if(connSource.isConnectioncreated(source)&&
+                connDestination.isConnectioncreated(destination)){
            JOptionPane.showMessageDialog(null, "Connection Authenticated");
           flagVerify=true;
            
@@ -414,7 +435,73 @@ public class AddTask extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
                  if(flagVerify){
-            JOptionPane.showMessageDialog(null, "Task Saved Successfully");
+                     hour=(String)timeHour.getItemAt(timeHour.getSelectedIndex());
+                     minute=(String)timeMinute.getItemAt(timeMinute.getSelectedIndex());
+                     
+            try {
+             Class.forName("oracle.jdbc.driver.OracleDriver");
+         } catch (ClassNotFoundException ex) {
+             
+             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+             
+         }
+       
+         try {
+             Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
+              System.out.println("oracle connected");
+              String query="insert into users values('"+taskName.getText().trim()+"','"
+                                                                                   +source+"','"
+                                                                                   +destination+"','"
+                                                                                   +tableName.getText().trim()+"','"
+                                                                                   +hour+""+minute+"','"
+                                                                                   +"later I will add',"
+                                                                                   +"'vijaygupta13199@gmail.com')";
+              System.out.println(query);
+              Statement st=conn.createStatement();
+              int retrn=st.executeUpdate(query);
+              
+              conn.close();
+              st.close();
+              if(retrn==1){
+                  JOptionPane.showMessageDialog(null, "Task Saved Successfully");
+                  dispose();
+                   ScheduledTaskList task;
+             task=new ScheduledTaskList( 
+                                        taskName.getText().trim(),
+                                        source,
+                                        destination,
+                                        tableName.getText().trim(),
+                                        timeHour+""+timeMinute,
+                                           "I Will add deatils"
+                      );
+            
+            
+                  DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTable).getModel();
+       
+       Object[]row=new Object[6];
+       row[0]=task.getTaskName();
+            row[1]=task.getSourceName();
+            row[2]=task.getDestinationName();
+            row[3]=task.getTableName();
+            row[4]=task.getSchTime();
+            row[5]=task.getDeatils();
+            model.addRow(row);
+        
+              }else{
+               JOptionPane.showMessageDialog(null, "Check The Details");   
+              }
+              
+             
+             
+          
+          
+         } catch (SQLException ex) {
+             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+            
+         }
+         
+       
+            
         }
         else{
             JOptionPane.showMessageDialog(null, "Please Authenticate Connection First");
@@ -425,6 +512,14 @@ public class AddTask extends javax.swing.JFrame {
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void timeHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeHourActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeHourActionPerformed
+
+    private void dbSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbSourceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dbSourceActionPerformed
 
     /**
      * @param args the command line arguments
