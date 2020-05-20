@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class ConnectionDB  {
     String user;

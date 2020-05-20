@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class DBTransaction {
 

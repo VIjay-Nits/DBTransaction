@@ -7,7 +7,7 @@ package dbtransaction;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class ScheduledTaskList {
     private String taskName,sourceName,destinationName,tableName,schTime,deatils;

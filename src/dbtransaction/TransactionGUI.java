@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class TransactionGUI extends javax.swing.JFrame {
 

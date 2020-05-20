@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class LoginPage extends JDialog {
     private JTextField username;

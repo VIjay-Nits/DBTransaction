@@ -5,7 +5,10 @@
  */
 package dbtransaction;
 
+import static dbtransaction.DateValidator.isValidDate;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -16,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author USER
+ * @author Vijay
  */
 public class AddTask extends javax.swing.JFrame {
 
@@ -67,14 +70,18 @@ public class AddTask extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         tableName = new javax.swing.JTextField();
-        timeHour = new javax.swing.JComboBox<>();
-        timeMinute = new javax.swing.JComboBox<>();
         taskName = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         columnName = new javax.swing.JComboBox<>();
         jTextField6 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        schDay = new javax.swing.JSpinner();
+        schMonth = new javax.swing.JSpinner();
+        schYear = new javax.swing.JSpinner();
+        jLabel19 = new javax.swing.JLabel();
         verify = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -254,7 +261,7 @@ public class AddTask extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Scheduled TIme:");
+        jLabel9.setText("Scheduled Date:");
 
         jLabel10.setText("Task Name:");
 
@@ -266,17 +273,6 @@ public class AddTask extends javax.swing.JFrame {
                 tableNameFocusLost(evt);
             }
         });
-
-        timeHour.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
-        timeHour.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        timeHour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timeHourActionPerformed(evt);
-            }
-        });
-
-        timeMinute.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", " " }));
-        timeMinute.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel15.setText("Table Name:");
 
@@ -301,6 +297,14 @@ public class AddTask extends javax.swing.JFrame {
             }
         });
 
+        jLabel18.setText("Occurrence of Transfer:");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "daily", "weekly", "monthly", "yearly" }));
+
+        schYear.setName(""); // NOI18N
+
+        jLabel19.setText("(dd-mm-yyyy)");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -319,28 +323,40 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(columnName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jTextField6))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(schDay)
+                        .addGap(18, 18, 18)
+                        .addComponent(schMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(timeHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(297, 297, 297))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(schYear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel19)
+                        .addGap(36, 36, 36))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(taskName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(timeHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timeMinute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(taskName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)
+                        .addComponent(schDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel19)
+                        .addComponent(schYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(schMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
@@ -357,8 +373,13 @@ public class AddTask extends javax.swing.JFrame {
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         verify.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -412,8 +433,9 @@ public class AddTask extends javax.swing.JFrame {
      String userNameSource,userNameDestination;
      String passwordSource,passwordDestination;
      String source,destination;
-     String hour,minute;
-     boolean flagVerify=false;
+     int scheduledDay,scheduledMonth,scheduledYear;
+     String scheduledDate;
+     boolean flagVerify=false,flagDate=false;
     
     
     private void userSourceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userSourceFocusLost
@@ -428,7 +450,7 @@ public class AddTask extends javax.swing.JFrame {
     
     
     private void verifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyActionPerformed
-            userNameSource=userSource.getText().trim();
+        userNameSource=userSource.getText().trim();
         passwordSource=passSource.getText().trim();
         userNameDestination=userDestination.getText().trim();
         passwordDestination=passDestination.getText().trim();
@@ -437,15 +459,12 @@ public class AddTask extends javax.swing.JFrame {
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
-        if(connSource.isConnectioncreated(source)&&
-                connDestination.isConnectioncreated(destination)){
-           JOptionPane.showMessageDialog(null, "Connection Authenticated");
-          flagVerify=true;
-           
+        if(connSource.isConnectioncreated(source)&&connDestination.isConnectioncreated(destination)){
+            JOptionPane.showMessageDialog(null, "Connection Authenticated");
+            flagVerify=true;
         }else {
             JOptionPane.showMessageDialog(null, "Connection Authentication Failed");
             flagVerify=false;
-       
         }
     }//GEN-LAST:event_verifyActionPerformed
 
@@ -454,76 +473,78 @@ public class AddTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-                 if(flagVerify){
-                     hour=(String)timeHour.getItemAt(timeHour.getSelectedIndex());
-                     minute=(String)timeMinute.getItemAt(timeMinute.getSelectedIndex());
-                     
+        if(flagVerify){
+            scheduledDay=(int)schDay.getValue();
+            scheduledMonth=(int)schMonth.getValue();
+            scheduledYear=(int)schYear.getValue();
+            flagDate=false;
+            
+            DateValidator date=new DateValidator(scheduledDay,scheduledMonth, scheduledYear);
+            LocalDate currentdate=java.time.LocalDate.now();
+            LocalDate myDate=(LocalDate)LocalDate.of(scheduledYear, scheduledMonth, scheduledDay);
+            if(isValidDate(scheduledDay, scheduledMonth,scheduledYear)&&currentdate.isBefore(myDate)){
+                flagDate=true;
+                scheduledDate=myDate.toString();
+            }else{
+                JOptionPane.showMessageDialog(null, "Problem with scheduled Date");
+           
+            }
+            if(!flagDate){ 
+                JOptionPane.showMessageDialog(null, "Problem with scheduled Date");
+                return;
+            }
             try {
-             Class.forName("oracle.jdbc.driver.OracleDriver");
-         } catch (ClassNotFoundException ex) {
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
              
-             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-             
-         }
-       
-         try {
-             Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
-              System.out.println("oracle connected");
-              String query="insert into users values('"+taskName.getText().trim()+"','"
-                                                                                   +source+"','"
-                                                                                   +destination+"','"
-                                                                                   +tableName.getText().trim()+"','"
-                                                                                   +hour+""+minute+"','"
-                                                                                   +"later I will add',"
-                                                                                   +"'vijaygupta13199@gmail.com')";
-              System.out.println(query);
-              Statement st=conn.createStatement();
-              int retrn=st.executeUpdate(query);
-              
-              conn.close();
-              st.close();
-              if(retrn==1){
-                  JOptionPane.showMessageDialog(null, "Task Saved Successfully");
-                  dispose();
-                   ScheduledTaskList task;
-             task=new ScheduledTaskList( 
-                                        taskName.getText().trim(),
-                                        source,
-                                        destination,
-                                        tableName.getText().trim(),
-                                        timeHour+""+timeMinute,
-                                           "I Will add deatils"
-                      );
-            
-            
-                  DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTable).getModel();
-       
-       Object[]row=new Object[6];
-       row[0]=task.getTaskName();
-            row[1]=task.getSourceName();
-            row[2]=task.getDestinationName();
-            row[3]=task.getTableName();
-            row[4]=task.getSchTime();
-            row[5]=task.getDeatils();
-            model.addRow(row);
-        
-              }else{
-               JOptionPane.showMessageDialog(null, "Check The Details");   
-              }
-              
-             
-             
-          
-          
-         } catch (SQLException ex) {
-             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-            
-         }
-         
-       
-            
-        }
-        else{
+            }
+            try {
+                Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
+                System.out.println("oracle connected");
+                String query="insert into users values('"+taskName.getText().trim()+"','"
+                                                                               +source+"','"
+                                                                               +destination+"','"
+                                                                               +tableName.getText().trim()+"','"
+                                                                               +scheduledDate+"','"
+                                                                               +"later I will add',"
+                                                                               +"'vijaygupta13199@gmail.com')";
+                System.out.println(query);
+                Statement st=conn.createStatement();
+                int retrn=st.executeUpdate(query);
+
+                conn.close();
+                st.close();
+                if(retrn==1){
+                    JOptionPane.showMessageDialog(null, "Task Saved Successfully");
+                    dispose();
+                    ScheduledTaskList task;
+                    task=new ScheduledTaskList( 
+                                    taskName.getText().trim(),
+                                    source,
+                                    destination,
+                                    tableName.getText().trim(),
+                                    scheduledDate,
+                                       "I Will add deatils");
+
+
+                    DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTable).getModel();
+
+                    Object[]row=new Object[6];
+                    row[0]=task.getTaskName();
+                    row[1]=task.getSourceName();
+                    row[2]=task.getDestinationName();
+                    row[3]=task.getTableName();
+                    row[4]=task.getSchTime();
+                    row[5]=task.getDeatils();
+                    model.addRow(row);
+                }else{
+                   JOptionPane.showMessageDialog(null, "Check The Details");   
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
             JOptionPane.showMessageDialog(null, "Please Authenticate Connection First");
             
         }
@@ -532,10 +553,6 @@ public class AddTask extends javax.swing.JFrame {
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
-
-    private void timeHourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeHourActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_timeHourActionPerformed
 
     private void dbSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbSourceActionPerformed
         // TODO add your handling code here:
@@ -621,6 +638,7 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> columnName;
     private javax.swing.JComboBox<String> dbDestination;
     private javax.swing.JComboBox<String> dbSource;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -630,6 +648,8 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -651,10 +671,11 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JPasswordField passDestination;
     private javax.swing.JPasswordField passSource;
     private javax.swing.JButton saveButton;
+    private javax.swing.JSpinner schDay;
+    private javax.swing.JSpinner schMonth;
+    private javax.swing.JSpinner schYear;
     private javax.swing.JTextField tableName;
     private javax.swing.JTextField taskName;
-    private javax.swing.JComboBox<String> timeHour;
-    private javax.swing.JComboBox<String> timeMinute;
     private javax.swing.JTextField userDestination;
     private javax.swing.JTextField userSource;
     private javax.swing.JButton verify;
