@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dbtransaction;
 
 import java.awt.event.FocusEvent;
@@ -216,7 +212,7 @@ public class TransactionGUI extends javax.swing.JFrame {
     ArrayList<ScheduledTaskList> scheduledTask(){
       ArrayList<ScheduledTaskList> scheduledTask=new ArrayList<>();
       try {
-             Class.forName("oracle.jdbc.driver.OracleDriver");
+             Class.forName("org.postgresql.Driver");
          } catch (ClassNotFoundException ex) {
              
              Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -224,12 +220,13 @@ public class TransactionGUI extends javax.swing.JFrame {
          }
        
          try {
-             Connection connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
-              System.out.println("oracle connected");
+             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+              System.out.println("postgres connected");
               String query="SELECT * FROM users";
               Statement st=connection.createStatement();
               ResultSet result=st.executeQuery(query);
-              
+             DatabaseMetaData u= connection.getMetaData();
+             u.supportsRefCursors();
               ScheduledTaskList task;
               while(result.next()){
               task=new ScheduledTaskList( 
@@ -237,8 +234,8 @@ public class TransactionGUI extends javax.swing.JFrame {
                                          result.getString("Source"),
                                          result.getString("Destination"),
                                          result.getString("tableName"),
-                                         result.getString("schTime"),
-                                         result.getString("details")
+                                         result.getString("schdate"),
+                                         result.getString("sport")
                                         );
               scheduledTask.add(task);
           }

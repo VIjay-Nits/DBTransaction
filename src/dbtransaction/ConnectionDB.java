@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dbtransaction;
 
 import java.sql.Connection;
@@ -24,7 +20,7 @@ public class ConnectionDB  {
          this.password=password;
          
     }
-    public boolean isConnectioncreated(String connName){
+    public boolean isConnectionCreated(String connName){
         if(connName.equals("Oracle"))return isOracleConnected();
         else if(connName.equals("MySQL"))return isMySQLConnected();
         else if(connName.equals("MsSQL"))return isMsSQLConnected();

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dbtransaction;
 
 import static dbtransaction.DateValidator.isValidDate;
@@ -16,6 +12,7 @@ import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -43,44 +40,47 @@ public class AddTask extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        userSource = new javax.swing.JTextField();
-        passSource = new javax.swing.JPasswordField();
+        sUserNameFE = new javax.swing.JTextField();
+        sPasswordFE = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        sHostFE = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        dbSource = new javax.swing.JComboBox<>();
+        sPortFE = new javax.swing.JTextField();
+        sDatabaseNameFE = new javax.swing.JTextField();
+        sourceFE = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        sTableNameFE = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
-        dbDestination = new javax.swing.JComboBox<>();
+        destinationFE = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        userDestination = new javax.swing.JTextField();
-        passDestination = new javax.swing.JPasswordField();
+        dUserNameFE = new javax.swing.JTextField();
+        dPasswordFE = new javax.swing.JPasswordField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        dHostFE = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        dPortFE = new javax.swing.JTextField();
+        dDatabaseNameFE = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        dTableNameFE = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        tableName = new javax.swing.JTextField();
-        taskName = new javax.swing.JTextField();
+        taskNameFE = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        columnName = new javax.swing.JComboBox<>();
-        jTextField6 = new javax.swing.JTextField();
+        columnNameFE = new javax.swing.JComboBox<>();
+        constraintFE = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        schDay = new javax.swing.JSpinner();
-        schMonth = new javax.swing.JSpinner();
-        schYear = new javax.swing.JSpinner();
+        occurenceFE = new javax.swing.JComboBox<>();
+        schDayFE = new javax.swing.JSpinner();
+        schMonthFE = new javax.swing.JSpinner();
+        schYearFE = new javax.swing.JSpinner();
         jLabel19 = new javax.swing.JLabel();
         verify = new javax.swing.JButton();
 
@@ -97,9 +97,9 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel4.setText("Password:");
 
-        userSource.addFocusListener(new java.awt.event.FocusAdapter() {
+        sUserNameFE.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                userSourceFocusLost(evt);
+                sUserNameFEFocusLost(evt);
             }
         });
 
@@ -109,18 +109,20 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel12.setText("Database Name:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        sDatabaseNameFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                sDatabaseNameFEActionPerformed(evt);
             }
         });
 
-        dbSource.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
-        dbSource.addActionListener(new java.awt.event.ActionListener() {
+        sourceFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        sourceFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dbSourceActionPerformed(evt);
+                sourceFEActionPerformed(evt);
             }
         });
+
+        jLabel20.setText("Table Name:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -129,6 +131,7 @@ public class AddTask extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel20)
                     .addComponent(jLabel12)
                     .addComponent(jLabel11)
                     .addComponent(jLabel7)
@@ -137,12 +140,13 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(userSource)
-                    .addComponent(passSource)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(dbSource, 0, 318, Short.MAX_VALUE))
+                    .addComponent(sUserNameFE)
+                    .addComponent(sPasswordFE)
+                    .addComponent(sHostFE)
+                    .addComponent(sPortFE)
+                    .addComponent(sDatabaseNameFE)
+                    .addComponent(sourceFE, 0, 318, Short.MAX_VALUE)
+                    .addComponent(sTableNameFE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -151,37 +155,41 @@ public class AddTask extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(dbSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sourceFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(userSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sUserNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(passSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sPasswordFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sHostFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sPortFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sDatabaseNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(sTableNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Destination:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
-        dbDestination.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
-        dbDestination.addActionListener(new java.awt.event.ActionListener() {
+        destinationFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        destinationFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dbDestinationActionPerformed(evt);
+                destinationFEActionPerformed(evt);
             }
         });
 
@@ -197,6 +205,8 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel13.setText("Database Name:");
 
+        jLabel21.setText("Table Name:");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -204,6 +214,7 @@ public class AddTask extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel21)
                     .addComponent(jLabel13)
                     .addComponent(jLabel14)
                     .addComponent(jLabel6)
@@ -212,12 +223,13 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dbDestination, 0, 295, Short.MAX_VALUE)
-                    .addComponent(userDestination)
-                    .addComponent(passDestination)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField7))
+                    .addComponent(destinationFE, 0, 295, Short.MAX_VALUE)
+                    .addComponent(dUserNameFE)
+                    .addComponent(dPasswordFE)
+                    .addComponent(dHostFE)
+                    .addComponent(dPortFE)
+                    .addComponent(dDatabaseNameFE)
+                    .addComponent(dTableNameFE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -226,28 +238,32 @@ public class AddTask extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dbDestination))
+                    .addComponent(destinationFE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(userDestination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dUserNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(passDestination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dPasswordFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dHostFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dPortFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                    .addComponent(dDatabaseNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(dTableNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
         );
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
@@ -265,43 +281,34 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel10.setText("Task Name:");
 
-        tableName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tableNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tableNameFocusLost(evt);
-            }
-        });
-
-        jLabel15.setText("Table Name:");
+        jLabel15.setText("Filter:");
 
         jLabel16.setText("Column Name:");
 
         jLabel17.setText("Constraint:");
 
-        columnName.addFocusListener(new java.awt.event.FocusAdapter() {
+        columnNameFE.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                columnNameFocusGained(evt);
+                columnNameFEFocusGained(evt);
             }
         });
-        columnName.addActionListener(new java.awt.event.ActionListener() {
+        columnNameFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                columnNameActionPerformed(evt);
+                columnNameFEActionPerformed(evt);
             }
         });
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        constraintFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                constraintFEActionPerformed(evt);
             }
         });
 
         jLabel18.setText("Occurrence of Transfer:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "daily", "weekly", "monthly", "yearly" }));
+        occurenceFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "daily", "weekly", "monthly", "yearly" }));
 
-        schYear.setName(""); // NOI18N
+        schYearFE.setName(""); // NOI18N
 
         jLabel19.setText("(dd-mm-yyyy)");
 
@@ -318,10 +325,9 @@ public class AddTask extends javax.swing.JFrame {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tableName)
-                    .addComponent(taskName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(columnName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField6))
+                    .addComponent(taskNameFE, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(columnNameFE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(constraintFE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel18)
@@ -329,16 +335,16 @@ public class AddTask extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(occurenceFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(99, 99, 99)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(schDay)
+                        .addComponent(schDayFE)
                         .addGap(18, 18, 18)
-                        .addComponent(schMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(schMonthFE, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(schYear, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(schYearFE, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel19)
                         .addGap(36, 36, 36))))
@@ -350,34 +356,32 @@ public class AddTask extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(taskName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(taskNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
-                        .addComponent(schDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(schDayFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
-                        .addComponent(schYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(schMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(schYearFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(schMonthFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tableName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15))
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(columnName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(columnNameFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(constraintFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(occurenceFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
@@ -399,30 +403,28 @@ public class AddTask extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(verify, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(368, 368, 368))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(verify, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(367, 367, 367))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(verify, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -438,28 +440,28 @@ public class AddTask extends javax.swing.JFrame {
      boolean flagVerify=false,flagDate=false;
     
     
-    private void userSourceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userSourceFocusLost
+    private void sUserNameFEFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sUserNameFEFocusLost
 
-    }//GEN-LAST:event_userSourceFocusLost
+    }//GEN-LAST:event_sUserNameFEFocusLost
 
-    private void dbDestinationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbDestinationActionPerformed
+    private void destinationFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinationFEActionPerformed
         // TODO add your handling code here:
        
-    }//GEN-LAST:event_dbDestinationActionPerformed
+    }//GEN-LAST:event_destinationFEActionPerformed
     
     
     
     private void verifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyActionPerformed
-        userNameSource=userSource.getText().trim();
-        passwordSource=passSource.getText().trim();
-        userNameDestination=userDestination.getText().trim();
-        passwordDestination=passDestination.getText().trim();
-        source=(String)dbSource.getItemAt(dbSource.getSelectedIndex());
-        destination=(String)dbDestination.getItemAt(dbDestination.getSelectedIndex());
+        userNameSource=sUserNameFE.getText().trim();
+        passwordSource=sPasswordFE.getText().trim();
+        userNameDestination=dUserNameFE.getText().trim();
+        passwordDestination=dPasswordFE.getText().trim();
+        source=(String)sourceFE.getItemAt(sourceFE.getSelectedIndex());
+        destination=(String)destinationFE.getItemAt(destinationFE.getSelectedIndex());
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
-        if(connSource.isConnectioncreated(source)&&connDestination.isConnectioncreated(destination)){
+        if(connSource.isConnectionCreated(source)&&connDestination.isConnectionCreated(destination)){
             JOptionPane.showMessageDialog(null, "Connection Authenticated");
             flagVerify=true;
         }else {
@@ -468,15 +470,15 @@ public class AddTask extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_verifyActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void sDatabaseNameFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDatabaseNameFEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_sDatabaseNameFEActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         if(flagVerify){
-            scheduledDay=(int)schDay.getValue();
-            scheduledMonth=(int)schMonth.getValue();
-            scheduledYear=(int)schYear.getValue();
+            scheduledDay=(int)schDayFE.getValue();
+            scheduledMonth=(int)schMonthFE.getValue();
+            scheduledYear=(int)schYearFE.getValue();
             flagDate=false;
             
             DateValidator date=new DateValidator(scheduledDay,scheduledMonth, scheduledYear);
@@ -494,21 +496,35 @@ public class AddTask extends javax.swing.JFrame {
                 return;
             }
             try {
-                Class.forName("oracle.jdbc.driver.OracleDriver");
+                Class.forName("org.postgresql.Driver");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
              
             }
             try {
-                Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
-                System.out.println("oracle connected");
-                String query="insert into users values('"+taskName.getText().trim()+"','"
-                                                                               +source+"','"
-                                                                               +destination+"','"
-                                                                               +tableName.getText().trim()+"','"
-                                                                               +scheduledDate+"','"
-                                                                               +"later I will add',"
-                                                                               +"'vijaygupta13199@gmail.com')";
+                Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+                System.out.println("postgres connected");
+                String query="insert into users values('"+"vijaygupta13199@gmail.com','"
+                        +source+"','"
+                        +userNameSource+"','"
+                        +passwordSource+"','"
+                        +"shost"+"','"
+                        +"sort"+"','"
+                        +"sdatabasename"+"','"
+                        +destination+"','"
+                        +userNameDestination+"','"
+                        +passwordDestination+"','"
+                        +"dhost"+"','"
+                        +"dort"+"','"
+                        +"ddatabasename"+"','"
+                        +taskNameFE.getText().trim()+"','"
+                        +sTableNameFE.getText().trim()+"','"
+                        +"constraint"+"','"
+                        +"2016-4-4"+"','"
+                        +"2001-5-26"+"',"
+                        +7+","
+                        +25+")";
+                                                                                
                 System.out.println(query);
                 Statement st=conn.createStatement();
                 int retrn=st.executeUpdate(query);
@@ -520,10 +536,10 @@ public class AddTask extends javax.swing.JFrame {
                     dispose();
                     ScheduledTaskList task;
                     task=new ScheduledTaskList( 
-                                    taskName.getText().trim(),
+                                    taskNameFE.getText().trim(),
                                     source,
                                     destination,
-                                    tableName.getText().trim(),
+                                    sTableNameFE.getText().trim(),
                                     scheduledDate,
                                        "I Will add deatils");
 
@@ -550,59 +566,22 @@ public class AddTask extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void constraintFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_constraintFEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_constraintFEActionPerformed
 
-    private void dbSourceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbSourceActionPerformed
+    private void sourceFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sourceFEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dbSourceActionPerformed
+    }//GEN-LAST:event_sourceFEActionPerformed
 
-    private void columnNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_columnNameActionPerformed
+    private void columnNameFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_columnNameFEActionPerformed
        
-    }//GEN-LAST:event_columnNameActionPerformed
+    }//GEN-LAST:event_columnNameFEActionPerformed
 
-    private void columnNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_columnNameFocusGained
+    private void columnNameFEFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_columnNameFEFocusGained
         
-    }//GEN-LAST:event_columnNameFocusGained
+    }//GEN-LAST:event_columnNameFEFocusGained
       Vector<String>colnames=new Vector<>();
-    private void tableNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableNameFocusLost
-        // TODO add your handling code here:
-        ConnectionDB dbconn=new ConnectionDB(userNameSource, passwordSource);
-        if(dbconn.isConnectioncreated(source)){
-            try{
-            Connection conn=dbconn.connection();
-            Statement st = conn.createStatement();
-            String table=tableName.getText().trim();
-            try{ResultSet results = st.executeQuery("SELECT * FROM "+table);
-                ResultSetMetaData metadata = results.getMetaData();
-            int columnCount = metadata.getColumnCount();
-// Get the column names; column indices start from 1
-            
-            for (int i=1; i<=columnCount; i++) {
- 
-                    colnames.add(metadata.getColumnName(i));
-                }
-            columnName.setModel(new javax.swing.DefaultComboBoxModel<>(colnames));
-            }catch(Exception re){
-                JOptionPane.showMessageDialog(null, "Problem with the table name");
-           
-            }
-            
-            
-               
-            }catch(SQLException e){
-                System.out.println("SQL exception");
-                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-    }//GEN-LAST:event_tableNameFocusLost
-
-    private void tableNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableNameFocusGained
-       colnames.removeAllElements();
-       columnName.removeAllItems();
-    }//GEN-LAST:event_tableNameFocusGained
-
     /**
      * @param args the command line arguments
      */
@@ -635,10 +614,15 @@ public class AddTask extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> columnName;
-    private javax.swing.JComboBox<String> dbDestination;
-    private javax.swing.JComboBox<String> dbSource;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> columnNameFE;
+    private javax.swing.JTextField constraintFE;
+    private javax.swing.JTextField dDatabaseNameFE;
+    private javax.swing.JTextField dHostFE;
+    private javax.swing.JPasswordField dPasswordFE;
+    private javax.swing.JTextField dPortFE;
+    private javax.swing.JTextField dTableNameFE;
+    private javax.swing.JTextField dUserNameFE;
+    private javax.swing.JComboBox<String> destinationFE;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -651,6 +635,8 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -661,23 +647,19 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JPasswordField passDestination;
-    private javax.swing.JPasswordField passSource;
+    private javax.swing.JComboBox<String> occurenceFE;
+    private javax.swing.JTextField sDatabaseNameFE;
+    private javax.swing.JTextField sHostFE;
+    private javax.swing.JPasswordField sPasswordFE;
+    private javax.swing.JTextField sPortFE;
+    private javax.swing.JTextField sTableNameFE;
+    private javax.swing.JTextField sUserNameFE;
     private javax.swing.JButton saveButton;
-    private javax.swing.JSpinner schDay;
-    private javax.swing.JSpinner schMonth;
-    private javax.swing.JSpinner schYear;
-    private javax.swing.JTextField tableName;
-    private javax.swing.JTextField taskName;
-    private javax.swing.JTextField userDestination;
-    private javax.swing.JTextField userSource;
+    private javax.swing.JSpinner schDayFE;
+    private javax.swing.JSpinner schMonthFE;
+    private javax.swing.JSpinner schYearFE;
+    private javax.swing.JComboBox<String> sourceFE;
+    private javax.swing.JTextField taskNameFE;
     private javax.swing.JButton verify;
     // End of variables declaration//GEN-END:variables
 }
