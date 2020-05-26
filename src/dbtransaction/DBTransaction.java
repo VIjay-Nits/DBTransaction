@@ -1,6 +1,7 @@
 
 package dbtransaction;
 
+import java.sql.SQLException;
 import javax.swing.JDialog;
 
 /**
@@ -23,7 +24,10 @@ public class DBTransaction {
 //                new TransactionGUI().setVisible(true);
 //            }
 //        });
-       new RunningTransaction(); 
+     try{  new RunningTransaction();}
+     catch(SQLException e){
+        e.printStackTrace();
+     }
 //        AddTask add=new AddTask();
 //       java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {

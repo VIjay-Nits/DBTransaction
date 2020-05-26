@@ -14,12 +14,7 @@ import java.util.HashMap;
  * @author Vijay
  */
 public class DataTypeMapping {
-    HashMap<String,String> oracletoMysqlMap=new HashMap<>();
-    private void insertOracletoMysql(HashMap<String,String> mymap){
-        mymap.put("BFILE","" );
-        
-        
-    }
+    
     
     public void oracletoMysql(ArrayList<ColumnDetails> coldetail){
             int length=coldetail.size();

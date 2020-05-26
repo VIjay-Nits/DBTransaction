@@ -115,7 +115,7 @@ public class AddTask extends javax.swing.JFrame {
             }
         });
 
-        sourceFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        sourceFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQL", "MsSQL", "PostgreSQL" }));
         sourceFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sourceFEActionPerformed(evt);
@@ -186,7 +186,7 @@ public class AddTask extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Destination:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
-        destinationFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQl", "MsSQl", "PostgreSQL" }));
+        destinationFE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oracle", "MySQL", "MsSQL", "PostgreSQL" }));
         destinationFE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 destinationFEActionPerformed(evt);

@@ -10,21 +10,20 @@ package dbtransaction;
  * @author Vijay
  */
 public class ColumnDetails {
-     String columnName;
+    String columnName;
     String datatype;
-   long columnsize;
-    String deafultvalue;
-    String isNullable;
-    String is_autoIncrment;
+    long columnsize;
+    long precision;
+    long scale;
 
-    public ColumnDetails(String columnName, String datatype, long columnsize, String deafultvalue, String isNullable, String is_autoIncrment) {
+    public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale) {
         this.columnName = columnName;
         this.datatype = datatype;
         this.columnsize = columnsize;
-        this.deafultvalue = deafultvalue;
-        this.isNullable = isNullable;
-        this.is_autoIncrment = is_autoIncrment;
+        this.precision = precision;
+        this.scale = scale;
     }
+
     
     
 }
