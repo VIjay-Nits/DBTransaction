@@ -30,7 +30,7 @@ public class RunningTransaction {
     private final String sHost="";
     private final String sPort="";
     private final String sDataBaseName="";
-    private final String sTableName="uuemp";
+    private final String sTableName="aap";
 
     private final String destination="MySQL";
     private final String dUserName="root";
@@ -48,11 +48,13 @@ public class RunningTransaction {
     private final LocalDate creationDate= LocalDate.of(2020,5, 23);
     private final int occurence=7;
     private final int count=0;
-
     private Connection sConnection,dConnection;
+    
+    int rowCount=0;
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
+    
     public RunningTransaction() throws SQLException {
-        destinationTablegenerator();
+        datatransfer();//destinationTablegenerator();
     }
 
     private void destinationTablegenerator() throws SQLException{ 
@@ -112,30 +114,75 @@ public class RunningTransaction {
         System.out.println(success);
         dConnection.close();
         sConnection.close();
+        
     }
     
-    public void datatransfer(){
-        try{
-        String filename="c:/data.xls" ;
-        HSSFWorkbook hwb=new HSSFWorkbook();
-         HSSFSheet sheet =  hwb.createSheet("new sheet");
-    
-        ConnectionDB obj=new  ConnectionDB(sUserName, sPassword);
-        obj.isConnectionCreated(source);
-        Connection conn=obj.connection();
-        ResultSet rs=conn.createStatement().executeQuery("select *from "+sTableName);
-        
-        //XSSFRow row = spreadsheet.createRow(1);
-        XSSFCell cell;
-        
-        
-        
-        
-        
-        
-        }catch(Exception e){
-            e.printStackTrace();
+    public void datatransfer() throws SQLException{
+       ConnectionDB sconn= new ConnectionDB(sUserName,sPassword);
+        if(sconn.isConnectionCreated(source)){
+            sConnection=sconn.connection();
+        }else{
+            System.out.println("problem with source connection");
+            return;
         }
+        ConnectionDB dconn= new ConnectionDB(dUserName,dPassword);
+        if(dconn.isConnectionCreated(destination)){
+            dConnection=dconn.connection();
+        }else{
+            System.out.println("problem with destination connection");
+            return;
+        }
+        
+        String query ="select *from "+sTableName;//constraint will add later
+        ResultSet ssrs=sConnection.createStatement().executeQuery(query);
+        ResultSetMetaData setadata=ssrs.getMetaData();
+        
+        
+//        srs.last();
+//        rowCount= srs.last() ? srs.getRow() : 0; 
+  //      srs.beforeFirst();
+        int counter=0;
+        ArrayList<ResultSet> datalist=new ArrayList<>();
+        Statement dstmt=dConnection.createStatement();
+        dConnection.setAutoCommit(false);
+        String insert= "INSERT INTO "+dTableName+" VALUES(";
+        for(int i=0;i<setadata.getColumnCount()-1;i++){
+            insert+="?,";
+                    }
+        insert+="?)";
+        System.out.println(insert);
+        PreparedStatement dppstmt = dConnection.prepareStatement(insert);
+        ResultSet srs=sConnection.createStatement().executeQuery(query);
+        while(srs.next()){
+            ResultSetMetaData smetadata=srs.getMetaData();
+          for(int j=1;j<=smetadata.getColumnCount();j++){
+                        dppstmt.setObject(j,srs.getObject(j));
+                    }
+                    dppstmt.addBatch();
+            
+            counter++;
+            if(counter==1000){
+                dppstmt.executeBatch();
+                dppstmt.clearBatch();
+                dConnection.commit();
+            }
+        
+        }
+        dppstmt.executeBatch();
+        dppstmt.clearBatch();
+        dConnection.commit();
+        
+                
+        
+        
+       
+        
+        
+        
+        
+        
+        
+    
     }
 
 }
