@@ -15,6 +15,7 @@ public class ColumnDetails {
     long columnsize;
     long precision;
     long scale;
+    String quey;
 
     public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale) {
         this.columnName = columnName;
@@ -22,6 +23,7 @@ public class ColumnDetails {
         this.columnsize = columnsize;
         this.precision = precision;
         this.scale = scale;
+        this.quey=datatype;
     }
 
     
