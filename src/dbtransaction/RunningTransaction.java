@@ -24,21 +24,21 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
  */
 public class RunningTransaction {
   
-    private final String source="Oracle";
-    private final String sUserName="system";
-    private final String sPassword="manager";
+    private final String source="MySQL";
+    private final String sUserName="root";
+    private final String sPassword="mymanager";
     private final String sHost="";
     private final String sPort="";
     private final String sDataBaseName="";
-    private final String sTableName="AQ$_QUEUE_TABLES";
+    private final String sTableName="customer";
 
-    private final String destination="MySQL";
-    private final String dUserName="root";
-    private final String dPassword="mymanager";
+    private final String destination="Oracle";
+    private final String dUserName="system";
+    private final String dPassword="manager";
     private final String dHost="";
     private final String dPort="";
     private final String dDataBaseName="";
-    private final String dTableName="dAQ$_QUEUE_TABLES";
+    private final String dTableName="ABLES";
 
     private final String email="vijaygupta131999@gmail.com";
     private final String taskName="firstTask";
@@ -54,8 +54,8 @@ public class RunningTransaction {
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
     
     public RunningTransaction() throws SQLException {
-      datatransfer();
-     //destinationTablegenerator();
+     // datatransfer();
+     destinationTablegenerator();
     }
 
     private void destinationTablegenerator() throws SQLException{ 
@@ -88,9 +88,10 @@ public class RunningTransaction {
             int  columnSqlType = d.getColumnType(i);
             int precision= d.getPrecision(i);
             int scale= d.getScale(i);
+            boolean sign=d.isSigned(i);
             //Printing results
-           // System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale);
-            coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale));
+           System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign);
+            coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign));
         }
         System.out.println("************************************************************************");
         if(source=="Oracle"&&destination=="MySQL"){
@@ -105,7 +106,7 @@ public class RunningTransaction {
         for(int i=0;i<coldetail.size();i++){
             query+=" "+coldetail.get(i).columnName+" "+coldetail.get(i).quey;
             if(i<coldetail.size()-1)query+=",";
-            else query+=");";
+            else query+=")";
             //System.out.println(coldetail.get(i).columnName+""+coldetail.get(i).datatype+""+coldetail.get(i).columnsize+""+coldetail.get(i).precision+""+coldetail.get(i).scale);
         }
          System.out.println(query);
@@ -119,7 +120,7 @@ public class RunningTransaction {
         System.out.println(success);
         dConnection.close();
         sConnection.close();
-        // datatransfer();
+         datatransfer();
     
     }
     

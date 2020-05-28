@@ -16,14 +16,16 @@ public class ColumnDetails {
     long precision;
     long scale;
     String quey;
+    boolean sign;
 
-    public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale) {
+    public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale,boolean sign) {
         this.columnName = columnName;
         this.datatype = datatype;
         this.columnsize = columnsize;
         this.precision = precision;
         this.scale = scale;
         this.quey=datatype;
+        this.sign=sign;
     }
 
     

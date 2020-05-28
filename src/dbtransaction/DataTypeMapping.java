@@ -34,6 +34,12 @@ public class DataTypeMapping {
                 else if(type=="BINARY_DOUBLE"){
                     obj.quey="DOUBLE";
                 }
+                else if(type=="BINARY_FLOAT UNSIGNED"){
+                    obj.quey="FLOAT UNSIGNED";
+                }
+                else if(type=="BINARY_DOUBLE UNSIGNED"){
+                    obj.quey="DOUBLE UNSIGNED";
+                }
                 else if(type=="BLOB"){
                     obj.quey="LONGBLOB";
                 }
@@ -60,12 +66,22 @@ public class DataTypeMapping {
                 else if(type=="DECIMAL"||type=="DEC"){
                     obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
                 }
+                else if(type=="DECIMAL UNSIGNED"||type=="DEC UNSIGNED"){
+                    obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+") UNSIGNED";
+                }
                 
+                else if(type=="FLOAT UNSIGNED"){
+                    obj.datatype="DOUBLE UNSIGNED";
+                    obj.quey=obj.datatype;
+                }
                 else if(type=="FLOAT"){
                     obj.datatype="DOUBLE";
                     obj.quey=obj.datatype;
                 }
-                else if(type=="INTEGER"){
+                else if(type=="INTEGER UNSIGNED"){
+                    obj.datatype="INT UNSIGNED";
+                }
+                else if(type=="INTEGER "){
                     obj.datatype="INT";
                 }
                 else if(type=="INTERVAL YEAR TO MONTH"||type=="INTERVAL DAY TO SECOND"){
@@ -115,6 +131,27 @@ public class DataTypeMapping {
                  else if(type=="NUMERIC"){
                      obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
                  }
+                 else if(type=="NUMBER UNSIGNED"){
+                    if(obj.scale==0&&obj.precision!=0){
+                        if(obj.precision<3)obj.quey="TINYINT UNSIGNED";
+                        else if(obj.precision<5)obj.quey="SMALLINT UNSIGNED";
+                        else if(obj.precision<9)obj.quey="INT UNSIGNED";
+                        else if(obj.precision<19)obj.quey="BIGINT UNSIGNED";
+                        else obj.quey="DECIMAL("+obj.precision+") UNSIGNED";
+                    }
+                    
+                    else if(obj.scale!=0&&obj.precision!=0){
+                        obj.quey="DECIMAL("+obj.precision+","+obj.scale+") UNSIGNED";
+                    }
+                    else{
+                        obj.quey="DOUBLE UNSIGNED";
+                    }
+                    
+                    
+                }
+                 else if(type=="NUMERIC UNSIGNED"){
+                     obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+") UNSIGNED";
+                 }
                  else if(type=="NVARCHAR2"){
                     obj.datatype="NVARCHAR";
                     obj.quey="NVARCHAR("+obj.columnsize+")";
@@ -132,12 +169,22 @@ public class DataTypeMapping {
                     obj.datatype="DOUBLE";
                     obj.quey="DOUBLE";
                 }
+                 else if(type=="REAL UNSIGNED"){
+                    obj.datatype="DOUBLE UNSIGNED";
+                    obj.quey="DOUBLE UNSIGNED";
+                }
                  else if(type=="ROWID"){
                     obj.datatype="CHAR";
                     obj.columnsize=10;
                     obj.quey="CHAR(10)";
                 }
-                 else if(type=="SMALLINT"){
+                 else if(type=="SMALLINT UNSIGNED"){
+                    obj.datatype="DECIMAL UNSIGNED";
+                    obj.columnsize=38;
+                    obj.quey="DECIMAL(38) UNSIGNED";
+                    
+                }
+                 else if(type=="SMALLINT "){
                     obj.datatype="DECIMAL";
                     obj.columnsize=38;
                     obj.quey="DECIMAL(38)";
@@ -179,9 +226,10 @@ public class DataTypeMapping {
                 String type =obj.datatype;
                 long size=obj.columnsize;
                 
-                if(type=="BIGINT"){
+                if(type=="BIGINT"||type=="BIGINT UNSIGNED"){
                     obj.quey="NUMBER(19)";
                 }
+                
                 else if(type=="BINARY"){
                     if(obj.columnsize>0)
                     obj.quey="RAW("+obj.columnsize+")";
@@ -213,38 +261,39 @@ public class DataTypeMapping {
                     obj.quey="";
                 }
                 else if(type=="DATETIME"){
-                    obj.quey="TIMESTAMP("+obj.precision+")";
+                    obj.quey="TIMESTAMP";
                 }
-                else if(type=="DECIMAL"||type=="DEC"){
+                else if(type=="DECIMAL"||type=="DEC"||type=="DECIMAL UNSIGNED"||type=="DEC UNSIGNED"){
                     obj.quey="NUMBER("+obj.precision+","+obj.scale+")";
                 }
-                else if(type=="DOUBLE"){
+                else if(type=="DOUBLE"||type=="DOUBLE UNSIGNED"){
                     obj.quey="BINARY_DOUBLE";
                 }
-                else if(type=="FIXED"){
+                else if(type=="FIXED"||type=="FIXED UNSIGNED"){
                     obj.quey="NUMBER("+obj.precision+","+obj.scale+")";
                 }
-                else if(type=="FLOAT"||type=="FLOAT4"||type=="FLOAT8"){
+                else if(type=="FLOAT"||type=="FLOAT4"||type=="FLOAT8"||type=="FLOAT UNSIGNED"||type=="FLOAT4 UNSIGNED"||type=="FLOAT8 UNSIGNED"){
                     obj.quey="BINARY_DOUBLE";
                 }
-                else if(type=="INT"||type=="INTEGER"){
+                else if(type=="INT"||type=="INTEGER"||type=="INT UNSIGNED"||type=="INTEGER UNSIGNED"){
                     obj.quey="NUMBER(10)";
                 }
-                else if(type=="INT1"){
+                else if(type=="INT1"||type=="INT1 UNSIGNED"){
                     obj.quey="NUMBER(3)";
                 }
-                else if(type=="INT2"){
+                else if(type=="INT2"||type=="INT2 UNSIGNED"){
                     obj.quey="NUMBER(5)";
                 }
-                else if(type=="INT3"){
+                else if(type=="INT3"||type=="INT3 UNSIGNED"){
                     obj.quey="NUMBER(7)";
                 }
-                else if(type=="INT4"){
+                else if(type=="INT4"||type=="INT4 UNSIGNED"){
                     obj.quey="NUMBER(10)";
                 }
-                else if(type=="INT8"){
+                else if(type=="INT8"||type=="INT8 UNSIGNED"){
                     obj.quey="NUMBER(19)";
                 }
+                
                 else if(type=="LONGBLOB"){
                     obj.quey="BLOB";
                 }
@@ -260,45 +309,48 @@ public class DataTypeMapping {
                 else if(type=="MEDIUMBLOB"){
                     obj.quey="BLOB";
                 }
-                else if(type=="MEDIUMINT"){
+                else if(type=="MEDIUMINT"||type=="MEDIUMINT UNSIGNED"){
                     obj.quey="NUMBER(7)";
                 }
                 else if(type=="MEDIUMTEXT"){
                     obj.quey="CLOB";
                 }
-                else if(type=="MIDDLEINT"){
+                else if(type=="MIDDLEINT"||type=="MIDDLEINT UNSIGNED"){
                     obj.quey="NUMBER(7)";
                 }
+               
                 else if(type=="NCHAR"){
                     obj.quey="NCHAR("+obj.columnsize+")";
                 }
                 else if(type=="NVARCHAR"){
                     obj.quey="NVARCHAR2("+obj.columnsize+")";
                 }
-                else if(type=="NUMERIC"){
-                    obj.quey="NUMBER("+obj.precision+","+obj.scale+")";
+                else if(type=="NUMERIC"||type=="NUMERIC UNSIGNED"){
+                    obj.quey="NUMBER("+obj.precision+","+obj.scale+") ";
                 }
+                
                 else if(type=="REAL"){
                     obj.quey="BINARY_DOUBLE";
                 }
-                else if(type=="SMALLINT"){
+                else if(type=="SMALLINT"||type=="SMALLINT UNSIGNED"){
                     obj.quey="NUMBER(5)";
                 }
                 else if(type=="TEXT"){
                     obj.quey="CLOB";
                 }
                 else if(type=="TIME"){
-                    obj.quey="TIMESTAMP("+obj.precision+")";
+                    obj.quey="TIMESTAMP";
                 }
                 else if(type=="TIMESTAMP"){
-                    obj.quey="TIMESTAMP("+obj.precision+")";
+                    obj.quey="TIMESTAMP";
                 }
                 else if(type=="TINYBLOB"){
                     obj.quey="RAW(255)";
                 }
-                else if(type=="TINYINT"){
+                else if(type=="TINYINT"||type=="TINYINT UNSIGNED"){
                     obj.quey="NUMBER(3)";
                 }
+                
                 else if(type=="TINYTEXT"){
                     obj.quey="VARCHAR2(255)";
                 }
