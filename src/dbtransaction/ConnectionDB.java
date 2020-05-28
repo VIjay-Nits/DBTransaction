@@ -53,7 +53,7 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/firstdb","root","mymanager");
+            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/firstdb?useSSL=false","root","mymanager");
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;

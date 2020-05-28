@@ -30,7 +30,7 @@ public class RunningTransaction {
     private final String sHost="";
     private final String sPort="";
     private final String sDataBaseName="";
-    private final String sTableName="aap";
+    private final String sTableName="AQ$_QUEUE_TABLES";
 
     private final String destination="MySQL";
     private final String dUserName="root";
@@ -38,7 +38,7 @@ public class RunningTransaction {
     private final String dHost="";
     private final String dPort="";
     private final String dDataBaseName="";
-    private final String dTableName="destinationtable";
+    private final String dTableName="dAQ$_QUEUE_TABLES";
 
     private final String email="vijaygupta131999@gmail.com";
     private final String taskName="firstTask";
@@ -54,7 +54,8 @@ public class RunningTransaction {
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
     
     public RunningTransaction() throws SQLException {
-        datatransfer();//destinationTablegenerator();
+      datatransfer();
+     //destinationTablegenerator();
     }
 
     private void destinationTablegenerator() throws SQLException{ 
@@ -93,7 +94,11 @@ public class RunningTransaction {
         }
         System.out.println("************************************************************************");
         if(source=="Oracle"&&destination=="MySQL"){
-        new DataTypeMapping().oracletoMysql(coldetail);}
+            new DataTypeMapping().oracletoMysql(coldetail);
+        }
+        else if(source=="MySQL"&&destination=="Oracle"){
+            new DataTypeMapping().mysqltoOracle(coldetail);
+        }
 
 
         String query="create table "+dTableName+"(";
@@ -114,7 +119,8 @@ public class RunningTransaction {
         System.out.println(success);
         dConnection.close();
         sConnection.close();
-        
+        // datatransfer();
+    
     }
     
     public void datatransfer() throws SQLException{
@@ -138,9 +144,9 @@ public class RunningTransaction {
         ResultSetMetaData setadata=ssrs.getMetaData();
         
         
-//        srs.last();
-//        rowCount= srs.last() ? srs.getRow() : 0; 
-  //      srs.beforeFirst();
+//        ssrs.last();
+//        rowCount= ssrs.isLast() ? ssrs.getRow() : 0; 
+//        ssrs.beforeFirst();
         int counter=0;
         ArrayList<ResultSet> datalist=new ArrayList<>();
         Statement dstmt=dConnection.createStatement();
@@ -152,6 +158,7 @@ public class RunningTransaction {
         insert+="?)";
         System.out.println(insert);
         PreparedStatement dppstmt = dConnection.prepareStatement(insert);
+        ssrs.close();
         ResultSet srs=sConnection.createStatement().executeQuery(query);
         while(srs.next()){
             ResultSetMetaData smetadata=srs.getMetaData();
