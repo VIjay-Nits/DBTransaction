@@ -184,144 +184,54 @@ public class DataTypeMapping {
                 String type =obj.datatype;
                 long size=obj.columnsize;
                 
-                if(type=="BIGINT"||type=="BIGINT UNSIGNED"){
-                    obj.quey="NUMBER(19)";
-                }
-                
+                if(type=="BIGINT"||type=="BIGINT UNSIGNED"){obj.quey="NUMBER(19)";}
                 else if(type=="BINARY"){
-                    if(obj.columnsize>0)
-                    obj.quey="RAW("+obj.columnsize+")";
-                    else obj.quey="RAW(1)";
-                }
-                else if(type=="BIT"){
-                    obj.quey="RAW("+obj.columnsize/8+")";
-                }
-                else if(type=="BLOB"){
-                    obj.quey="BLOB";
-                }
-                else if(type=="BOOLEAN"||type=="BOOL"){
-                    obj.quey="CHAR(1)";
-                }
-                else if(type=="CHAR"){
-                    obj.quey="CHAR("+obj.columnsize+")";
-                }
-                else if(type=="CHARACTER"){
-                    obj.quey="CHARACTER("+obj.columnsize+")";
-                }
-                else if(type=="CHARACTER VARYING"){
-                    obj.quey="VARCHAR2("+obj.columnsize+")";
-                    
-                }
+                    if(obj.columnsize>0)obj.quey="RAW("+obj.columnsize+")";
+                    else obj.quey="RAW(1)";}
+                else if(type=="BIT"){obj.quey="RAW("+obj.columnsize/8+")";}
+                else if(type=="BLOB"){obj.quey="BLOB";}
+                else if(type=="BOOLEAN"||type=="BOOL"){obj.quey="CHAR(1)";}
+                else if(type=="CHAR"){obj.quey="CHAR("+obj.columnsize+")";}
+                else if(type=="CHARACTER"){obj.quey="CHARACTER("+obj.columnsize+")";}
+                else if(type=="CHARACTER VARYING"){obj.quey="VARCHAR2("+obj.columnsize+")";}
 //                else if(type=="DATE"){
 //                    obj.quey="DATE";//January 10, 2012 3:01 am
 //                }
-                else if(type==""){
-                    obj.quey="";
-                }
-                else if(type=="DATETIME"){
-                    obj.quey="TIMESTAMP";
-                }
-                else if(type=="DECIMAL"||type=="DEC"||type=="DECIMAL UNSIGNED"||type=="DEC UNSIGNED"){
-                    obj.quey="NUMBER("+obj.precision+","+obj.scale+")";
-                }
-                else if(type=="DOUBLE"||type=="DOUBLE UNSIGNED"){
-                    obj.quey="BINARY_DOUBLE";
-                }
-                else if(type=="FIXED"||type=="FIXED UNSIGNED"){
-                    obj.quey="NUMBER("+obj.precision+","+obj.scale+")";
-                }
-                else if(type=="FLOAT"||type=="FLOAT4"||type=="FLOAT8"||type=="FLOAT UNSIGNED"||type=="FLOAT4 UNSIGNED"||type=="FLOAT8 UNSIGNED"){
-                    obj.quey="BINARY_DOUBLE";
-                }
-                else if(type=="INT"||type=="INTEGER"||type=="INT UNSIGNED"||type=="INTEGER UNSIGNED"){
-                    obj.quey="NUMBER(10)";
-                }
-                else if(type=="INT1"||type=="INT1 UNSIGNED"){
-                    obj.quey="NUMBER(3)";
-                }
-                else if(type=="INT2"||type=="INT2 UNSIGNED"){
-                    obj.quey="NUMBER(5)";
-                }
-                else if(type=="INT3"||type=="INT3 UNSIGNED"){
-                    obj.quey="NUMBER(7)";
-                }
-                else if(type=="INT4"||type=="INT4 UNSIGNED"){
-                    obj.quey="NUMBER(10)";
-                }
-                else if(type=="INT8"||type=="INT8 UNSIGNED"){
-                    obj.quey="NUMBER(19)";
-                }
-                
-                else if(type=="LONGBLOB"){
-                    obj.quey="BLOB";
-                }
-                else if(type=="LONGTEXT"){
-                    obj.quey="CLOB";
-                }
-                else if(type=="LONG VARBINARY"){
-                    obj.quey="BLOB";
-                }
-                else if(type=="LONG"||type=="LONG VARCHAR"){
-                    obj.quey="CLOB";
-                }
-                else if(type=="MEDIUMBLOB"){
-                    obj.quey="BLOB";
-                }
-                else if(type=="MEDIUMINT"||type=="MEDIUMINT UNSIGNED"){
-                    obj.quey="NUMBER(7)";
-                }
-                else if(type=="MEDIUMTEXT"){
-                    obj.quey="CLOB";
-                }
-                else if(type=="MIDDLEINT"||type=="MIDDLEINT UNSIGNED"){
-                    obj.quey="NUMBER(7)";
-                }
-               
-                else if(type=="NCHAR"){
-                    obj.quey="NCHAR("+obj.columnsize+")";
-                }
-                else if(type=="NVARCHAR"){
-                    obj.quey="NVARCHAR2("+obj.columnsize+")";
-                }
-                else if(type=="NUMERIC"||type=="NUMERIC UNSIGNED"){
-                    obj.quey="NUMBER("+obj.precision+","+obj.scale+") ";
-                }
-                
-                else if(type=="REAL"){
-                    obj.quey="BINARY_DOUBLE";
-                }
-                else if(type=="SMALLINT"||type=="SMALLINT UNSIGNED"){
-                    obj.quey="NUMBER(5)";
-                }
-                else if(type=="TEXT"){
-                    obj.quey="CLOB";
-                }
-                else if(type=="TIME"){
-                    obj.quey="TIMESTAMP";
-                }
-                else if(type=="TIMESTAMP"){
-                    obj.quey="TIMESTAMP";
-                }
-                else if(type=="TINYBLOB"){
-                    obj.quey="RAW(255)";
-                }
-                else if(type=="TINYINT"||type=="TINYINT UNSIGNED"){
-                    obj.quey="NUMBER(3)";
-                }
-                
-                else if(type=="TINYTEXT"){
-                    obj.quey="VARCHAR2(255)";
-                }
-                else if(type=="VARBINARY"){
-                    obj.quey="RAW("+obj.columnsize+")";
-                }
-                else if(type=="VARCHAR"){
-                    obj.quey="VARCHAR2("+obj.columnsize+")";
-                }
-                else if(type=="YEAR"){
-                    obj.quey="NUMBER(4)";
-                }
-                
+                else if("".equals(type)){obj.quey="";}
+                else if("DATETIME".equals(type)){obj.quey="TIMESTAMP";}
+                else if("DECIMAL".equals(type)||"DEC".equals(type)||"DECIMAL UNSIGNED".equals(type)||"DEC UNSIGNED".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";}
+
+                else if("DOUBLE".equals(type)||"DOUBLE UNSIGNED".equals(type)){obj.quey="BINARY_DOUBLE";}
+                else if("FIXED".equals(type)||"FIXED UNSIGNED".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";}
+                else if("FLOAT".equals(type)||"FLOAT4".equals(type)||"FLOAT8".equals(type)||"FLOAT UNSIGNED".equals(type)||"FLOAT4 UNSIGNED".equals(type)||"FLOAT8 UNSIGNED".equals(type)){obj.quey="BINARY_DOUBLE";}
+                else if("INT".equals(type)||"INTEGER".equals(type)||"INT UNSIGNED".equals(type)||"INTEGER UNSIGNED".equals(type)){obj.quey="NUMBER(10)";}
+                else if("INT1".equals(type)||"INT1 UNSIGNED".equals(type)){obj.quey="NUMBER(3)";}
+                else if("INT2".equals(type)||"INT2 UNSIGNED".equals(type)){obj.quey="NUMBER(5)";}
+                else if("INT3".equals(type)||"INT3 UNSIGNED".equals(type)){obj.quey="NUMBER(7)";}
+                else if("INT4".equals(type)||"INT4 UNSIGNED".equals(type)){obj.quey="NUMBER(10)";}
+                else if("INT8".equals(type)||"INT8 UNSIGNED".equals(type)){obj.quey="NUMBER(19)";}
+                else if("LONGBLOB".equals(type)){obj.quey="BLOB";}
+                else if("LONGTEXT".equals(type)){obj.quey="CLOB";}
+                else if("LONG VARBINARY".equals(type)){obj.quey="BLOB";}
+                else if("LONG".equals(type)||"LONG VARCHAR".equals(type)){obj.quey="CLOB";}
+                else if("MEDIUMBLOB".equals(type)){obj.quey="BLOB";}
+                else if("MEDIUMINT".equals(type)||"MEDIUMINT UNSIGNED".equals(type)){obj.quey="NUMBER(7)";}
+                else if("MEDIUMTEXT".equals(type)){obj.quey="CLOB";}
+                else if("MIDDLEINT".equals(type)||"MIDDLEINT UNSIGNED".equals(type)){obj.quey="NUMBER(7)";}
+                else if("NCHAR".equals(type)){obj.quey="NCHAR("+obj.columnsize+")";}
+                else if("NVARCHAR".equals(type)){obj.quey="NVARCHAR2("+obj.columnsize+")";}
+                else if("NUMERIC".equals(type)||"NUMERIC UNSIGNED".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+") ";}
+                else if("REAL".equals(type)){obj.quey="BINARY_DOUBLE";}
+                else if("SMALLINT".equals(type)||"SMALLINT UNSIGNED".equals(type)){obj.quey="NUMBER(5)";}
+                else if("TEXT".equals(type)){obj.quey="CLOB";}
+                else if("TIME".equals(type)){obj.quey="TIMESTAMP";}
+                else if("TIMESTAMP".equals(type)){obj.quey="TIMESTAMP";}
+                else if("TINYBLOB".equals(type)){obj.quey="RAW(255)";}
+                else if("TINYINT".equals(type)||"TINYINT UNSIGNED".equals(type)){obj.quey="NUMBER(3)";}
+                else if("TINYTEXT".equals(type)){obj.quey="VARCHAR2(255)";}
+                else if("VARBINARY".equals(type)){obj.quey="RAW("+obj.columnsize+")";}
+                else if("VARCHAR".equals(type)){obj.quey="VARCHAR2("+obj.columnsize+")";}
+                else if("YEAR".equals(type)){obj.quey="NUMBER(4)";}
             }
     }
     public void oracletoPostgre(ArrayList<ColumnDetails> coldetail){
@@ -331,67 +241,26 @@ public class DataTypeMapping {
                 String type =obj.datatype;
                 long size=obj.columnsize;
                 
-                if(type=="BFILE"){
-                    obj.quey="VARCHAR(255)";
+                if("BFILE".equals(type)){obj.quey="VARCHAR(255)";continue;}
+                else if("BINARY_FLOAT".equals(type)){obj.quey="REAL";continue;}
+                else if("BINARY_DOUBLE".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
+                else if("BLOB".equals(type)){obj.quey="BYTEA";continue;}
+                else if("CHAR".equals(type)||"CHARACTER".equals(type)){
+                    if(size>255){obj.quey="VARCHAR("+obj.columnsize+")";
+                    }else{obj.quey=obj.datatype+"("+obj.columnsize+")";}
                 }
-                else if(type=="BINARY_FLOAT"){
-                    obj.quey="REAL";
-                }
-                else if(type=="BINARY_DOUBLE"){
-                    obj.quey="DOUBLE PRECISION";
-                }
-                
-                else if(type=="BLOB"){
-                    obj.quey="BYTEA";
-                }
-                
-                else if(type=="CHAR"||type=="CHARACTER"){
-                    if(size>255){
-                        obj.datatype="VARCHAR";
-                        obj.quey="VARCHAR("+obj.columnsize+")";
-                    }
-                    else{
-                        obj.quey=obj.datatype+"("+obj.columnsize+")";
-                    }
-                    
-                }
-                else if(type=="CLOB"){
-                    obj.quey="TEXT";
-                    
-                }
-                else if(type=="DATE"){
-                    
-                    obj.quey="TIMESTAMP(0)";
-                }
-                else if(type=="DECIMAL"||type=="DEC"){
-                    obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
-                }
-                else if(type=="FLOAT"){
-                    obj.datatype="DOUBLE PRECISION";
-                    obj.quey=obj.datatype;
-                }
-                else if(type=="INTEGER"||type=="INT"){
-                    obj.quey="DECIMAL(38)";
-                }
-                else if(type=="INTERVAL DAY TO SECOND"){
-                    obj.quey=obj.datatype+"("+obj.scale+")";
-                }
-                else if(type=="LONG"){
-                    obj.quey="TEXT";
-                }
-                else if(type=="LONG ROW"){
-                    obj.quey="BYTEA";
-                }
-                else if(type=="NCHAR"){
-                    obj.quey="CHAR"+"("+obj.columnsize+")";
-                }
-                else if(type=="NCHAR VARYING"){
-                    obj.quey="VARCHAR("+obj.columnsize+")";
-                }
-                else if(type=="NCLOB"){
-                    obj.quey="TEXT";
-                }
-                 else if(type=="NUMBER"){
+                else if("CLOB".equals(type)){obj.quey="TEXT";continue;}
+                else if("DATE".equals(type)){obj.quey="TIMESTAMP(0)";continue;}
+                else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";continue;}
+                else if("FLOAT".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
+                else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="DECIMAL(38)";continue;}
+                else if("INTERVAL DAY TO SECOND".equals(type)){obj.quey=obj.datatype+"("+obj.scale+")";continue;}
+                else if("LONG".equals(type)){obj.quey="TEXT";continue;}
+                else if("LONG ROW".equals(type)){obj.quey="BYTEA";continue;}
+                else if("NCHAR".equals(type)){obj.quey="CHAR"+"("+obj.columnsize+")";continue;}
+                else if("NCHAR VARYING".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("NCLOB".equals(type)){obj.quey="TEXT";continue;}
+                else if("NUMBER".equals(type)){
                     if(obj.scale==0&&obj.precision!=0){
                         if(obj.precision<3)obj.quey="SMALLINT";
                         else if(obj.precision<5)obj.quey="SMALLINT";
@@ -399,56 +268,77 @@ public class DataTypeMapping {
                         else if(obj.precision<19)obj.quey="BIGINT";
                         else obj.quey="DECIMAL("+obj.precision+")";
                     }
-                    
-                    else if(obj.scale!=0&&obj.precision!=0){
-                        obj.quey="DECIMAL("+obj.precision+","+obj.scale+")";
-                    }
-                    else{
-                        obj.quey="DOUBLE PRECISION";
-                    }
-                    
-                    
-                }
-                 else if(type=="NUMERIC"){
-                     obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
+                    else if(obj.scale!=0&&obj.precision!=0){obj.quey="DECIMAL("+obj.precision+","+obj.scale+")";continue;
+                    }else{obj.quey="DOUBLE PRECISION";continue;}
                  }
-                 
-                 else if(type=="NVARCHAR2"){
-                    obj.quey="VARCHAR("+obj.columnsize+")";
-                }
-                 else if(type=="RAW"){
-                    obj.quey="BYTEA";
-                }
-                else if(type=="REAL"){
-                    obj.quey="DOUBLE PRECISION";
-                }
-                else if(type=="ROWID"){
-                    obj.quey="CHAR(10)";
-                }
-                else if(type=="SMALLINT "){
-                    obj.quey="DECIMAL(38)";
-                }
-                 else if(type=="TIMESTAMP"){
-                    obj.quey="TIMESTAMP("+obj.precision+")";
-                }
-                 else if(type=="TIMESTAMP WITH TIME ZONE"){
-                    obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";
-                }
-                else if(type=="UROWID"){
-                    obj.quey="VARCHAR("+obj.columnsize+")";
-                }
-                 else if(type=="VARCHAR2"||type=="VARCHAR"){
-                    obj.quey="VARCHAR("+obj.columnsize+")";
-                }
-                 else if(type=="XMLTYPE"){
-                    obj.quey="XML";
-                }
-                
-                
-                
+                else if("NUMERIC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";continue;}
+                else if("NVARCHAR2".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("RAW".equals(type)){obj.quey="BYTEA";continue;}
+                else if("REAL".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
+                else if("ROWID".equals(type)){obj.quey="CHAR(10)";continue;}
+                else if("SMALLINT ".equals(type)){obj.quey="DECIMAL(38)";continue;}
+                else if("TIMESTAMP".equals(type)){obj.quey="TIMESTAMP("+obj.precision+")";continue;}
+                else if("TIMESTAMP WITH TIME ZONE".equals(type)){obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";continue;}
+                else if("UROWID".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("VARCHAR2".equals(type)||"VARCHAR".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("XMLTYPE".equals(type)){obj.quey="XML";continue;}
                 
             }
     }
+    
+    public void postgretoOracle(ArrayList<ColumnDetails> coldetail){
+        int length=coldetail.size();
+        for(int i=0;i<length;i++){
+            ColumnDetails obj=coldetail.get(i);
+            String type =obj.datatype;
+            long size=obj.columnsize;
+                
+            if(type=="BIGINT"){
+                obj.quey="NUMBER(19)";
+            }
+            else if("BIGSERIAL".equals(type)){obj.quey="";}//////sequence and trigger
+            else if("BIT".equals(type)||"BIT VARYING".equals(type)){obj.quey="RAW("+obj.columnsize/8+")";continue;}
+            else if("BOOLEAN".equals(type)||"BOOL".equals(type)){obj.quey="CHAR(1)";continue;}
+            else if("BYTEA".equals(type)){obj.quey="BLOB";continue;}
+            else if("CHARACTER".equals(type)||"CHAR".equals(type)){obj.quey=obj.datatype+"("+obj.columnsize+")";continue;}
+            else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";continue;}
+            else if("DOUBLE PRECISION".equals(type)||"FLOAT8".equals(type)){obj.quey="BINARY_DOUBLE";continue;}
+            else if("FLOAT4".equals(type)){obj.quey="BINARY_FLOAT";continue;}
+            else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="NUMBER(10)";continue;}
+            else if("INT2".equals(type)){obj.quey="NUMBER(5)";continue;}
+            else if("INT4".equals(type)){obj.quey="NUMBER(10)";continue;}
+            else if("INT8".equals(type)){obj.quey="NUMBER(20)";continue;}
+            else if("INTERVAL".equals(type)){obj.quey="NUMBER(5)";continue;}
+            else if("INTERVAL DAY TO HOUR".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL DAY TO MINUTE".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL HOUR TO MINUTE".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL HOUR TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("INTERVAL MINUTE TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("INTERVAL DAY TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("MONEY".equals(type)){obj.quey="NUMBER(17,2)";continue;}
+            else if("NUMERIC".equals(type)){obj.quey="NUMERIC("+obj.precision+","+obj.scale+")";continue;}
+            else if("REAL".equals(type)){obj.quey="BINARY_FLOAT";continue;}
+            //serial is rest....................................
+            else if("SMALLINT".equals(type)){obj.quey="NUMBER(5)";continue;}
+            else if("TEXT".equals(type)){obj.quey="CLOB";continue;}
+            else if("TIME".equals(type)){obj.quey="TIMESTAMP("+obj.precision+")";continue;}
+            else if("TIME WITH TIME ZONE".equals(type)||"TIMESTAMPZ".equals(type)){obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";continue;}
+            else if("UUID".equals(type)){obj.quey="CHAR(36)";continue;}
+            else if("VARBIT".equals(type)){obj.quey="RAW("+obj.columnsize/8+")";continue;}
+            else if("VARCHAR".equals(type)){obj.quey="VARCHAR2("+obj.columnsize+")";continue;}
+            else if("XML".equals(type)){obj.quey="XMLTYPE";continue;}
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+    }
+
     
     
 }
