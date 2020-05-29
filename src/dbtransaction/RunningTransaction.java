@@ -23,22 +23,22 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
  * @author Vijay
  */
 public class RunningTransaction {
-  
-    private final String source="MySQL";
-    private final String sUserName="root";
-    private final String sPassword="mymanager";
+    
+     private String source;
+    private  String sUserName;
+    private  String sPassword;
     private final String sHost="";
     private final String sPort="";
     private final String sDataBaseName="";
-    private final String sTableName="customer";
+    private  String sTableName;
 
-    private final String destination="Oracle";
-    private final String dUserName="system";
-    private final String dPassword="manager";
+    private  String destination;
+    private  String dUserName;
+    private String dPassword;
     private final String dHost="";
     private final String dPort="";
     private final String dDataBaseName="";
-    private final String dTableName="ABLES";
+    private String dTableName;
 
     private final String email="vijaygupta131999@gmail.com";
     private final String taskName="firstTask";
@@ -53,12 +53,21 @@ public class RunningTransaction {
     int rowCount=0;
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
     
-    public RunningTransaction() throws SQLException {
+    public RunningTransaction(AddTask oobj ) throws SQLException {
+      //  AddTask oobj=new AddTask();
+        this.source=oobj.source;
+        this.sUserName=oobj.userNameSource;
+        this.sPassword=oobj.passwordSource;
+        this.sTableName=oobj.sTable;
+        this.destination=oobj.destination;
+        this.dUserName=oobj.userNameDestination;
+        this.dPassword=oobj.passwordDestination;
+        this.dTableName=oobj.dTable;
      // datatransfer();
      destinationTablegenerator();
     }
 
-    private void destinationTablegenerator() throws SQLException{ 
+   public void destinationTablegenerator() throws SQLException{ 
         //start connection with source
         ConnectionDB sconn= new ConnectionDB(sUserName,sPassword);
         if(sconn.isConnectionCreated(source)){
@@ -170,13 +179,16 @@ public class RunningTransaction {
             
             counter++;
             if(counter==1000){
-                dppstmt.executeBatch();
+                int[] out=dppstmt.executeBatch();
+                System.out.println(out.toString());
                 dppstmt.clearBatch();
                 dConnection.commit();
             }
         
         }
-        dppstmt.executeBatch();
+        int[]out=dppstmt.executeBatch();
+        
+        System.out.println(out.toString());
         dppstmt.clearBatch();
         dConnection.commit();
         

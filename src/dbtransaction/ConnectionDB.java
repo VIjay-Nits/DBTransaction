@@ -53,7 +53,8 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sakila?useSSL=false","root","mymanager");
+            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/?useSSL=false",user,password);
+            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sakila?useSSL=false",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;

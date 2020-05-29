@@ -435,6 +435,7 @@ public class AddTask extends javax.swing.JFrame {
      String userNameSource,userNameDestination;
      String passwordSource,passwordDestination;
      String source,destination;
+     String sTable,dTable;
      int scheduledDay,scheduledMonth,scheduledYear;
      String scheduledDate;
      boolean flagVerify=false,flagDate=false;
@@ -458,16 +459,26 @@ public class AddTask extends javax.swing.JFrame {
         passwordDestination=dPasswordFE.getText().trim();
         source=(String)sourceFE.getItemAt(sourceFE.getSelectedIndex());
         destination=(String)destinationFE.getItemAt(destinationFE.getSelectedIndex());
+        sTable=sTableNameFE.getText().trim();
+        dTable=dTableNameFE.getText().trim();
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
         if(connSource.isConnectionCreated(source)&&connDestination.isConnectionCreated(destination)){
             JOptionPane.showMessageDialog(null, "Connection Authenticated");
             flagVerify=true;
+             try{new RunningTransaction(this);}
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
         }else {
             JOptionPane.showMessageDialog(null, "Connection Authentication Failed");
             flagVerify=false;
         }
+        
+       
+        
+        
     }//GEN-LAST:event_verifyActionPerformed
 
     private void sDatabaseNameFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDatabaseNameFEActionPerformed
