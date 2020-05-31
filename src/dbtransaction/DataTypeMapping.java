@@ -149,12 +149,12 @@ public class DataTypeMapping {
                     
                 }
                  else if(type=="TIMESTAMP"){
-                    obj.datatype="DATETIME";
-                    obj.quey="DATETIME("+obj.columnsize+")";
+                    
+                    obj.quey="DATETIME("+obj.scale+")";
                 }
                  else if(type=="TIMESTAMP WITH TIME ZONE"){
-                    obj.datatype="DATETIME";
-                    obj.quey="DATETIME("+obj.columnsize+")";
+                    
+                    obj.quey="DATETIME("+obj.scale+")";
                 }
                  else if(type=="UROWID"){
                     obj.datatype="VARCHAR";
@@ -233,6 +233,7 @@ public class DataTypeMapping {
                 else if("VARCHAR".equals(type)){obj.quey="VARCHAR2("+obj.columnsize+")";}
                 else if("YEAR".equals(type)){obj.quey="NUMBER(4)";}
             }
+            
     }
     public void oracletoPostgre(ArrayList<ColumnDetails> coldetail){
             int length=coldetail.size();
@@ -250,7 +251,7 @@ public class DataTypeMapping {
                     }else{obj.quey=obj.datatype+"("+obj.columnsize+")";}
                 }
                 else if("CLOB".equals(type)){obj.quey="TEXT";continue;}
-                else if("DATE".equals(type)){obj.quey="TIMESTAMP(0)";continue;}
+                else if("DATE".equals(type)){obj.quey="TIMESTAMP";continue;}
                 else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";continue;}
                 else if("FLOAT".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
                 else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="DECIMAL(38)";continue;}
@@ -264,7 +265,7 @@ public class DataTypeMapping {
                     if(obj.scale==0&&obj.precision!=0){
                         if(obj.precision<3)obj.quey="SMALLINT";
                         else if(obj.precision<5)obj.quey="SMALLINT";
-                        else if(obj.precision<9)obj.quey="INT";
+                        else if(obj.precision<9){obj.datatype="INT";obj.quey="INT";}
                         else if(obj.precision<19)obj.quey="BIGINT";
                         else obj.quey="DECIMAL("+obj.precision+")";
                     }
@@ -277,10 +278,10 @@ public class DataTypeMapping {
                 else if("REAL".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
                 else if("ROWID".equals(type)){obj.quey="CHAR(10)";continue;}
                 else if("SMALLINT ".equals(type)){obj.quey="DECIMAL(38)";continue;}
-                else if("TIMESTAMP".equals(type)){obj.quey="TIMESTAMP("+obj.precision+")";continue;}
-                else if("TIMESTAMP WITH TIME ZONE".equals(type)){obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";continue;}
+                else if("TIMESTAMP".equals(type)){;obj.quey="TIMESTAMP";continue;}
+                else if("TIMESTAMP WITH TIME ZONE".equals(type)){;obj.quey="TIMESTAMP WITH TIME ZONE";continue;}
                 else if("UROWID".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
-                else if("VARCHAR2".equals(type)||"VARCHAR".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("VARCHAR2".equals(type)||"VARCHAR".equals(type)){obj.datatype="VARCHAR";obj.quey="VARCHAR("+obj.columnsize+")";continue;}
                 else if("XMLTYPE".equals(type)){obj.quey="XML";continue;}
                 
             }

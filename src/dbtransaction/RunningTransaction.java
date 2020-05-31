@@ -16,6 +16,10 @@ import javafx.util.converter.LocalDateStringConverter;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
+import java.sql.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.sql.Types.*;
 
 
 /**
@@ -87,8 +91,8 @@ public class RunningTransaction {
        
         ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=2").getMetaData();
        
-        
-        
+        ResultSet rss= sConnection.getMetaData().getColumns(null, null, sTableName, null);
+       // rss.first();
         for(int i=1;i<=d.getColumnCount();i++)
         {
             String columnName = d.getColumnName(i);
@@ -98,6 +102,14 @@ public class RunningTransaction {
             int precision= d.getPrecision(i);
             int scale= d.getScale(i);
             boolean sign=d.isSigned(i);
+            
+//            String columnName = rss.getString("COLUMN_NAME");
+//            String type = rss.getString("TYPE_NAME");
+//            int columnsize = rss.getInt("COLUMN_SIZE");
+//            int  columnSqlType = d.getColumnType(i);
+//            int precision= d.getPrecision(i);
+//            int scale= d.getScale(i);
+//            boolean sign=d.isSigned(i);
             //Printing results
            System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign);
             coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign));
@@ -109,15 +121,23 @@ public class RunningTransaction {
         else if(source=="MySQL"&&destination=="Oracle"){
             new DataTypeMapping().mysqltoOracle(coldetail);
         }
+        else if(source=="PostgreSQL"&&destination=="Oracle"){
+            new DataTypeMapping().postgretoOracle(coldetail);
+        }
+        else if(source=="Oracle"&&destination=="PostgreSQL"){
+            new DataTypeMapping().oracletoPostgre(coldetail);
+        }
+        
 
 
         String query="create table "+dTableName+"(";
         for(int i=0;i<coldetail.size();i++){
             query+=" "+coldetail.get(i).columnName+" "+coldetail.get(i).quey;
             if(i<coldetail.size()-1)query+=",";
-            else query+=")";
+             
             //System.out.println(coldetail.get(i).columnName+""+coldetail.get(i).datatype+""+coldetail.get(i).columnsize+""+coldetail.get(i).precision+""+coldetail.get(i).scale);
         }
+        query+=")";
          System.out.println(query);
         int success=dConnection.createStatement().executeUpdate(query);
         if(success==0){
@@ -157,8 +177,7 @@ public class RunningTransaction {
 //        ssrs.last();
 //        rowCount= ssrs.isLast() ? ssrs.getRow() : 0; 
 //        ssrs.beforeFirst();
-        int counter=0;
-        ArrayList<ResultSet> datalist=new ArrayList<>();
+        int count=0;
         Statement dstmt=dConnection.createStatement();
         dConnection.setAutoCommit(false);
         String insert= "INSERT INTO "+dTableName+" VALUES(";
@@ -167,42 +186,40 @@ public class RunningTransaction {
                     }
         insert+="?)";
         System.out.println(insert);
+        
         PreparedStatement dppstmt = dConnection.prepareStatement(insert);
         ssrs.close();
         ResultSet srs=sConnection.createStatement().executeQuery(query);
         while(srs.next()){
             ResultSetMetaData smetadata=srs.getMetaData();
-          for(int j=1;j<=smetadata.getColumnCount();j++){
-                        dppstmt.setObject(j,srs.getObject(j));
-                    }
-                    dppstmt.addBatch();
-            
-            counter++;
-            if(counter==1000){
-                int[] out=dppstmt.executeBatch();
-                System.out.println(out.toString());
+            for(int j=1;j<=smetadata.getColumnCount();j++){
+                if(coldetail.get(j-1).datatype=="TIMESTAMP"/*&&source=="Oracle"&&destination=="PostgreSQL"*/){
+                   
+                    dppstmt.setTimestamp(j,srs.getTimestamp(j));   
+                }else{
+                    //System.out.println(srs.getObject(j).getClass());
+                    dppstmt.setObject(j,(srs.getObject(j)));
+                }
+            }
+          
+                dppstmt.addBatch();
+                
+                count++;
+            if(count==1000){
+               dppstmt.executeBatch();
+               // System.out.println(out.toString());
                 dppstmt.clearBatch();
                 dConnection.commit();
             }
         
         }
-        int[]out=dppstmt.executeBatch();
+        dppstmt.executeBatch();
         
-        System.out.println(out.toString());
+       // System.out.println(out.toString());
         dppstmt.clearBatch();
         dConnection.commit();
         
                 
-        
-        
-       
-        
-        
-        
-        
-        
-        
-    
     }
 
 }

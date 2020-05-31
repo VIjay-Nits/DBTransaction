@@ -469,6 +469,7 @@ public class AddTask extends javax.swing.JFrame {
             flagVerify=true;
              try{new RunningTransaction(this);}
         catch(SQLException e){
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, e);
         }
         }else {
