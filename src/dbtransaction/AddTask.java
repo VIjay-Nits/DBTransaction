@@ -466,8 +466,13 @@ public class AddTask extends javax.swing.JFrame {
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
         if(connSource.isConnectionCreated(source)&&connDestination.isConnectionCreated(destination)){
             JOptionPane.showMessageDialog(null, "Connection Authenticated");
+            
             flagVerify=true;
-             try{new RunningTransaction(this);}
+             try{
+                 connSource.connection().close();
+            connDestination.connection().close();
+                 new RunningTransaction(this);
+             }
         catch(SQLException e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e);

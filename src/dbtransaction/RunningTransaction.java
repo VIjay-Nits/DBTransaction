@@ -89,10 +89,11 @@ public class RunningTransaction {
         }
        // System.out.println(1+""+sConnection.getSchema());
        
-        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=2").getMetaData();
+        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=1").getMetaData();
        
         ResultSet rss= sConnection.getMetaData().getColumns(null, null, sTableName, null);
-       // rss.first();
+       
+        //rss.first();
         for(int i=1;i<=d.getColumnCount();i++)
         {
             String columnName = d.getColumnName(i);
@@ -102,7 +103,8 @@ public class RunningTransaction {
             int precision= d.getPrecision(i);
             int scale= d.getScale(i);
             boolean sign=d.isSigned(i);
-            
+            boolean autoIncrement=d.isAutoIncrement(i);
+//            rss.next();
 //            String columnName = rss.getString("COLUMN_NAME");
 //            String type = rss.getString("TYPE_NAME");
 //            int columnsize = rss.getInt("COLUMN_SIZE");
@@ -110,9 +112,9 @@ public class RunningTransaction {
 //            int precision= d.getPrecision(i);
 //            int scale= d.getScale(i);
 //            boolean sign=d.isSigned(i);
-            //Printing results
-           System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign);
-            coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign));
+//            //Printing results
+           System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign+" "+autoIncrement);
+            coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign,autoIncrement));
         }
         System.out.println("************************************************************************");
         if(source=="Oracle"&&destination=="MySQL"){

@@ -17,8 +17,8 @@ public class ColumnDetails {
     long scale;
     String quey;
     boolean sign;
-
-    public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale,boolean sign) {
+    boolean autoIncrement;
+    public ColumnDetails(String columnName, long columnsize,String datatype , long precision, long scale,boolean sign,boolean autoIncrement) {
         this.columnName = columnName;
         this.datatype = datatype;
         this.columnsize = columnsize;
@@ -26,6 +26,7 @@ public class ColumnDetails {
         this.scale = scale;
         this.quey=datatype;
         this.sign=sign;
+        this.autoIncrement=autoIncrement;
     }
 
     
