@@ -361,14 +361,6 @@ public class DataTypeMapping {
             else if("SMALLINT".equals(obj)&&!obj.sign){obj.quey="INTEGER";}
             else if("TINYINT".equals(obj)&&!obj.sign){obj.quey="INTEGER";}
             
-            
-            
-            
-            
-            
-            
-            
-            
         }
     }
 
@@ -505,6 +497,217 @@ public class DataTypeMapping {
             
         }
     }
+    
+    public void mssqltoPostgre(ArrayList<ColumnDetails> coldetail){
+        int length=coldetail.size();
+        for(int i=0;i<length;i++){
+            ColumnDetails obj=coldetail.get(i);
+            String type =obj.datatype;
+            long size=obj.columnsize;
+                
+            if("BINARY".equals(type)){
+                obj.quey="BYTEA";
+            }
+            else if("BIT".equals(type)){obj.quey="BOOLEAN";}
+            else if("CHAR".equals(type)||"CHARACTER".equals(obj)){obj.quey=obj.datatype+"("+obj.columnsize+")";}
+            else if("DATETIME".equals(type)){obj.quey="TIMESTAMP(3)";}
+            else if("DATETIME2".equals(type)){obj.quey="TIMESTAMP";}////imporovment needed
+            else if("DATETIMEOFFSET".equals(type)){obj.quey="TIMESTAMP WITH TIME ZONE";}//////
+            else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";}
+            else if("FLOAT".equals(type)){obj.quey="DOUBLE PRECISION";}
+            else if("IMAGE".equals(type)){obj.quey="BYTEA";}
+            else if("NCHAR".equals(type)){obj.quey="CHAR("+obj.columnsize+")";}
+            else if("NTEXT".equals(type)){obj.quey="TEXT";}
+            else if("NUMERIC".equals(type)){obj.quey="NUMERIC("+obj.precision+","+obj.scale+")";}
+            else if("NVARCHAR".equals(type)&&obj.columnsize<4001){obj.quey="VARCHAR("+obj.columnsize+")";}
+            else if("NVARCHAR".equals(type)){obj.quey="TEXT";}
+            else if("ROWVERSION".equals(type)){obj.quey="BYTEA";}
+            else if("SMALLDATETIME".equals(type)){obj.quey="TIMESTAMP(0)";}
+            else if("SMALLMONEY".equals(type)){obj.quey="MONEY";}
+            else if("TEXT".equals(type)){obj.quey="TEXT";}
+            else if("TIME".equals(type)){obj.quey="TIME";}/////
+            else if("TIMESTAMP".equals(type)){obj.quey="BYTEA";}
+            else if("TINYINT".equals(type)){obj.quey="SMALLINT";}
+            else if("UNIQUEIDENTIFIER".equals(type)){obj.quey="CHAR(16)";}
+            else if("VARBINARY".equals(type)){obj.quey="BYTEA";}
+            else if("VARCHAR".equals(type)&&obj.columnsize<8001){obj.quey="VARCHAR("+obj.columnsize+")";}
+            else if("VARCHAR".equals(type)){obj.quey="TEXT";}
+            else if("XML".equals(type)){obj.quey="XML";}
+          
+            
+        }
+    }
+    
+    public void oracletoMssql(ArrayList<ColumnDetails> coldetail){
+            int length=coldetail.size();
+            for(int i=0;i<length;i++){
+               ColumnDetails obj=coldetail.get(i);
+                String type =obj.datatype;
+                long size=obj.columnsize;
+                
+                if("BFILE".equals(type)){obj.quey="VARCHAR(255)";continue;}
+                else if("BINARY_FLOAT".equals(type)){obj.quey="REAL";continue;}
+                else if("BINARY_DOUBLE".equals(type)){obj.quey="DOUBLE PRECISION";continue;}
+                else if("BLOB".equals(type)){obj.quey="VARBINARY(max)";continue;}
+                else if("CHAR".equals(type)||"CHARACTER".equals(type)){obj.quey=obj.datatype+"("+obj.columnsize+")";}
+                else if("CLOB".equals(type)){obj.quey="VARCHAR(max)";continue;}
+                else if("DATE".equals(type)){obj.quey="DATETIME";continue;}
+                else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";continue;}
+                else if("DOUBLE PRECISION".equals(type)){obj.quey="FLOAT";}
+                else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="DECIMAL(38)";continue;}
+                else if("INTERVAL DAY TO SECOND".equals(type)){obj.quey="VARCHAR(30)";continue;}
+                else if("INTERVAL YEAR TO SECOND".equals(type)){obj.quey="VARCHAR(30)";continue;}
+                else if("LONG".equals(type)){obj.quey="VARCHAR(max)";continue;}
+                else if("LONG ROW".equals(type)){obj.quey="VARCHAR(max)";continue;}
+                else if("NCHAR".equals(type)){obj.quey="NCHAR"+"("+obj.columnsize+")";continue;}
+                else if("NCHAR VARYING".equals(type)){obj.quey="NVARCHAR("+obj.columnsize+")";continue;}
+                else if("NCLOB".equals(type)){obj.quey="nVARCHAR(max)";continue;}
+                else if("NUMBER".equals(type)){
+                    if(obj.scale==0&&obj.precision!=0){
+                        if(obj.precision<3)obj.quey="TINYINT";
+                        else if(obj.precision<5)obj.quey="SMALLINT";
+                        else if(obj.precision<9){obj.quey="INT";}
+                        else if(obj.precision<19)obj.quey="BIGINT";
+                        else obj.quey="DECIMAL("+obj.precision+")";
+                    }
+                    else if(obj.scale!=0&&obj.precision!=0){obj.quey="DECIMAL("+obj.precision+","+obj.scale+")";continue;
+                    }else{obj.quey="FLOAT";continue;}
+                 }
+                else if("NUMERIC".equals(type)){obj.quey="NUMERIC("+obj.precision+","+obj.scale+")";continue;}
+                else if("NVARCHAR2".equals(type)){obj.quey="NVARCHAR("+obj.columnsize+")";continue;}
+                else if("RAW".equals(type)){obj.quey="VARBINARY";continue;}
+                else if("REAL".equals(type)){obj.quey="FLOAT";continue;}
+                else if("ROWID".equals(type)){obj.quey="CHAR(18)";continue;}
+                else if("SMALLINT ".equals(type)){obj.quey="DECIMAL(38)";continue;}
+                else if("TIMESTAMP".equals(type)){;obj.quey="DATETIME2";continue;}////////
+                else if("TIMESTAMP WITH TIME ZONE".equals(type)){;obj.quey="DATETIMEOFFDET";continue;}///////
+                else if("UROWID".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("VARCHAR2".equals(type)||"VARCHAR".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";continue;}
+                else if("XMLTYPE".equals(type)){obj.quey="XML";continue;}
+                
+            }
+    }
+    
+    public void mysqltoMssql(ArrayList<ColumnDetails> coldetail){
+            int length=coldetail.size();
+            for(int i=0;i<length;i++){
+               ColumnDetails obj=coldetail.get(i);
+                String type =obj.datatype;
+                long size=obj.columnsize;
+                
+                
+                if(type=="BINARY"){
+                    if(obj.columnsize>0)obj.quey="BINARY("+obj.columnsize+")";
+                    else obj.quey="BINARY(1)";}
+                else if(type=="BIT"){obj.quey="BINARY("+obj.columnsize/8+")";}
+                else if(type=="BLOB"){obj.quey="VARBINARY(max)";}
+                else if(type=="BOOLEAN"||type=="BOOL"){obj.quey="BIT";}
+                else if(type=="CHAR"){obj.quey="CHAR("+obj.columnsize+")";}
+                else if(type=="CHARACTER"){obj.quey="CHARACTER("+obj.columnsize+")";}
+                else if(type=="CHARACTER VARYING"){obj.quey="CHARACTER VARYING("+obj.columnsize+")";}
+//                else if(type=="DATE"){
+//                    obj.quey="DATE";//January 10, 2012 3:01 am
+//                }
+                else if("".equals(type)){obj.quey="";}
+                else if("DATETIME".equals(type)){obj.quey="DATETIME2";}/////
+                else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";}
+                else if("DOUBLE".equals(type)){obj.quey="FLOAT";}
+                else if("FIXED".equals(type)){obj.quey="DECIMAL("+obj.precision+","+obj.scale+")";}
+                else if("FLOAT".equals(type)||"FLOAT4".equals(type)){obj.quey="FLOAT";}
+                else if("FLOAT8".equals(type)){obj.quey="BINARY_DOUBLE";}
+                
+                else if("INT1".equals(type)){obj.quey="SMALLINT";}
+                else if("INT2".equals(type)){obj.quey="SMALLINT";}
+                else if("INT3".equals(type)){obj.quey="INT";}
+                else if("INT4".equals(type)){obj.quey="INT";}
+                else if("INT8".equals(type)){obj.quey="BIGINT";}
+                else if("LONGBLOB".equals(type)){obj.quey="VARBINARY(max)";}
+                else if("LONGTEXT".equals(type)){obj.quey="VARCHAR(max)";}
+                else if("LONG VARBINARY".equals(type)){obj.quey="VARBINARY(max)";}
+                else if("LONG".equals(type)||"LONG VARCHAR".equals(type)){obj.quey="VARCHAR(max)";}
+                else if("MEDIUMBLOB".equals(type)){obj.quey="VARBINARY(max)";}
+                else if("MEDIUMINT".equals(type)){obj.quey="INT";}
+                else if("MEDIUMTEXT".equals(type)){obj.quey="VARCHAR(max)";}
+                else if("MIDDLEINT".equals(type)){obj.quey="INT";}
+                else if("NCHAR".equals(type)){obj.quey="NCHAR("+obj.columnsize+")";}
+                else if("NVARCHAR".equals(type)){obj.quey="NVARCHAR("+obj.columnsize+")";}
+                else if("NUMERIC".equals(type)){obj.quey="NUMERIC("+obj.precision+","+obj.scale+") ";}
+                else if("REAL".equals(type)){obj.quey="DOUBLE PRECISION";}
+                else if("SERIAL".equals(type)){obj.quey="NUMERIC(20)";}
+                else if("TEXT".equals(type)){obj.quey="VARCHAR(max)";}
+                else if("TIME".equals(type)){obj.quey="TIME";}//////
+                else if("TIMESTAMP".equals(type)){obj.quey="DATETIME2";}//////
+                else if("TINYBLOB".equals(type)){obj.quey="VARBINARY(255)";}
+                else if("TINYINT".equals(type)){obj.quey="SMALLINT";}
+                else if("TINYTEXT".equals(type)){obj.quey="VARCHAR(255)";}
+                else if("VARBINARY".equals(type)){obj.quey="VARBINARY("+obj.columnsize+")";}
+                else if("VARCHAR".equals(type)){obj.quey="VARCHAR("+obj.columnsize+")";}
+                else if("YEAR".equals(type)){obj.quey="NUMERIC(4)";}
+            }
+            
+    }
+    
+    public void postgretoMssql(ArrayList<ColumnDetails> coldetail){
+        int length=coldetail.size();
+        for(int i=0;i<length;i++){
+            ColumnDetails obj=coldetail.get(i);
+            String type =obj.datatype;
+            long size=obj.columnsize;
+                
+            if(type=="BIGINT"){
+                obj.quey="NUMBER(19)";
+            }
+            else if("BIGSERIAL".equals(type)){obj.quey="";}//////sequence and trigger
+            else if("BIT".equals(type)||"BIT VARYING".equals(type)){obj.quey="RAW("+obj.columnsize/8+")";continue;}
+            else if("BOOLEAN".equals(type)||"BOOL".equals(type)){obj.quey="TINYINT(1)";continue;}
+            else if("BYTEA".equals(type)){obj.quey="LONGBLOB";continue;}
+            
+            else if("CHARACTER".equals(type)||"CHAR".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("CIDR".equals(type)){obj.quey="VARCHAR(43)";}
+            
+            else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";continue;}
+            else if("DOUBLE PRECISION".equals(type)){obj.quey="DOUBLE";continue;}
+            else if("FLOAT4".equals(type)){obj.quey="BINARY_FLOAT";continue;}
+            else if("INET".equals(type)){obj.quey="VARCHAR(43)";}
+            else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="NUMBER(10)";continue;}
+            else if("INT2".equals(type)){obj.quey="NUMBER(5)";continue;}
+            else if("INT4".equals(type)){obj.quey="NUMBER(10)";continue;}
+            else if("INT8".equals(type)){obj.quey="NUMBER(20)";continue;}
+            else if("INTERVAL".equals(type)){obj.quey="TIME";continue;}
+            else if("INTERVAL DAY TO HOUR".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL DAY TO MINUTE".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL HOUR TO MINUTE".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND";continue;}
+            else if("INTERVAL HOUR TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("INTERVAL MINUTE TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("INTERVAL DAY TO SECOND".equals(type)){obj.quey="INTERVAL DAY(5) TO SECOND[("+obj.precision+")]";continue;}
+            else if("MACADDR".equals(type)){obj.quey="VARCHAR(17)";}
+            else if("MONEY".equals(type)){obj.quey="DECIMAL(19,2)";continue;}
+            else if("NATIONAL CHARACTER".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("NATINAL CHARACTER VARYING".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("NUMERIC".equals(type)){obj.quey="DECIMAL";continue;}
+            else if("REAL".equals(type)){obj.quey="FLOAT";continue;}
+            //serial is rest....................................
+            else if("SERIAL".equals(type)){obj.quey="INT";}//set auto increment enable}
+            else if("SMALLSERIAL".equals(type)){obj.quey="SMALLINT";}//set auto increment enable}
+            else if("BIGSERIAL".equals(type)){obj.quey="BIGINT";}//set auto increment enable}
+            else if("SMALLINT".equals(type)){obj.quey="NUMBER(5)";continue;}
+            else if("TEXT".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("TIMESTAMP".equals(type)){obj.quey="DATETIME";continue;}
+            else if("TIME WITH TIME ZONE".equals(type)||"TIMESTAMPZ".equals(type)){obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";continue;}
+            else if("UUID".equals(type)){obj.quey="VARCHAR(36)";continue;}
+            else if("VARBIT".equals(type)){obj.quey="RAW("+obj.columnsize/8+")";continue;}
+            else if("VARCHAR".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("XML".equals(type)||"JSON".equals(type)||"TSVECTOR".equals(type)||"TSQUERY".equals(type)||"ARRAY".equals(type)){obj.quey="LONGTEXT";continue;}
+            else if("LINE".equals(type)){obj.quey="LINESTRING";}
+            else if("LSEG".equals(type)){obj.quey="LINESTRING";}
+            else if("BOX".equals(type)){obj.quey="POLYGON";}
+            else if("PATH".equals(type)){obj.quey="LINESTRING";}
+            else if("CIRCLE".equals(type)){obj.quey="POLYGON";}
+            else if("TXID_SNAPSHOT".equals(type)){obj.quey="VARCHAR";}
+        }
+    }
+    
+    
     
     
     
