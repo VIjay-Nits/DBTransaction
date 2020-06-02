@@ -431,6 +431,80 @@ public class DataTypeMapping {
             else if("TXID_SNAPSHOT".equals(type)){obj.quey="VARCHAR";}
         }
     }
+    public void mssqltoOracle(ArrayList<ColumnDetails> coldetail){
+        int length=coldetail.size();
+        for(int i=0;i<length;i++){
+            ColumnDetails obj=coldetail.get(i);
+            String type =obj.datatype;
+            long size=obj.columnsize;
+                
+            if("CHAR".equals(type)||"NCHAR".equals(type)){
+                obj.quey=obj.datatype+"("+obj.columnsize+")";
+            }
+            else if("NVARCHAR".equals(type)&&obj.columnsize<=4000){obj.quey="NVARCHAR2("+obj.columnsize+")";}
+            else if("NVARCHAR".equals(type)&&obj.columnsize>4000){obj.quey="NCLOB";}
+            else if("VARCHAR".equals(type)&&obj.columnsize<=8000){obj.quey="VARCHAR2("+obj.columnsize+")";}
+            else if("VARCHAR".equals(type)&&obj.columnsize>8000){obj.quey="CLOB";}  
+            else if("BIGINT".equals(type)){obj.quey="NUMBER(19)";}
+            else if("DECIMAL".equals(type)||"DEC".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";}
+            else if("FLOAT".equals(type)){obj.quey="NUMBER";}
+            else if("INTEGER".equals(type)||"INT".equals(type)){obj.quey="NUMBER(10)";}
+            else if("NUMERIC".equals(type)){obj.quey="NUMBER("+obj.precision+","+obj.scale+")";}
+            else if("REAL".equals(type)){obj.quey="NUMBER";}
+            else if("SMALLINT".equals(type)){obj.quey="NUMBER(5)";}
+            else if("TINYINT".equals(type)){obj.quey="NUMBER(3)";}
+            else if("DATETIME".equals(type)){obj.quey="TIMESTAMP(3)";}
+            else if("TIME".equals(type)){obj.quey="TIMESTAMP";}////improvment needed
+            else if("BIT".equals(type)){obj.quey="NUMBER(1)";}
+            else if("MONEY".equals(type)){obj.quey="NUMBER(19,4)";}
+            else if("SMALLMONEY".equals(type)){obj.quey="NUMBER(10,4)";}
+            else if("UNIQUEIDENTIFIER".equals(type)){obj.quey="CHAR(36)";}
+            else if("XML".equals(type)){obj.quey="XMLTYPE";}
+        }
+    }
+    
+    public void mssqltoMysql(ArrayList<ColumnDetails> coldetail){
+        int length=coldetail.size();
+        for(int i=0;i<length;i++){
+            ColumnDetails obj=coldetail.get(i);
+            String type =obj.datatype;
+            long size=obj.columnsize;
+                
+            if("BINARY".equals(type)){
+                obj.quey=obj.datatype+"("+obj.columnsize+")";
+            }
+            else if("BIT".equals(type)){obj.quey="TINYINT";}
+            else if("CHAR".equals(type)&&obj.columnsize<256){obj.quey="CHAR("+obj.columnsize+")";}
+            else if("CHAR".equals(type)&&obj.columnsize>255){obj.quey="TEXT";}
+            else if("DATETIME".equals(type)){obj.quey="DATETIME(3)";}
+            else if("DATETIME2".equals(type)){obj.quey="DATETIME";}////imporovment needed
+            else if("DATETIMEOFFSET".equals(type)){obj.quey="DATETIME";}
+            else if("DECIMAL".equals(type)){obj.quey="DECIMAL("+obj.precision+","+obj.scale+")";}
+            else if("FLOAT".equals(type)){obj.quey="DOUBLE";}
+            else if("IMAGE".equals(type)){obj.quey="LONGBLOB";}
+            else if("MONEY".equals(type)){obj.quey="DECIMAL(15,4)";}
+            else if("NCHAR".equals(type)&&obj.columnsize<256){obj.quey="NCHAR("+obj.columnsize+")";}
+            else if("NCHAR".equals(type)&&obj.columnsize>255){obj.quey="TEXT";}
+            else if("NTEXT".equals(type)){obj.quey="LONGTEXT";}
+            else if("NUMERIC".equals(type)){obj.quey="NUMERIC("+obj.precision+","+obj.scale+")";}
+            else if("NVARCHAR".equals(type)&&obj.columnsize<4001){obj.quey="NVARCHAR("+obj.columnsize+")";}
+            else if("NVARCHAR".equals(type)){obj.quey="LONGTEXT";}
+            else if("ROWVERSION".equals(type)){obj.quey="BINARY(8)";}
+            else if("SMALLDATETIME".equals(type)){obj.quey="DATETIME";}
+            else if("SMALLMONEY".equals(type)){obj.quey="DECIMAL(6,4)";}
+            else if("TEXT".equals(type)){obj.quey="LONGTEXT";}
+            else if("TIME".equals(type)){obj.quey="TIME";}/////
+            else if("TIMESTAMP".equals(type)){obj.quey="BINARY(8)";}
+            else if("UNIQUEIDENTIFIER".equals(type)){obj.quey="CHAR(16)";}
+            else if("VARBINARY".equals(type)&&obj.columnsize<8001){obj.quey="VARBINARY("+obj.columnsize+")";}
+            else if("VARBINARY".equals(type)){obj.quey="LONGBLOB";}
+            else if("VARCHAR".equals(type)&&obj.columnsize<8001){obj.quey="VARCHAR("+obj.columnsize+")";}
+            else if("VARCHAR".equals(type)){obj.quey="LONGTEXT";}
+            else if("XML".equals(type)){obj.quey="LONGTEXT";}
+          
+            
+        }
+    }
     
     
     

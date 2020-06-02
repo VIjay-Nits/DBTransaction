@@ -38,7 +38,7 @@ public class ConnectionDB  {
          }
        
          try {
-             connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","system","manager");
+             connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","system","manager123");
          } catch (SQLException ex) {
              Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
              return false;
