@@ -96,22 +96,22 @@ public class RunningTransaction {
         //rss.first();
         for(int i=1;i<=d.getColumnCount();i++)
         {
-            String columnName = d.getColumnName(i);
-            String type = d.getColumnTypeName(i);
-            int columnsize = d.getColumnDisplaySize(i);
+//            String columnName = d.getColumnName(i);
+//            String type = d.getColumnTypeName(i);
+//            int columnsize = d.getColumnDisplaySize(i);
+//            int  columnSqlType = d.getColumnType(i);
+//            int precision= d.getPrecision(i);
+//            int scale= d.getScale(i);
+            //boolean sign=d.isSigned(i);
+            boolean autoIncrement=d.isAutoIncrement(i);
+            rss.next();
+            String columnName = rss.getString("COLUMN_NAME");
+            String type = rss.getString("TYPE_NAME");
+            int columnsize = rss.getInt("COLUMN_SIZE");
             int  columnSqlType = d.getColumnType(i);
             int precision= d.getPrecision(i);
             int scale= d.getScale(i);
             boolean sign=d.isSigned(i);
-            boolean autoIncrement=d.isAutoIncrement(i);
-//            rss.next();
-//            String columnName = rss.getString("COLUMN_NAME");
-//            String type = rss.getString("TYPE_NAME");
-//            int columnsize = rss.getInt("COLUMN_SIZE");
-//            int  columnSqlType = d.getColumnType(i);
-//            int precision= d.getPrecision(i);
-//            int scale= d.getScale(i);
-//            boolean sign=d.isSigned(i);
 //            //Printing results
            System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign+" "+autoIncrement);
             coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign,autoIncrement));
@@ -129,8 +129,30 @@ public class RunningTransaction {
         else if(source=="Oracle"&&destination=="PostgreSQL"){
             new DataTypeMapping().oracletoPostgre(coldetail);
         }
-        
-
+        else if(source=="Oracle"&&destination=="MsSQL"){
+            new DataTypeMapping().oracletoMssql(coldetail);
+        }
+        else if(source=="MySQL"&&destination=="PostgreSQL"){
+            new DataTypeMapping().mysqltoPostgres(coldetail);
+        }
+        else if(source=="MySQL"&&destination=="MsSQL"){
+            new DataTypeMapping().mysqltoMssql(coldetail);
+        }
+        else if(source=="PostgreSQL"&&destination=="MySQL"){
+            new DataTypeMapping().postgretoMysql(coldetail);
+        }
+        else if(source=="PostgreSQL"&&destination=="MsSQL"){
+            new DataTypeMapping().postgretoMssql(coldetail);
+        }
+        else if(source=="MsSQL"&&destination=="MySQL"){
+            new DataTypeMapping().mssqltoMysql(coldetail);
+        }
+        else if(source=="MsSQL"&&destination=="Oracle"){
+            new DataTypeMapping().mssqltoOracle(coldetail);
+        }
+        else if(source=="MsSQL"&&destination=="PostgreSQL"){
+            new DataTypeMapping().mssqltoPostgre(coldetail);
+        }
 
         String query="create table "+dTableName+"(";
         for(int i=0;i<coldetail.size();i++){

@@ -54,7 +54,7 @@ public class ConnectionDB  {
         }
         try {
            
-            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/firstdb?useSSL=false","root","mymanager");
+            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sakila?useSSL=false","root","mymanager");
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -70,6 +70,9 @@ public class ConnectionDB  {
         }
         try {
             String url= "jdbc:sqlserver://localhost:1433;databaseName = testdb;user="+user+";password = "+password;
+            
+                        
+                        
             connection=DriverManager.getConnection(url);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
