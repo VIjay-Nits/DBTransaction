@@ -156,9 +156,17 @@ public class TransactionGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Task Name", "Source", "Destination", "Table Name", "Sch. Time", "Deatils"
+                "Task Name", "Source", "Destination", "Source Table Name", "Destination Table Name", "Sch. Date", "Deatils"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         taskTable.setColumnSelectionAllowed(true);
         taskTable.setEnabled(false);
         taskTable.setRowHeight(25);
@@ -174,9 +182,9 @@ public class TransactionGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 956, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,30 +228,21 @@ public class TransactionGUI extends javax.swing.JFrame {
          }
        
          try {
-             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
-              System.out.println("postgres connected");
-              String query="SELECT * FROM users";
-              Statement st=connection.createStatement();
-              ResultSet result=st.executeQuery(query);
-             DatabaseMetaData u= connection.getMetaData();
-             u.supportsRefCursors();
-              ScheduledTaskList task;
-              while(result.next()){
-              task=new ScheduledTaskList( 
-                                         result.getString("taskName"),
-                                         result.getString("Source"),
-                                         result.getString("Destination"),
-                                         result.getString("tableName"),
-                                         result.getString("schdate"),
-                                         result.getString("sport")
-                                        );
-              scheduledTask.add(task);
-          }
-          result.close();
-          st.close();
+            Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+            System.out.println("postgres connected");
+            String query="SELECT * FROM usersdb";
+            Statement st=connection.createStatement();
+            ResultSet result=st.executeQuery(query);
+            DatabaseMetaData u= connection.getMetaData();
+            u.supportsRefCursors();
+            while(result.next()){
+              scheduledTask.add(new ScheduledTaskList(result));
+            }
+            result.close();
+            st.close();
              
-         } catch (SQLException ex) {
-             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+         }catch (SQLException ex) {
+            Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             
          }
          return scheduledTask;
@@ -257,14 +256,15 @@ public class TransactionGUI extends javax.swing.JFrame {
         ArrayList<ScheduledTaskList> list=scheduledTask();
         
        
-        Object[]row=new Object[6];
+        Object[]row=new Object[7];
         for(int i=0;i<list.size();i++){
             row[0]=list.get(i).getTaskName();
             row[1]=list.get(i).getSourceName();
             row[2]=list.get(i).getDestinationName();
-            row[3]=list.get(i).getTableName();
-            row[4]=list.get(i).getSchTime();
-            row[5]=list.get(i).getDeatils();
+            row[3]=list.get(i).getsTableName();
+            row[4]=list.get(i).getdTableName();
+            row[5]=list.get(i).getSchDate();
+            row[6]=list.get(i).getDeatils();
             model.addRow(row);
         }
     }

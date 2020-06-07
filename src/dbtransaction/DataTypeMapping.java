@@ -23,26 +23,24 @@ public class DataTypeMapping {
                 String type =obj.datatype;
                 long size=obj.columnsize;
                 
-                if(type=="BFILE"){
-                    obj.quey="VARCHAR(255)";
-                }
-                else if(type=="BINARY_FLOAT"){
+                if("BFILE".equals(type)){obj.quey="VARCHAR(255)";}
+                else if("BINARY_FLOAT".equals(type)){
                     obj.quey="FLOAT";
                 }
-                else if(type=="BINARY_DOUBLE"){
+                else if("BINARY_DOUBLE".equals(type)){
                     obj.quey="DOUBLE";
                 }
-                else if(type=="BINARY_FLOAT UNSIGNED"){
+                else if("BINARY_FLOAT UNSIGNED".equals(type)){
                     obj.quey="FLOAT UNSIGNED";
                 }
-                else if(type=="BINARY_DOUBLE UNSIGNED"){
+                else if("BINARY_DOUBLE UNSIGNED".equals(type)){
                     obj.quey="DOUBLE UNSIGNED";
                 }
-                else if(type=="BLOB"){
+                else if("BLOB".equals(type)){
                     obj.quey="LONGBLOB";
                 }
                 
-                else if(type=="CHAR"||type=="CHARACTER"){
+                else if("CHAR".equals(type)||"CHARACTER".equals(type)){
                     if(size>255){
                         obj.datatype="VARCHAR";
                         obj.quey="VARCHAR("+obj.columnsize+")";
@@ -52,53 +50,53 @@ public class DataTypeMapping {
                     }
                     
                 }
-                else if(type=="CLOB"){
+                else if("CLOB".equals(type)){
                     obj.quey="LONGTEXT";
                     
                 }
-                else if(type=="DATE"){
+                else if("DATE".equals(type)){
                     obj.datatype="DATETIME";
                     obj.quey=obj.datatype;
                 }
-                else if(type=="DECIMAL"||type=="DEC"){
+                else if("DECIMAL".equals(type)||"DEC".equals(type)){
                     obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
                 }
                 
-                else if(type=="FLOAT"){
+                else if("FLOAT".equals(type)){
                     obj.datatype="DOUBLE";
                     obj.quey=obj.datatype;
                 }
                 
-                else if(type=="INTEGER "){
+                else if("INTEGER ".equals(type)){
                     obj.quey="INT";
                 }
-                else if(type=="INTERVAL YEAR TO MONTH"||type=="INTERVAL DAY TO SECOND"){
+                else if("INTERVAL YEAR TO MONTH".equals(type)||"INTERVAL DAY TO SECOND".equals(type)){
                     obj.quey="VARCHAR(30)";
                 }
-                else if(type=="LONG"){
+                else if("LONG".equals(type)){
                     obj.quey="LONGTEXT";
                 }
-                else if(type=="LONG ROW"){
+                else if("LONG ROW".equals(type)){
                     obj.quey="LONGBLOB";
                 }
-                else if(type=="NCHAR"&&size>255){
+                else if("NCHAR".equals(type)&&size>255){
                     obj.datatype="NVARCHAR";
                     obj.quey=obj.datatype+"("+obj.columnsize+")";
                 }
-                else if(type=="NCHAR"&&size<=255){
+                else if("NCHAR".equals(type)&&size<=255){
                     obj.datatype="NCHAR";
                     obj.quey=obj.datatype+"("+obj.columnsize+")";
                 }
-                else if(type=="NCHAR VARYING"){
+                else if("NCHAR VARYING".equals(type)){
                     obj.datatype="NCHAR VARYING";
                     obj.quey=obj.datatype+"("+obj.columnsize+")";
                 }
-                else if(type=="NCLOB"){
+                else if("NCLOB".equals(type)){
                     obj.datatype="NVARCHAR";
                     obj.columnsize=(long)Math.pow(2, 31)-1;
                     obj.quey="NVARCHAR(MAX)";
                 }
-                 else if(type=="NUMBER"){
+                 else if("NUMBER".equals(type)){
                     if(obj.scale==0&&obj.precision!=0){
                         if(obj.precision<3)obj.quey="TINYINT";
                         else if(obj.precision<5)obj.quey="SMALLINT";
@@ -116,55 +114,55 @@ public class DataTypeMapping {
                     
                     
                 }
-                 else if(type=="NUMERIC"){
+                 else if("NUMERIC".equals(type)){
                      obj.quey=obj.datatype+"("+obj.precision+","+obj.scale+")";
                  }
                  
-                 else if(type=="NVARCHAR2"){
+                 else if("NVARCHAR2".equals(type)){
                     obj.datatype="NVARCHAR";
                     obj.quey="NVARCHAR("+obj.columnsize+")";
                 }
-                 else if(type=="RAW"&&size<256){
+                 else if("RAW".equals(type)&&size<256){
                     obj.datatype="BINARY";
                     obj.quey="BINARY("+obj.columnsize+")";
                     
                 }
-                 else if(type=="RAW"&&size>255){
+                 else if("RAW".equals(type)&&size>255){
                     obj.datatype="VARBINARY";
                     obj.quey="VARBINARY("+obj.columnsize+")";
                 }
-                 else if(type=="REAL"){
+                 else if("REAL".equals(type)){
                     obj.datatype="DOUBLE";
                     obj.quey="DOUBLE";
                 }
-                else if(type=="ROWID"){
+                else if("ROWID".equals(type)){
                     obj.datatype="CHAR";
                     obj.columnsize=10;
                     obj.quey="CHAR(10)";
                 }
-                else if(type=="SMALLINT "){
+                else if("SMALLINT ".equals(type)){
                     obj.datatype="DECIMAL";
                     obj.columnsize=38;
                     obj.quey="DECIMAL(38)";
                     
                 }
-                 else if(type=="TIMESTAMP"){
+                 else if("TIMESTAMP".equals(type)){
                     
                     obj.quey="DATETIME("+obj.scale+")";
                 }
-                 else if(type=="TIMESTAMP WITH TIME ZONE"){
+                 else if("TIMESTAMP WITH TIME ZONE".equals(type)){
                     
                     obj.quey="DATETIME("+obj.scale+")";
                 }
-                 else if(type=="UROWID"){
+                 else if("UROWID".equals(type)){
                     obj.datatype="VARCHAR";
                     obj.quey="VARCHAR("+obj.columnsize+")";
                 }
-                 else if(type=="VARCHAR2"||type=="VARCHAR"){
+                 else if("VARCHAR2".equals(type)||type=="VARCHAR"){
                     obj.datatype="VARCHAR";
                     obj.quey="VARCHAR("+obj.columnsize+")";
                 }
-                 else if(type=="XMLTYPE"){
+                 else if("XMLTYPE".equals(type)){
                     obj.datatype="LONGTEXT";
                     obj.quey="LONGTEXT";
                             
@@ -184,16 +182,16 @@ public class DataTypeMapping {
                 String type =obj.datatype;
                 long size=obj.columnsize;
                 
-                if(type=="BIGINT"||type=="BIGINT UNSIGNED"){obj.quey="NUMBER(19)";}
-                else if(type=="BINARY"){
+                if("BIGINT".equals(type)||"BIGINT UNSIGNED".equals(type)){obj.quey="NUMBER(19)";}
+                else if("BINARY".equals(type)){
                     if(obj.columnsize>0)obj.quey="RAW("+obj.columnsize+")";
                     else obj.quey="RAW(1)";}
-                else if(type=="BIT"){obj.quey="RAW("+obj.columnsize/8+")";}
-                else if(type=="BLOB"){obj.quey="BLOB";}
-                else if(type=="BOOLEAN"||type=="BOOL"){obj.quey="CHAR(1)";}
-                else if(type=="CHAR"){obj.quey="CHAR("+obj.columnsize+")";}
-                else if(type=="CHARACTER"){obj.quey="CHARACTER("+obj.columnsize+")";}
-                else if(type=="CHARACTER VARYING"){obj.quey="VARCHAR2("+obj.columnsize+")";}
+                else if("BIT".equals(type)){obj.quey="RAW("+(obj.columnsize/8==0?1:obj.columnsize/8)+")";}
+                else if("BLOB".equals(type)){obj.quey="BLOB";}
+                else if("BOOLEAN".equals(type)||"BOOL".equals(type)){obj.quey="CHAR(1)";}
+                else if("CHAR".equals(type)){obj.quey="CHAR("+obj.columnsize+")";}
+                else if("CHARACTER".equals(type)){obj.quey="CHARACTER("+obj.columnsize+")";}
+                else if("CHARACTER VARYING".equals(type)){obj.quey="VARCHAR2("+obj.columnsize+")";}
 //                else if(type=="DATE"){
 //                    obj.quey="DATE";//January 10, 2012 3:01 am
 //                }
@@ -327,7 +325,7 @@ public class DataTypeMapping {
             else if("TIME WITH TIME ZONE".equalsIgnoreCase(type)||"TIMESTAMPZ".equalsIgnoreCase(type)){obj.quey="TIMESTAMP("+obj.precision+") WITH TIME ZONE";continue;}
             else if("UUID".equalsIgnoreCase(type)){obj.quey="CHAR(36)";continue;}
             else if("VARBIT".equalsIgnoreCase(type)){obj.quey="RAW("+obj.columnsize/8+")";continue;}
-            else if("VARCHAR".equalsIgnoreCase(type)){obj.quey="VARCHAR2("+obj.columnsize+")";continue;}
+            else if("VARCHAR".equalsIgnoreCase(type)){obj.quey="VARCHAR2";continue;}
             else if("XML".equalsIgnoreCase(type)){obj.quey="XMLTYPE";continue;}
         }
     }

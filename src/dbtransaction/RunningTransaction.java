@@ -31,21 +31,21 @@ public class RunningTransaction {
      private String source;
     private  String sUserName;
     private  String sPassword;
-    private final String sHost="";
-    private final String sPort="";
-    private final String sDataBaseName="";
+    private  String sHost;
+    private  int sPort;
+    private  String sDataBaseName="";
     private  String sTableName;
 
     private  String destination;
     private  String dUserName;
-    private String dPassword;
-    private final String dHost="";
-    private final String dPort="";
-    private final String dDataBaseName="";
-    private String dTableName;
+    private  String dPassword;
+    private  String dHost;
+    private  int dPort;
+    private  String dDataBaseName;
+    private  String dTableName;
 
     private final String email="vijaygupta131999@gmail.com";
-    private final String taskName="firstTask";
+    private final String taskName;
     private final String constraint="2020-05-23";
     private final String columnName="Ddddd";
     private final LocalDate schDate= LocalDate.of(2020,5, 23);
@@ -62,11 +62,19 @@ public class RunningTransaction {
         this.source=oobj.source;
         this.sUserName=oobj.userNameSource;
         this.sPassword=oobj.passwordSource;
+        this.sHost=oobj.sHost;
+        this.sPort=oobj.sPort;
+        this.sDataBaseName=oobj.sDatabaseName;
         this.sTableName=oobj.sTable;
+        
         this.destination=oobj.destination;
         this.dUserName=oobj.userNameDestination;
         this.dPassword=oobj.passwordDestination;
+        this.dHost=oobj.dHost;
+        this.dPort=oobj.dPort;
+        this.dDataBaseName=oobj.dDatabaseName;
         this.dTableName=oobj.dTable;
+        this.taskName=oobj.taskName;
      // datatransfer();
      destinationTablegenerator();
     }
@@ -89,7 +97,7 @@ public class RunningTransaction {
         }
        // System.out.println(1+""+sConnection.getSchema());
        
-        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=1").getMetaData();
+        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=2").getMetaData();
        
         ResultSet rss= sConnection.getMetaData().getColumns(null, null, sTableName, null);
        

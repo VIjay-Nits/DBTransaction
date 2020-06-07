@@ -1,21 +1,42 @@
 
 package dbtransaction;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Vijay
  */
 public class ScheduledTaskList {
-    private String taskName,sourceName,destinationName,tableName,schTime,deatils;
+    private String taskName,sourceName,destinationName,sTableName,dTableName,schDate,deatils;
 
-    public ScheduledTaskList(String taskName, String sourceName, String destinationName, String tableName, String schTime, String deatils) {
+    public ScheduledTaskList(ResultSet rs) {
+        try{
+        this.taskName = rs.getString("taskname");
+        this.sourceName =rs.getString("ssource");
+        this.destinationName = rs.getString("destination");
+        this.sTableName = rs.getString("stablename");
+        this.dTableName = rs.getString("dtablename");
+        this.schDate = rs.getString("datenextrun");
+        this.deatils = "I will add";
+    
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        }
+
+    public ScheduledTaskList(String taskName, String sourceName, String destinationName, String sTableName, String dTableName, String schDate, String deatils) {
         this.taskName = taskName;
         this.sourceName = sourceName;
         this.destinationName = destinationName;
-        this.tableName = tableName;
-        this.schTime = schTime;
+        this.sTableName = sTableName;
+        this.dTableName = dTableName;
+        this.schDate = schDate;
         this.deatils = deatils;
     }
+    
 
     public String getTaskName() {
         return taskName;
@@ -41,20 +62,28 @@ public class ScheduledTaskList {
         this.destinationName = destinationName;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getsTableName() {
+        return sTableName;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setsTableName(String sTableName) {
+        this.sTableName = sTableName;
     }
 
-    public String getSchTime() {
-        return schTime;
+    public String getdTableName() {
+        return dTableName;
     }
 
-    public void setSchTime(String schTime) {
-        this.schTime = schTime;
+    public void setdTableName(String dTableName) {
+        this.dTableName = dTableName;
+    }
+
+    public String getSchDate() {
+        return schDate;
+    }
+
+    public void setSchDate(String schDate) {
+        this.schDate = schDate;
     }
 
     public String getDeatils() {
@@ -64,6 +93,7 @@ public class ScheduledTaskList {
     public void setDeatils(String deatils) {
         this.deatils = deatils;
     }
+
     
     
 }

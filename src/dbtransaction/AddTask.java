@@ -435,6 +435,11 @@ public class AddTask extends javax.swing.JFrame {
      String userNameSource,userNameDestination;
      String passwordSource,passwordDestination;
      String source,destination;
+     String sHost,dHost;
+     int sPort,dPort;
+     String sDatabaseName,dDatabaseName;
+     String taskName;
+     
      String sTable,dTable;
      int scheduledDay,scheduledMonth,scheduledYear;
      String scheduledDate;
@@ -461,6 +466,14 @@ public class AddTask extends javax.swing.JFrame {
         destination=(String)destinationFE.getItemAt(destinationFE.getSelectedIndex());
         sTable=sTableNameFE.getText().trim();
         dTable=dTableNameFE.getText().trim();
+        sHost=sHostFE.getText().trim();
+        dHost=dHostFE.getText().trim();
+        sPort=Integer.parseInt(sPortFE.getText().trim());
+        dPort=Integer.parseInt(dPortFE.getText().trim());
+        sDatabaseName=sDatabaseNameFE.getText().trim();
+        dDatabaseName=dDatabaseNameFE.getText().trim();
+        taskName=taskNameFE.getText().trim();
+        
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
@@ -471,7 +484,7 @@ public class AddTask extends javax.swing.JFrame {
              try{
                  connSource.connection().close();
             connDestination.connection().close();
-                 new RunningTransaction(this);
+                 //new RunningTransaction(this);
              }
         catch(SQLException e){
             e.printStackTrace();
@@ -521,25 +534,27 @@ public class AddTask extends javax.swing.JFrame {
             try {
                 Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
                 System.out.println("postgres connected");
-                String query="insert into users values('"+"vijaygupta13199@gmail.com','"
-                        +source+"','"
+                String query="insert into usersdb values("
+                        +"'"+taskName+"','"
+                        +source+"','"                   
                         +userNameSource+"','"
                         +passwordSource+"','"
-                        +"shost"+"','"
-                        +"sort"+"','"
-                        +"sdatabasename"+"','"
+                        +sHost+"',"
+                        +sPort+",'"
+                        +sDatabaseName+"','"
+                        +sTable+"','"
                         +destination+"','"
                         +userNameDestination+"','"
                         +passwordDestination+"','"
-                        +"dhost"+"','"
-                        +"dort"+"','"
-                        +"ddatabasename"+"','"
-                        +taskNameFE.getText().trim()+"','"
-                        +sTableNameFE.getText().trim()+"','"
+                        +dHost+"',"
+                        +dPort+",'"
+                        +dDatabaseName+"','"
+                        +dTable+"','"
+                        +"2015-4-4',"
+                        +"1"+",'"
                         +"constraint"+"','"
                         +"2016-4-4"+"','"
                         +"2001-5-26"+"',"
-                        +7+","
                         +25+")";
                                                                                 
                 System.out.println(query);
@@ -552,25 +567,29 @@ public class AddTask extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Task Saved Successfully");
                     dispose();
                     ScheduledTaskList task;
-                    task=new ScheduledTaskList( 
-                                    taskNameFE.getText().trim(),
-                                    source,
-                                    destination,
-                                    sTableNameFE.getText().trim(),
-                                    scheduledDate,
-                                       "I Will add deatils");
+                    task=new ScheduledTaskList(taskNameFE.getText().trim(), 
+                                                 source, 
+                                                destination, 
+                                                sTable, 
+                                                dTable, 
+                                                scheduledDate, 
+                                                "I will add");
+                           
+    
 
 
                     DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTable).getModel();
 
-                    Object[]row=new Object[6];
+                    Object[]row=new Object[7];
                     row[0]=task.getTaskName();
                     row[1]=task.getSourceName();
                     row[2]=task.getDestinationName();
-                    row[3]=task.getTableName();
-                    row[4]=task.getSchTime();
-                    row[5]=task.getDeatils();
+                    row[3]=task.getsTableName();
+                    row[4]=task.getdTableName();
+                    row[5]=task.getSchDate();
+                    row[6]=task.getDeatils();
                     model.addRow(row);
+        
                 }else{
                    JOptionPane.showMessageDialog(null, "Check The Details");   
                 }
