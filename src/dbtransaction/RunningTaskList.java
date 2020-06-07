@@ -17,10 +17,10 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Vijay
  */
-public class ScheduledTaskList {
+public class RunningTaskList {
     private String taskName,sourceName,destinationName,sTableName,dTableName,schDate,deatils;
 
-    public ScheduledTaskList(ResultSet rs) {
+    public RunningTaskList(ResultSet rs) {
         try{
         this.taskName = rs.getString("taskname");
         this.sourceName =rs.getString("ssource");
@@ -35,7 +35,7 @@ public class ScheduledTaskList {
         }
         }
 
-    public ScheduledTaskList(String taskName, String sourceName, String destinationName, String sTableName, String dTableName, String schDate, String deatils) {
+    public RunningTaskList(String taskName, String sourceName, String destinationName, String sTableName, String dTableName, String schDate, String deatils) {
         this.taskName = taskName;
         this.sourceName = sourceName;
         this.destinationName = destinationName;
@@ -44,8 +44,8 @@ public class ScheduledTaskList {
         this.schDate = schDate;
         this.deatils = deatils;
     }
-    public ScheduledTaskList(){
-       
+    public RunningTaskList(){
+        
     }
     
 
@@ -104,8 +104,8 @@ public class ScheduledTaskList {
     public void setDeatils(String deatils) {
         this.deatils = deatils;
     }
-ArrayList<ScheduledTaskList> scheduledTask(){
-      ArrayList<ScheduledTaskList> scheduledTask=new ArrayList<>();
+ArrayList<RunningTaskList> runTask(){
+      ArrayList<RunningTaskList> runTaskAl=new ArrayList<>();
       try {
              Class.forName("org.postgresql.Driver");
          } catch (ClassNotFoundException ex) {
@@ -117,13 +117,13 @@ ArrayList<ScheduledTaskList> scheduledTask(){
          try {
             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
             System.out.println("postgres connected");
-            String query="SELECT * FROM usersdb";
+            String query="SELECT * FROM usersdb ";
             Statement st=connection.createStatement();
             ResultSet result=st.executeQuery(query);
             DatabaseMetaData u= connection.getMetaData();
             u.supportsRefCursors();
             while(result.next()){
-              scheduledTask.add(new ScheduledTaskList(result));
+              runTaskAl.add(new RunningTaskList(result));
             }
             result.close();
             st.close();
@@ -132,15 +132,15 @@ ArrayList<ScheduledTaskList> scheduledTask(){
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             
          }
-         return scheduledTask;
+         return runTaskAl;
     }
-    public void displaySchTask(javax.swing.JTable taskTableFE) throws SQLException{
-        DefaultTableModel model=(DefaultTableModel)taskTableFE.getModel();
+    public void displayRunTask(javax.swing.JTable runTableFE) throws SQLException{
+        DefaultTableModel model=(DefaultTableModel)runTableFE.getModel();
         int count=model.getRowCount();
         while(count-->0){
             model.removeRow(0);
         }
-        ArrayList<ScheduledTaskList> list=scheduledTask();
+        ArrayList<RunningTaskList> list=runTask();
         
        
         Object[]row=new Object[7];

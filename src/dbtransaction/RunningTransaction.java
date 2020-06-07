@@ -76,7 +76,7 @@ public class RunningTransaction {
         this.dTableName=oobj.dTable;
         this.taskName=oobj.taskName;
      // datatransfer();
-     destinationTablegenerator();
+        destinationTablegenerator();
     }
 
    public void destinationTablegenerator() throws SQLException{ 

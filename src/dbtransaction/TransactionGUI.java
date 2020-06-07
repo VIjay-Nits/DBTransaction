@@ -36,14 +36,17 @@ public class TransactionGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonRunTask = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        taskTable = new javax.swing.JTable();
+        jButtonSchTask = new javax.swing.JButton();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        taskPaneFE = new javax.swing.JScrollPane();
+        taskTableFE = new javax.swing.JTable();
+        runPaneFE = new javax.swing.JScrollPane();
+        runTableFE = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Transaction");
@@ -70,11 +73,16 @@ public class TransactionGUI extends javax.swing.JFrame {
         jButton2.setText("Delete Task");
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 204));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("Running Tasks");
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton3.setMinimumSize(new java.awt.Dimension(101, 25));
+        jButtonRunTask.setBackground(new java.awt.Color(204, 204, 204));
+        jButtonRunTask.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonRunTask.setText("Running Tasks");
+        jButtonRunTask.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButtonRunTask.setMinimumSize(new java.awt.Dimension(101, 25));
+        jButtonRunTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRunTaskActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(204, 204, 204));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -98,11 +106,11 @@ public class TransactionGUI extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(0, 102, 204));
         jLabel7.setText("User name");
 
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton7.setText("Scheduled Tasks");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSchTask.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonSchTask.setText("Scheduled Tasks");
+        jButtonSchTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButtonSchTaskActionPerformed(evt);
             }
         });
 
@@ -116,13 +124,13 @@ public class TransactionGUI extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton7)
+                            .addComponent(jButtonSchTask)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonRunTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 25, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -139,9 +147,9 @@ public class TransactionGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonSchTask, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButtonRunTask, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -149,9 +157,11 @@ public class TransactionGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        taskTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        taskTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        taskTable.setModel(new javax.swing.table.DefaultTableModel(
+        jLayeredPane1.setBackground(new java.awt.Color(0, 255, 255));
+
+        taskTableFE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        taskTableFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        taskTableFE.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -167,13 +177,63 @@ public class TransactionGUI extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        taskTable.setColumnSelectionAllowed(true);
-        taskTable.setEnabled(false);
-        taskTable.setRowHeight(25);
-        taskTable.setSurrendersFocusOnKeystroke(true);
-        jScrollPane2.setViewportView(taskTable);
-        taskTable.getAccessibleContext().setAccessibleName("");
-        taskTable.getAccessibleContext().setAccessibleDescription("");
+        taskTableFE.setEnabled(false);
+        taskTableFE.setRowHeight(25);
+        taskTableFE.setSurrendersFocusOnKeystroke(true);
+        taskPaneFE.setViewportView(taskTableFE);
+        taskTableFE.getAccessibleContext().setAccessibleName("");
+        taskTableFE.getAccessibleContext().setAccessibleDescription("");
+
+        runTableFE.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Task Name", "Source", "Destination", "Source Table Name", "Destination Table Name", "Progress", "Details"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        runPaneFE.setViewportView(runTableFE);
+
+        jLayeredPane1.setLayer(taskPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(runPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1063, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 457, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(6, 6, 6)
+                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addGap(7, 7, 7)))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,19 +242,19 @@ public class TransactionGUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1110, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(1063, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 210, Short.MAX_VALUE)
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 445, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.Alignment.TRAILING))
         );
 
         pack();
@@ -209,65 +269,33 @@ public class TransactionGUI extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jButtonSchTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSchTaskActionPerformed
         try {
-            displayTask();
+            taskTableFE.setVisible(true);
+            taskPaneFE.setVisible(true);
+            runPaneFE.setVisible(false);
+            runTableFE.setVisible(false);
+            new ScheduledTaskList().displaySchTask(taskTableFE);
         } catch (SQLException ex) {
             Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton7ActionPerformed
-    ArrayList<ScheduledTaskList> scheduledTask(){
-      ArrayList<ScheduledTaskList> scheduledTask=new ArrayList<>();
-      try {
-             Class.forName("org.postgresql.Driver");
-         } catch (ClassNotFoundException ex) {
-             
-             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-             
-         }
-       
-         try {
-            Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
-            System.out.println("postgres connected");
-            String query="SELECT * FROM usersdb";
-            Statement st=connection.createStatement();
-            ResultSet result=st.executeQuery(query);
-            DatabaseMetaData u= connection.getMetaData();
-            u.supportsRefCursors();
-            while(result.next()){
-              scheduledTask.add(new ScheduledTaskList(result));
-            }
-            result.close();
-            st.close();
-             
-         }catch (SQLException ex) {
-            Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-            
-         }
-         return scheduledTask;
-    }
-    public void displayTask() throws SQLException{
-        DefaultTableModel model=(DefaultTableModel)taskTable.getModel();
-        int count=model.getRowCount();
-        while(count-->0){
-            model.removeRow(0);
+    }//GEN-LAST:event_jButtonSchTaskActionPerformed
+
+    private void jButtonRunTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunTaskActionPerformed
+              try {          
+                        taskTableFE.setVisible(false);
+                        taskPaneFE.setVisible(false);
+                        runPaneFE.setVisible(true);
+                        runTableFE.setVisible(true);
+                        new RunningTaskList().displayRunTask(runTableFE);
+                  } catch (SQLException ex) {
+            Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ArrayList<ScheduledTaskList> list=scheduledTask();
-        
-       
-        Object[]row=new Object[7];
-        for(int i=0;i<list.size();i++){
-            row[0]=list.get(i).getTaskName();
-            row[1]=list.get(i).getSourceName();
-            row[2]=list.get(i).getDestinationName();
-            row[3]=list.get(i).getsTableName();
-            row[4]=list.get(i).getdTableName();
-            row[5]=list.get(i).getSchDate();
-            row[6]=list.get(i).getDeatils();
-            model.addRow(row);
-        }
-    }
+                        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRunTaskActionPerformed
+    
+    
     
       
     
@@ -305,24 +333,27 @@ public class TransactionGUI extends javax.swing.JFrame {
         
     }
  public JTable getTaskTable() {
-        return taskTable;
+        return taskTableFE;
     }
 
     public void setTaskTable(JTable taskTable) {
-        this.taskTable = taskTable;
+        this.taskTableFE = taskTable;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButtonRunTask;
+    private javax.swing.JButton jButtonSchTask;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JTable taskTable;
+    private javax.swing.JScrollPane runPaneFE;
+    private javax.swing.JTable runTableFE;
+    private javax.swing.JScrollPane taskPaneFE;
+    public javax.swing.JTable taskTableFE;
     // End of variables declaration//GEN-END:variables
 
    

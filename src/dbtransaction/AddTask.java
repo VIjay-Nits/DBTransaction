@@ -578,7 +578,7 @@ public class AddTask extends javax.swing.JFrame {
     
 
 
-                    DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTable).getModel();
+                    DefaultTableModel model=(DefaultTableModel)(new TransactionGUI().taskTableFE).getModel();
 
                     Object[]row=new Object[7];
                     row[0]=task.getTaskName();
