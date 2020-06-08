@@ -547,8 +547,8 @@ public class AddTask extends javax.swing.JFrame {
             scheduledMonth=(int)schMonthFE.getValue();
             scheduledYear=(int)schYearFE.getValue();
             taskName=taskNameFE.getText().trim();
-            columnName=(String)columnNameFE.getItemAt(columnNameFE.getSelectedIndex());
-            String occur=(String)occurenceFE.getItemAt(occurenceFE.getSelectedIndex());
+            columnName=columnNameFE.getItemAt(columnNameFE.getSelectedIndex());
+            String occur=occurenceFE.getItemAt(occurenceFE.getSelectedIndex());
             if("daily".equals(occur)){occurence=1;}
             if("weekly".equals(occur)){occurence=7;}
             if("monthly".equals(occur)){occurence=30;}
@@ -558,9 +558,9 @@ public class AddTask extends javax.swing.JFrame {
             
             
             DateValidator date=new DateValidator(scheduledDay,scheduledMonth, scheduledYear);
-            LocalDate currentdate=java.time.LocalDate.now();
+            LocalDate currentdate=java.time.LocalDate.now().minusDays(1);
             LocalDate myDate=(LocalDate)LocalDate.of(scheduledYear, scheduledMonth, scheduledDay);
-            if(isValidDate(scheduledDay, scheduledMonth,scheduledYear)&&currentdate.isBefore(myDate)){
+            if(isValidDate(scheduledDay, scheduledMonth,scheduledYear)&&myDate.isAfter(currentdate)){
                 flagDate=true;
                 scheduledDate=myDate.toString();
             }else{
@@ -596,12 +596,12 @@ public class AddTask extends javax.swing.JFrame {
                         +dPort+",'"
                         +dDatabaseName+"','"
                         +dTable+"','"
-                        +"2015-4-4',"
+                        +LocalDate.now().toString()+"',"
                         +occurence+",'"
                         +columnName+"','"
-                        +"2016-4-4"+"','"
+                        +scheduledDate+"','"
                         +scheduledDate+"',"
-                        +25+")";
+                        +0+")";
                                                                                 
                 System.out.println(query);
                 Statement st=conn.createStatement();

@@ -20,7 +20,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class RunningTaskList {
     private String taskName,sourceName,destinationName,sTableName,dTableName,schDate,deatils;
-
+    private String status;
+    ArrayList<ResultSet>taskDetails=new ArrayList<>();
     public RunningTaskList(ResultSet rs) {
         try{
         this.taskName = rs.getString("taskname");
@@ -30,6 +31,7 @@ public class RunningTaskList {
         this.dTableName = rs.getString("dtablename");
         this.schDate = rs.getString("datenextrun");
         this.deatils = "I will add";
+        this.status="WAITING";
     
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
@@ -43,6 +45,7 @@ public class RunningTaskList {
         this.sTableName = sTableName;
         this.dTableName = dTableName;
         this.schDate = schDate;
+        this.status="WAITING";
         this.deatils = deatils;
     }
     public RunningTaskList(){
@@ -105,8 +108,18 @@ public class RunningTaskList {
     public void setDeatils(String deatils) {
         this.deatils = deatils;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    ArrayList<RunningTaskList> runTaskAl=new ArrayList<>();
 ArrayList<RunningTaskList> runTask(){
-      ArrayList<RunningTaskList> runTaskAl=new ArrayList<>();
+      
       try {
              Class.forName("org.postgresql.Driver");
          } catch (ClassNotFoundException ex) {
@@ -127,10 +140,12 @@ ArrayList<RunningTaskList> runTask(){
             ResultSet result=st.executeQuery(query);
             DatabaseMetaData u= connection.getMetaData();
             u.supportsRefCursors();
+            runTaskAl.clear();
             while(result.next()){
               runTaskAl.add(new RunningTaskList(result));
+             // taskDetails.add(result);
             }
-            result.close();
+            //result.close();
             st.close();
              
          }catch (SQLException ex) {
@@ -148,7 +163,7 @@ ArrayList<RunningTaskList> runTask(){
         ArrayList<RunningTaskList> list=runTask();
         
        
-        Object[]row=new Object[7];
+        Object[]row=new Object[8];
         for(int i=0;i<list.size();i++){
             row[0]=list.get(i).getTaskName();
             row[1]=list.get(i).getSourceName();
@@ -157,9 +172,13 @@ ArrayList<RunningTaskList> runTask(){
             row[4]=list.get(i).getdTableName();
             row[5]=list.get(i).getSchDate();
             row[6]=list.get(i).getDeatils();
+            row[7]=list.get(i).getStatus();
             model.addRow(row);
         }
     }
-    
+    public ArrayList<ResultSet> getTaskDetails(){
+        runTaskAl=runTask();
+        return taskDetails;
+    }
     
 }

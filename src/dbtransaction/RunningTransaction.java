@@ -20,6 +20,9 @@ import java.sql.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.sql.Types.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -44,18 +47,20 @@ public class RunningTransaction {
     private  String dDataBaseName;
     private  String dTableName;
 
-    private final String email="vijaygupta131999@gmail.com";
-    private final String taskName;
-    private final String constraint="2020-05-23";
-    private final String columnName="Ddddd";
-    private final LocalDate schDate= LocalDate.of(2020,5, 23);
-    private final LocalDate creationDate= LocalDate.of(2020,5, 23);
-    private final int occurence=7;
-    private final int count=0;
+    private String email="vijaygupta131999@gmail.com";
+    private String taskName;
+    private String constraint="2020-05-23";
+    private String columnName;
+    private LocalDate datelastrun;
+    private LocalDate schDate;
+    private LocalDate creationDate;
+    private  int occurence=7;
+    private  int count=0;
     private Connection sConnection,dConnection;
     
     int rowCount=0;
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
+    
     
     public RunningTransaction(AddTask oobj ) throws SQLException {
       //  AddTask oobj=new AddTask();
@@ -76,7 +81,85 @@ public class RunningTransaction {
         this.dTableName=oobj.dTable;
         this.taskName=oobj.taskName;
      // datatransfer();
-        destinationTablegenerator();
+      //  destinationTablegenerator();
+    }
+    public RunningTransaction(){
+        
+        ArrayList<ResultSet>oobj=new ArrayList<>();
+        try {
+             Class.forName("org.postgresql.Driver");
+         } catch (ClassNotFoundException ex) {
+             
+             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+             
+         }
+       
+         try {
+            Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+            System.out.println("postgres connected");
+            LocalDate currentdate= LocalDate.now();
+            currentdate=currentdate.plusDays(1);
+            
+             System.out.println(currentdate);
+            String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
+            Statement st=connection.createStatement();
+            ResultSet result=st.executeQuery(query);
+            DatabaseMetaData u= connection.getMetaData();
+            u.supportsRefCursors();
+            //runTaskAl.clear();
+            int i=0;
+            while(result.next()){
+             // runTaskAl.add(new RunningTaskList(result));
+              oobj.add(result);
+              this.source=oobj.get(i).getString("ssource");
+                this.sUserName=oobj.get(i).getString("susername");
+                this.sPassword=oobj.get(i).getString("spassword");
+                this.sHost=oobj.get(i).getString("shost");
+                this.sPort=oobj.get(i).getInt("sport");
+                this.sDataBaseName=oobj.get(i).getString("sdatabasename");
+                this.sTableName=oobj.get(i).getString("stablename");
+        
+                this.destination=oobj.get(i).getString("destination");
+                this.dUserName=oobj.get(i).getString("dusername");
+                this.dPassword=oobj.get(i).getString("dpassword");
+                this.dHost=oobj.get(i).getString("dhost");
+                this.dPort=oobj.get(i).getInt("dport");
+                this.dDataBaseName=oobj.get(i).getString("ddatabasename");
+                this.dTableName=oobj.get(i).getString("dtablename");
+                
+                this.taskName=oobj.get(i).getString("taskname");
+                this.creationDate=oobj.get(i).getDate("dateofcreation").toLocalDate();
+                this.schDate=oobj.get(i).getDate("datenextrun").toLocalDate();
+                this.datelastrun=oobj.get(i).getDate("datelastrun").toLocalDate();
+                this.occurence=oobj.get(i).getInt("occurrence");
+                this.count=oobj.get(i).getInt("mycount");
+                this.columnName=oobj.get(i).getString("constraintcolumnname");
+                if(count==0){
+                    destinationTablegenerator();
+                }else{
+                    datatransfer();
+                }
+                i++;
+            }
+            //result.close();
+            st.close();
+             
+         }catch (SQLException ex) {
+            Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+            
+         }
+//        for(int i=0;i<oobj.size();i++){
+//            try{
+//               // new RunningTaskList().runTaskAl.get(i).setStatus("RUNNING");
+//                
+//               // new RunningTaskList().runTaskAl.get(i).setStatus("COMPLETED");
+//                
+//                
+//            
+//            }catch(SQLException e){
+//                JOptionPane.showMessageDialog(null,e);
+//            }
+        //}
     }
 
    public void destinationTablegenerator() throws SQLException{ 
@@ -125,47 +208,49 @@ public class RunningTransaction {
             coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign,autoIncrement));
         }
         System.out.println("************************************************************************");
-        if(source=="Oracle"&&destination=="MySQL"){
+        if("Oracle".equals(source)&&"MySQL".equals(destination)){
             new DataTypeMapping().oracletoMysql(coldetail);
         }
-        else if(source=="MySQL"&&destination=="Oracle"){
+        else if("MySQL".equals(source)&&"Oracle".equals(destination)){
             new DataTypeMapping().mysqltoOracle(coldetail);
         }
-        else if(source=="PostgreSQL"&&destination=="Oracle"){
+        else if("PostgreSQL".equals(source)&&"Oracle".equals(destination)){
             new DataTypeMapping().postgretoOracle(coldetail);
         }
-        else if(source=="Oracle"&&destination=="PostgreSQL"){
+        else if("Oracle".equals(source)&&"PostgreSQL".equals(destination)){
             new DataTypeMapping().oracletoPostgre(coldetail);
         }
-        else if(source=="Oracle"&&destination=="MsSQL"){
+        else if("Oracle".equals(source)&&"MsSQL".equals(destination)){
             new DataTypeMapping().oracletoMssql(coldetail);
         }
-        else if(source=="MySQL"&&destination=="PostgreSQL"){
+        else if("MySQL".equals(source)&&"PostgreSQL".equals(destination)){
             new DataTypeMapping().mysqltoPostgres(coldetail);
         }
-        else if(source=="MySQL"&&destination=="MsSQL"){
+        else if("MySQL".equals(source)&&"MsSQL".equals(destination)){
             new DataTypeMapping().mysqltoMssql(coldetail);
         }
-        else if(source=="PostgreSQL"&&destination=="MySQL"){
+        else if("PostgreSQL".equals(source)&&"MySQL".equals(destination)){
             new DataTypeMapping().postgretoMysql(coldetail);
         }
-        else if(source=="PostgreSQL"&&destination=="MsSQL"){
+        else if("PostgreSQL".equals(source)&&"MsSQL".equals(destination)){
             new DataTypeMapping().postgretoMssql(coldetail);
         }
-        else if(source=="MsSQL"&&destination=="MySQL"){
+        else if("MsSQL".equals(source)&&"MySQL".equals(destination)){
             new DataTypeMapping().mssqltoMysql(coldetail);
         }
-        else if(source=="MsSQL"&&destination=="Oracle"){
+        else if("MsSQL".equals(source)&&"Oracle".equals(destination)){
             new DataTypeMapping().mssqltoOracle(coldetail);
         }
-        else if(source=="MsSQL"&&destination=="PostgreSQL"){
+        else if("MsSQL".equals(source)&&"PostgreSQL".equals(destination)){
             new DataTypeMapping().mssqltoPostgre(coldetail);
         }
 
         String query="create table "+dTableName+"(";
         for(int i=0;i<coldetail.size();i++){
             query+=" "+coldetail.get(i).columnName+" "+coldetail.get(i).quey;
-            if(i<coldetail.size()-1)query+=",";
+            if(i<coldetail.size()-1) {
+                query+=",";
+            }
              
             //System.out.println(coldetail.get(i).columnName+""+coldetail.get(i).datatype+""+coldetail.get(i).columnsize+""+coldetail.get(i).precision+""+coldetail.get(i).scale);
         }
@@ -251,7 +336,38 @@ public class RunningTransaction {
         dppstmt.clearBatch();
         dConnection.commit();
         
+        try {
+                Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+                System.out.println("postgres connected");
+                count++;
+                datelastrun=schDate;
+                if(occurence==1){schDate=schDate.plusDays(1);}
+                else if(occurence==7){schDate=schDate.plusWeeks(1);}
+                else if(occurence==30){schDate=schDate.plusMonths(1);}
+                else if(occurence==365){schDate=schDate.plusYears(1);}
+        
+                String update="update usersdb SET "
+                                +"mycount="+count+","
+                                +"datenextrun='"+schDate.toString()+"',"
+                                +"datelastrun='"+datelastrun.toString()+"'"
+                                +"WHERE taskname='"+taskName+"'";
+                                
+                System.out.println(update);
+                Statement st=conn.createStatement();
+                int retrn=st.executeUpdate(update);
+
+                conn.close();
+                st.close();
+                if(retrn==1){
+                    JOptionPane.showMessageDialog(null, "Task Saved Successfully");
+                }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+            
+        
                 
     }
+    
 
 }

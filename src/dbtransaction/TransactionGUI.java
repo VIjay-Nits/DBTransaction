@@ -225,10 +225,7 @@ public class TransactionGUI extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 457, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(6, 6, 6)
-                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                    .addGap(7, 7, 7)))
+                .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
@@ -289,6 +286,7 @@ public class TransactionGUI extends javax.swing.JFrame {
                         runPaneFE.setVisible(true);
                         runTableFE.setVisible(true);
                         new RunningTaskList().displayRunTask(runTableFE);
+                        new RunningTransaction();
                   } catch (SQLException ex) {
             Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
