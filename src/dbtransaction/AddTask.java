@@ -124,6 +124,12 @@ public class AddTask extends javax.swing.JFrame {
 
         jLabel20.setText("Table Name:");
 
+        sTableNameFE.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sTableNameFEFocusGained(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -439,11 +445,13 @@ public class AddTask extends javax.swing.JFrame {
      int sPort,dPort;
      String sDatabaseName,dDatabaseName;
      String taskName;
-     
+     String columnName;
+     int occurence;
      String sTable,dTable;
      int scheduledDay,scheduledMonth,scheduledYear;
      String scheduledDate;
      boolean flagVerify=false,flagDate=false;
+    Vector<String>colnames=new Vector<>();
     
     
     private void sUserNameFEFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sUserNameFEFocusLost
@@ -472,13 +480,42 @@ public class AddTask extends javax.swing.JFrame {
         dPort=Integer.parseInt(dPortFE.getText().trim());
         sDatabaseName=sDatabaseNameFE.getText().trim();
         dDatabaseName=dDatabaseNameFE.getText().trim();
-        taskName=taskNameFE.getText().trim();
+        
         
         
         ConnectionDB connSource=new ConnectionDB(userNameSource, passwordSource);
         ConnectionDB connDestination=new ConnectionDB(userNameDestination, passwordDestination);
         if(connSource.isConnectionCreated(source)&&connDestination.isConnectionCreated(destination)){
             JOptionPane.showMessageDialog(null, "Connection Authenticated");
+            try{
+            Connection conn=connSource.connection();
+            Statement st = conn.createStatement();
+           try{ResultSet results = st.executeQuery("SELECT * FROM "+sTable);
+                ResultSetMetaData metadata = results.getMetaData();
+                int columnCount = metadata.getColumnCount();
+// Get the column names; column indices start from 1
+            
+            for (int i=1; i<=columnCount; i++) {
+ 
+                    colnames.add(metadata.getColumnName(i));
+                }
+            columnNameFE.setModel(new javax.swing.DefaultComboBoxModel<>(colnames));
+            }catch(Exception re){
+                JOptionPane.showMessageDialog(null, "Problem with the table name");
+           
+            }
+            
+            
+               
+            }catch(SQLException e){
+                System.out.println("SQL exception");
+                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
+            }
+        
+    //GEN-LAST:event_tableNameFocusLost
+
+      
+            
             
             flagVerify=true;
              try{
@@ -509,7 +546,16 @@ public class AddTask extends javax.swing.JFrame {
             scheduledDay=(int)schDayFE.getValue();
             scheduledMonth=(int)schMonthFE.getValue();
             scheduledYear=(int)schYearFE.getValue();
+            taskName=taskNameFE.getText().trim();
+            columnName=(String)columnNameFE.getItemAt(columnNameFE.getSelectedIndex());
+            String occur=(String)occurenceFE.getItemAt(occurenceFE.getSelectedIndex());
+            if("daily".equals(occur)){occurence=1;}
+            if("weekly".equals(occur)){occurence=7;}
+            if("monthly".equals(occur)){occurence=30;}
+            if("yearly".equals(occur)){occurence=365;}
+            
             flagDate=false;
+            
             
             DateValidator date=new DateValidator(scheduledDay,scheduledMonth, scheduledYear);
             LocalDate currentdate=java.time.LocalDate.now();
@@ -551,10 +597,10 @@ public class AddTask extends javax.swing.JFrame {
                         +dDatabaseName+"','"
                         +dTable+"','"
                         +"2015-4-4',"
-                        +"1"+",'"
-                        +"constraint"+"','"
+                        +occurence+",'"
+                        +columnName+"','"
                         +"2016-4-4"+"','"
-                        +"2001-5-26"+"',"
+                        +scheduledDate+"',"
                         +25+")";
                                                                                 
                 System.out.println(query);
@@ -617,7 +663,18 @@ public class AddTask extends javax.swing.JFrame {
     private void columnNameFEFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_columnNameFEFocusGained
         
     }//GEN-LAST:event_columnNameFEFocusGained
-      Vector<String>colnames=new Vector<>();
+
+    private void sTableNameFEFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sTableNameFEFocusGained
+       colnames.removeAllElements();
+       columnNameFE.removeAllItems();
+    }//GEN-LAST:event_sTableNameFEFocusGained
+      
+    
+    
+  
+      
+        
+            
     /**
      * @param args the command line arguments
      */

@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,7 +118,11 @@ ArrayList<RunningTaskList> runTask(){
          try {
             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
             System.out.println("postgres connected");
-            String query="SELECT * FROM usersdb ";
+            LocalDate currentdate= LocalDate.now();
+            currentdate=currentdate.plusDays(1);
+            
+             System.out.println(currentdate);
+            String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
             Statement st=connection.createStatement();
             ResultSet result=st.executeQuery(query);
             DatabaseMetaData u= connection.getMetaData();

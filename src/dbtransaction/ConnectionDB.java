@@ -38,7 +38,7 @@ public class ConnectionDB  {
          }
        
          try {
-             connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","system","manager123");
+             connection=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl",user,password);
          } catch (SQLException ex) {
              Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
              return false;
@@ -54,7 +54,7 @@ public class ConnectionDB  {
         }
         try {
            
-            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sakila?useSSL=false","root","mymanager");
+            connection=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/sakila?useSSL=false",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -89,7 +89,7 @@ public class ConnectionDB  {
             return false;
         }
         try {
-            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+            connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",user,password);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             return false;
