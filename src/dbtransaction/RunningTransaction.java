@@ -60,6 +60,7 @@ public class RunningTransaction {
     
     int rowCount=0;
     ArrayList<ColumnDetails> coldetail=new ArrayList<>();
+   
     
     
     public RunningTransaction(AddTask oobj ) throws SQLException {
@@ -84,8 +85,8 @@ public class RunningTransaction {
       //  destinationTablegenerator();
     }
     public RunningTransaction(){
+        ArrayList<RunningTaskList> runTaskAL=new ArrayList<>();
         
-        ArrayList<ResultSet>oobj=new ArrayList<>();
         try {
              Class.forName("org.postgresql.Driver");
          } catch (ClassNotFoundException ex) {
@@ -100,66 +101,68 @@ public class RunningTransaction {
             LocalDate currentdate= LocalDate.now();
             currentdate=currentdate.plusDays(1);
             
-             System.out.println(currentdate);
+            System.out.println(currentdate);
             String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
             Statement st=connection.createStatement();
             ResultSet result=st.executeQuery(query);
             DatabaseMetaData u= connection.getMetaData();
             u.supportsRefCursors();
-            //runTaskAl.clear();
-            int i=0;
+            
+            
             while(result.next()){
-             // runTaskAl.add(new RunningTaskList(result));
-              oobj.add(result);
-              this.source=oobj.get(i).getString("ssource");
-                this.sUserName=oobj.get(i).getString("susername");
-                this.sPassword=oobj.get(i).getString("spassword");
-                this.sHost=oobj.get(i).getString("shost");
-                this.sPort=oobj.get(i).getInt("sport");
-                this.sDataBaseName=oobj.get(i).getString("sdatabasename");
-                this.sTableName=oobj.get(i).getString("stablename");
-        
-                this.destination=oobj.get(i).getString("destination");
-                this.dUserName=oobj.get(i).getString("dusername");
-                this.dPassword=oobj.get(i).getString("dpassword");
-                this.dHost=oobj.get(i).getString("dhost");
-                this.dPort=oobj.get(i).getInt("dport");
-                this.dDataBaseName=oobj.get(i).getString("ddatabasename");
-                this.dTableName=oobj.get(i).getString("dtablename");
-                
-                this.taskName=oobj.get(i).getString("taskname");
-                this.creationDate=oobj.get(i).getDate("dateofcreation").toLocalDate();
-                this.schDate=oobj.get(i).getDate("datenextrun").toLocalDate();
-                this.datelastrun=oobj.get(i).getDate("datelastrun").toLocalDate();
-                this.occurence=oobj.get(i).getInt("occurrence");
-                this.count=oobj.get(i).getInt("mycount");
-                this.columnName=oobj.get(i).getString("constraintcolumnname");
-                if(count==0){
-                    destinationTablegenerator();
-                }else{
-                    datatransfer();
-                }
-                i++;
-            }
-            //result.close();
+              runTaskAL.add(new RunningTaskList(result));
+              }
+            result.close();
             st.close();
+            
              
          }catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             
          }
-//        for(int i=0;i<oobj.size();i++){
-//            try{
-//               // new RunningTaskList().runTaskAl.get(i).setStatus("RUNNING");
-//                
-//               // new RunningTaskList().runTaskAl.get(i).setStatus("COMPLETED");
-//                
-//                
-//            
-//            }catch(SQLException e){
-//                JOptionPane.showMessageDialog(null,e);
-//            }
-        //}
+        for(int i=0;i<runTaskAL.size();i++){
+            try{
+               // new RunningTaskList().runTaskAl.get(i).setStatus("RUNNING");
+                
+               // new RunningTaskList().runTaskAl.get(i).setStatus("COMPLETED");
+                
+               this.source=runTaskAL.get(i).getSource();
+                this.sUserName=runTaskAL.get(i).getsUserName();
+                this.sPassword=runTaskAL.get(i).getsPassword();
+                this.sHost=runTaskAL.get(i).getsHost();
+                this.sPort=runTaskAL.get(i).getsPort();
+                this.sDataBaseName=runTaskAL.get(i).getsDataBaseName();
+                this.sTableName=runTaskAL.get(i).getsTableName();
+        
+                this.destination=runTaskAL.get(i).getDestination();
+                this.dUserName=runTaskAL.get(i).getdUserName();
+                this.dPassword=runTaskAL.get(i).getdPassword();
+                this.dHost=runTaskAL.get(i).getdHost();
+                this.dPort=runTaskAL.get(i).getdPort();
+                this.dDataBaseName=runTaskAL.get(i).getdDataBaseName();
+                this.dTableName=runTaskAL.get(i).getdTableName();
+                
+                this.taskName=runTaskAL.get(i).getTaskName();
+                this.creationDate=runTaskAL.get(i).getCreationDate();
+                this.schDate=runTaskAL.get(i).getSchDate();
+                this.datelastrun=runTaskAL.get(i).getDatelastrun();
+                this.occurence=runTaskAL.get(i).getOccurence();
+                this.count=runTaskAL.get(i).getCount();
+                this.columnName=runTaskAL.get(i).getColumnName();
+                
+
+                
+               if(runTaskAL.get(i).getCount()==0){
+                    destinationTablegenerator();
+                }else{
+                    datatransfer();
+                }
+                
+            
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,e);
+            }
+        }
     }
 
    public void destinationTablegenerator() throws SQLException{ 
@@ -180,29 +183,29 @@ public class RunningTransaction {
         }
        // System.out.println(1+""+sConnection.getSchema());
        
-        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=2").getMetaData();
+        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=1").getMetaData();
        
         ResultSet rss= sConnection.getMetaData().getColumns(null, null, sTableName, null);
        
         //rss.first();
         for(int i=1;i<=d.getColumnCount();i++)
         {
-//            String columnName = d.getColumnName(i);
-//            String type = d.getColumnTypeName(i);
-//            int columnsize = d.getColumnDisplaySize(i);
-//            int  columnSqlType = d.getColumnType(i);
-//            int precision= d.getPrecision(i);
-//            int scale= d.getScale(i);
-            //boolean sign=d.isSigned(i);
-            boolean autoIncrement=d.isAutoIncrement(i);
-            rss.next();
-            String columnName = rss.getString("COLUMN_NAME");
-            String type = rss.getString("TYPE_NAME");
-            int columnsize = rss.getInt("COLUMN_SIZE");
+            String columnName = d.getColumnName(i);
+            String type = d.getColumnTypeName(i);
+            int columnsize = d.getColumnDisplaySize(i);
             int  columnSqlType = d.getColumnType(i);
             int precision= d.getPrecision(i);
             int scale= d.getScale(i);
             boolean sign=d.isSigned(i);
+            boolean autoIncrement=d.isAutoIncrement(i);
+            rss.next();
+//            String columnName = rss.getString("COLUMN_NAME");
+//            String type = rss.getString("TYPE_NAME");
+//            int columnsize = rss.getInt("COLUMN_SIZE");
+//            int  columnSqlType = d.getColumnType(i);
+//            int precision= d.getPrecision(i);
+//            int scale= d.getScale(i);
+//            boolean sign=d.isSigned(i);
 //            //Printing results
            System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign+" "+autoIncrement);
             coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign,autoIncrement));
