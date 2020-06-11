@@ -148,7 +148,7 @@ public class DataTypeMapping {
                 }
                  else if("TIMESTAMP".equals(type)){
                     
-                    obj.quey="DATETIME("+obj.scale+")";
+                    obj.quey="DATETIME";
                 }
                  else if("TIMESTAMP WITH TIME ZONE".equals(type)){
                     

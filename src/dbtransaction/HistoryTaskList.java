@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dbtransaction;
 
 import java.sql.Connection;
@@ -18,13 +22,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Vijay
  */
-public class RunningTaskList {
-   private String source;
+public class HistoryTaskList {
+    private String source;
     private  String sUserName;
     private  String sPassword;
     private  String sHost;
     private  int sPort;
-    private  String sDataBaseName="";
+    private  String sDataBaseName;
     private  String sTableName;
 
     private  String destination;
@@ -42,14 +46,14 @@ public class RunningTaskList {
     private LocalDate datelastrun;
     private LocalDate schDate;
     private LocalDate creationDate;
-    private  int occurence=7;
-    private  int count=0;
-    
-    private String status,detail;
-    //ArrayList<ResultSet>taskDetails=new ArrayList<>();
-     public static ArrayList<RunningTaskList> runTaskAl=new ArrayList<>();
-    public RunningTaskList(ResultSet oobj) {
-        try{
+    private  int occurence;
+    private  int count;
+    private String details;
+    private String rowtransferred;
+    private String status;
+
+    private HistoryTaskList(ResultSet oobj) {
+       try{
                 this.source=oobj.getString("ssource");
                 this.sUserName=oobj.getString("susername");
                 this.sPassword=oobj.getString("spassword");
@@ -73,34 +77,18 @@ public class RunningTaskList {
                 this.occurence=oobj.getInt("occurrence");
                 this.count=oobj.getInt("mycount");
                 this.columnName=oobj.getString("constraintcolumnname");
-                this.status="WAITING";
-                this.detail= "I WILL ADD";
+                this.status="UNKNOWN";
+                this.details= "I WILL ADD";
                 
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
-        }
-
-    public RunningTaskList(String taskName, String sourceName, String destinationName, String sTableName, String dTableName, String schDate, String deatils) {
-        this.taskName = taskName;
-        this.source = sourceName;
-        this.destination = destinationName;
-        this.sTableName = sTableName;
-        this.dTableName = dTableName;
-        this.schDate = LocalDate.parse(schDate);
-        this.status="WAITING";
-        this.detail= deatils;
-    }
-    public RunningTaskList(){
         
     }
-    
 
-    
-    
-   
-    ArrayList<RunningTaskList> runTask(){
-      
+    ArrayList<HistoryTaskList> historyTask(){
+        
+      ArrayList<HistoryTaskList> hisTask=new ArrayList<>();
       try {
              Class.forName("org.postgresql.Driver");
          } catch (ClassNotFoundException ex) {
@@ -112,36 +100,30 @@ public class RunningTaskList {
          try {
             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
             System.out.println("postgres connected");
-            LocalDate currentdate= LocalDate.now();
-            currentdate=currentdate.plusDays(5);
-            
-             System.out.println(currentdate);
-            String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
+            String query="SELECT * FROM historydb";
             Statement st=connection.createStatement();
             ResultSet result=st.executeQuery(query);
             DatabaseMetaData u= connection.getMetaData();
             u.supportsRefCursors();
-            runTaskAl.clear();
             while(result.next()){
-              runTaskAl.add(new RunningTaskList(result));
-             // taskDetails.add(result);
+              hisTask.add(new HistoryTaskList(result));
             }
-            //result.close();
+            result.close();
             st.close();
              
          }catch (SQLException ex) {
             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
             
          }
-         return runTaskAl;
+         return hisTask;
     }
-    public void displayRunTask(javax.swing.JTable runTableFE) throws SQLException{
-        DefaultTableModel model=(DefaultTableModel)runTableFE.getModel();
+    public void displayHistoryTask(javax.swing.JTable historyTableFE) throws SQLException{
+        DefaultTableModel model=(DefaultTableModel)historyTableFE.getModel();
         int count=model.getRowCount();
         while(count-->0){
             model.removeRow(0);
         }
-        ArrayList<RunningTaskList> list=runTask();
+        ArrayList<HistoryTaskList> list=historyTask();
         
        
         Object[]row=new Object[8];
@@ -152,16 +134,19 @@ public class RunningTaskList {
             row[3]=list.get(i).getsTableName();
             row[4]=list.get(i).getdTableName();
             row[5]=list.get(i).getSchDate();
-            row[6]=list.get(i).getDetail();
+            row[6]=list.get(i).getDetails();
             row[7]=list.get(i).getStatus();
             model.addRow(row);
         }
-        System.out.println("hereererer");
+    }
+    public void addhistory(){
+        
         
         
     }
     
-
+    
+    
     public String getSource() {
         return source;
     }
@@ -346,20 +331,28 @@ public class RunningTaskList {
         this.count = count;
     }
 
+    public String getRowtransferred() {
+        return rowtransferred;
+    }
+
+    public void setRowtransferred(String rowtransferred) {
+        this.rowtransferred = rowtransferred;
+    }
+
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String Status) {
+        this.status = Status;
     }
 
-    public String getDetail() {
-        return detail;
+    public String getDetails() {
+        return details;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
+    public void setDetails(String details) {
+        this.details = details;
     }
     
     

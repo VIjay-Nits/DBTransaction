@@ -47,6 +47,8 @@ public class TransactionGUI extends javax.swing.JFrame {
         taskTableFE = new javax.swing.JTable();
         runPaneFE = new javax.swing.JScrollPane();
         runTableFE = new javax.swing.JTable();
+        historyPaneFE = new javax.swing.JScrollPane();
+        historyTableFE = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Transaction");
@@ -90,6 +92,11 @@ public class TransactionGUI extends javax.swing.JFrame {
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton4.setMaximumSize(new java.awt.Dimension(51, 25));
         jButton4.setMinimumSize(new java.awt.Dimension(51, 25));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(204, 204, 204));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -123,15 +130,14 @@ public class TransactionGUI extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonSchTask)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonRunTask, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonSchTask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonRunTask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 45, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -202,8 +208,19 @@ public class TransactionGUI extends javax.swing.JFrame {
         });
         runPaneFE.setViewportView(runTableFE);
 
+        historyTableFE.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Task Name", "Source", "Destination", "Source Table Name", "Destination Table", "Date", "Details", "Status"
+            }
+        ));
+        historyPaneFE.setViewportView(historyTableFE);
+
         jLayeredPane1.setLayer(taskPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(runPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(historyPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -220,6 +237,11 @@ public class TransactionGUI extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+                    .addContainerGap(21, Short.MAX_VALUE)
+                    .addComponent(historyPaneFE, javax.swing.GroupLayout.PREFERRED_SIZE, 1030, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,6 +252,8 @@ public class TransactionGUI extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(historyPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -272,6 +296,8 @@ public class TransactionGUI extends javax.swing.JFrame {
             taskPaneFE.setVisible(true);
             runPaneFE.setVisible(false);
             runTableFE.setVisible(false);
+            historyPaneFE.setVisible(false);
+            historyTableFE.setVisible(false);
             new ScheduledTaskList().displaySchTask(taskTableFE);
         } catch (SQLException ex) {
             Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -285,6 +311,8 @@ public class TransactionGUI extends javax.swing.JFrame {
                         taskPaneFE.setVisible(false);
                         runPaneFE.setVisible(true);
                         runTableFE.setVisible(true);
+                        historyPaneFE.setVisible(false);
+                        historyTableFE.setVisible(false);
                         new RunningTaskList().displayRunTask(runTableFE);
                         new RunningTransaction();
                   } catch (SQLException ex) {
@@ -292,6 +320,15 @@ public class TransactionGUI extends javax.swing.JFrame {
         }
                         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonRunTaskActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        taskTableFE.setVisible(false);
+        taskPaneFE.setVisible(false);
+        runPaneFE.setVisible(false);
+        runTableFE.setVisible(false);
+        historyPaneFE.setVisible(true);
+        historyTableFE.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
     
     
     
@@ -338,6 +375,8 @@ public class TransactionGUI extends javax.swing.JFrame {
         this.taskTableFE = taskTable;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane historyPaneFE;
+    private javax.swing.JTable historyTableFE;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -353,6 +392,14 @@ public class TransactionGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane taskPaneFE;
     public javax.swing.JTable taskTableFE;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getRunTableFE() {
+        return runTableFE;
+    }
+
+    public void setRunTableFE(JTable runTableFE) {
+        this.runTableFE = runTableFE;
+    }
 
    
 

@@ -36,7 +36,7 @@ public class RunningTransaction {
     private  String sPassword;
     private  String sHost;
     private  int sPort;
-    private  String sDataBaseName="";
+    private  String sDataBaseName;
     private  String sTableName;
 
     private  String destination;
@@ -54,12 +54,11 @@ public class RunningTransaction {
     private LocalDate datelastrun;
     private LocalDate schDate;
     private LocalDate creationDate;
-    private  int occurence=7;
-    private  int count=0;
+    private  int occurence;
+    private  int count;
     private Connection sConnection,dConnection;
     
-    int rowCount=0;
-    ArrayList<ColumnDetails> coldetail=new ArrayList<>();
+    
    
     
     
@@ -85,48 +84,49 @@ public class RunningTransaction {
       //  destinationTablegenerator();
     }
     public RunningTransaction(){
-        ArrayList<RunningTaskList> runTaskAL=new ArrayList<>();
+        ArrayList<RunningTaskList> runTaskAL=new RunningTaskList().runTaskAl;
         
-        try {
-             Class.forName("org.postgresql.Driver");
-         } catch (ClassNotFoundException ex) {
-             
-             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-             
-         }
-       
-         try {
-            Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
-            System.out.println("postgres connected");
-            LocalDate currentdate= LocalDate.now();
-            currentdate=currentdate.plusDays(1);
-            
-            System.out.println(currentdate);
-            String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
-            Statement st=connection.createStatement();
-            ResultSet result=st.executeQuery(query);
-            DatabaseMetaData u= connection.getMetaData();
-            u.supportsRefCursors();
-            
-            
-            while(result.next()){
-              runTaskAL.add(new RunningTaskList(result));
-              }
-            result.close();
-            st.close();
-            
-             
-         }catch (SQLException ex) {
-            Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
-            
-         }
+//        try {
+//             Class.forName("org.postgresql.Driver");
+//         } catch (ClassNotFoundException ex) {
+//             
+//             Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+//             
+//         }
+//       
+//         try {
+//            Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
+//            System.out.println("postgres connected");
+//            LocalDate currentdate= LocalDate.now();
+//            currentdate=currentdate.plusDays(2);
+//            
+//            System.out.println(currentdate);
+//            String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
+//            Statement st=connection.createStatement();
+//            ResultSet result=st.executeQuery(query);
+//            DatabaseMetaData u= connection.getMetaData();
+//            u.supportsRefCursors();
+//            
+//            
+//            while(result.next()){
+//              runTaskAL.add(new RunningTaskList(result));
+//              }
+//            connection.close();
+//            result.close();
+//            st.close();
+//            
+//             
+//         }catch (SQLException ex) {
+//            Logger.getLogger(ConnectionDB.class.getName()).log(Level.SEVERE, null, ex);
+//            
+//         }
         for(int i=0;i<runTaskAL.size();i++){
             try{
-               // new RunningTaskList().runTaskAl.get(i).setStatus("RUNNING");
+                new RunningTaskList().runTaskAl.get(i).setStatus("RUNNING");
+               // new RunningTaskList().displayRunTask(new TransactionGUI().getRunTableFE());
+               
                 
-               // new RunningTaskList().runTaskAl.get(i).setStatus("COMPLETED");
-                
-               this.source=runTaskAL.get(i).getSource();
+                this.source=runTaskAL.get(i).getSource();
                 this.sUserName=runTaskAL.get(i).getsUserName();
                 this.sPassword=runTaskAL.get(i).getsPassword();
                 this.sHost=runTaskAL.get(i).getsHost();
@@ -150,22 +150,26 @@ public class RunningTransaction {
                 this.count=runTaskAL.get(i).getCount();
                 this.columnName=runTaskAL.get(i).getColumnName();
                 
-
+                    int nn=runTaskAL.get(i).getCount();
                 
                if(runTaskAL.get(i).getCount()==0){
                     destinationTablegenerator();
                 }else{
                     datatransfer();
                 }
-                
-            
+              
+             new RunningTaskList().runTaskAl.get(i).setStatus("COMPLETED");
+            // new RunningTaskList().displayRunTask(new TransactionGUI().getRunTableFE());
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,e);
             }
+           
         }
     }
 
    public void destinationTablegenerator() throws SQLException{ 
+        int rowCount;
+        ArrayList<ColumnDetails> coldetail=new ArrayList<>();
         //start connection with source
         ConnectionDB sconn= new ConnectionDB(sUserName,sPassword);
         if(sconn.isConnectionCreated(source)){
@@ -183,9 +187,11 @@ public class RunningTransaction {
         }
        // System.out.println(1+""+sConnection.getSchema());
        
-        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=1").getMetaData();
+        ResultSetMetaData d=sConnection.createStatement().executeQuery("select *from "+sTableName+" where 1=2").getMetaData();
        
-        ResultSet rss= sConnection.getMetaData().getColumns(null, null, sTableName, null);
+        DatabaseMetaData dm= sConnection.getMetaData();
+        dm.supportsRefCursors();
+           ResultSet rss=dm.getColumns(null, null, sTableName, null);
        
         //rss.first();
         for(int i=1;i<=d.getColumnCount();i++)
@@ -198,15 +204,15 @@ public class RunningTransaction {
             int scale= d.getScale(i);
             boolean sign=d.isSigned(i);
             boolean autoIncrement=d.isAutoIncrement(i);
-            rss.next();
+//            rss.next();
 //            String columnName = rss.getString("COLUMN_NAME");
 //            String type = rss.getString("TYPE_NAME");
 //            int columnsize = rss.getInt("COLUMN_SIZE");
 //            int  columnSqlType = d.getColumnType(i);
-//            int precision= d.getPrecision(i);
+//           int precision= d.getPrecision(i);
 //            int scale= d.getScale(i);
 //            boolean sign=d.isSigned(i);
-//            //Printing results
+            //Printing results
            System.out.println(columnName+""+type+""+columnsize+""+columnSqlType+""+precision+""+scale+""+sign+" "+autoIncrement);
             coldetail.add(new ColumnDetails(columnName,  columnsize, type,precision, scale,sign,autoIncrement));
         }
@@ -266,6 +272,7 @@ public class RunningTransaction {
         else{
             System.out.println("PROBLEM IN TABLE CREATION");
         }
+        coldetail.clear();
         System.out.println(success);
         dConnection.close();
         sConnection.close();
@@ -297,7 +304,7 @@ public class RunningTransaction {
 //        ssrs.last();
 //        rowCount= ssrs.isLast() ? ssrs.getRow() : 0; 
 //        ssrs.beforeFirst();
-        int count=0;
+        int cout=0;
         Statement dstmt=dConnection.createStatement();
         dConnection.setAutoCommit(false);
         String insert= "INSERT INTO "+dTableName+" VALUES(";
@@ -312,20 +319,29 @@ public class RunningTransaction {
         ResultSet srs=sConnection.createStatement().executeQuery(query);
         while(srs.next()){
             ResultSetMetaData smetadata=srs.getMetaData();
+          //  ArrayList<ResultSetMetaData> tablemeta=new ArrayList<>();
             for(int j=1;j<=smetadata.getColumnCount();j++){
-                if(coldetail.get(j-1).datatype=="TIMESTAMP"/*&&source=="Oracle"&&destination=="PostgreSQL"*/){
-                   
-                    dppstmt.setTimestamp(j,srs.getTimestamp(j));   
-                }else{
+                
+//                if(coldetail.get(j-1).datatype=="TIMESTAMP"/*&&source=="Oracle"&&destination=="PostgreSQL"*/){
+//                   
+//                    dppstmt.setTimestamp(j,srs.getTimestamp(j));   
+//                }else{
                     //System.out.println(srs.getObject(j).getClass());
+                    
+                    String datatype=smetadata.getColumnTypeName(j);
+                    if("TIMESTAMP".equals(datatype)){
+                        dppstmt.setTimestamp(j, srs.getTimestamp(j));
+                    }else{
+            
                     dppstmt.setObject(j,(srs.getObject(j)));
-                }
+                    }
+               // }
             }
           
                 dppstmt.addBatch();
                 
-                count++;
-            if(count==1000){
+                cout++;
+            if(cout==1000){
                dppstmt.executeBatch();
                // System.out.println(out.toString());
                 dppstmt.clearBatch();
@@ -342,8 +358,9 @@ public class RunningTransaction {
         try {
                 Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
                 System.out.println("postgres connected");
-                count++;
+                
                 datelastrun=schDate;
+                count++;
                 if(occurence==1){schDate=schDate.plusDays(1);}
                 else if(occurence==7){schDate=schDate.plusWeeks(1);}
                 else if(occurence==30){schDate=schDate.plusMonths(1);}
@@ -358,7 +375,7 @@ public class RunningTransaction {
                 System.out.println(update);
                 Statement st=conn.createStatement();
                 int retrn=st.executeUpdate(update);
-
+                
                 conn.close();
                 st.close();
                 if(retrn==1){
@@ -371,6 +388,208 @@ public class RunningTransaction {
         
                 
     }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getsUserName() {
+        return sUserName;
+    }
+
+    public void setsUserName(String sUserName) {
+        this.sUserName = sUserName;
+    }
+
+    public String getsPassword() {
+        return sPassword;
+    }
+
+    public void setsPassword(String sPassword) {
+        this.sPassword = sPassword;
+    }
+
+    public String getsHost() {
+        return sHost;
+    }
+
+    public void setsHost(String sHost) {
+        this.sHost = sHost;
+    }
+
+    public int getsPort() {
+        return sPort;
+    }
+
+    public void setsPort(int sPort) {
+        this.sPort = sPort;
+    }
+
+    public String getsDataBaseName() {
+        return sDataBaseName;
+    }
+
+    public void setsDataBaseName(String sDataBaseName) {
+        this.sDataBaseName = sDataBaseName;
+    }
+
+    public String getsTableName() {
+        return sTableName;
+    }
+
+    public void setsTableName(String sTableName) {
+        this.sTableName = sTableName;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getdUserName() {
+        return dUserName;
+    }
+
+    public void setdUserName(String dUserName) {
+        this.dUserName = dUserName;
+    }
+
+    public String getdPassword() {
+        return dPassword;
+    }
+
+    public void setdPassword(String dPassword) {
+        this.dPassword = dPassword;
+    }
+
+    public String getdHost() {
+        return dHost;
+    }
+
+    public void setdHost(String dHost) {
+        this.dHost = dHost;
+    }
+
+    public int getdPort() {
+        return dPort;
+    }
+
+    public void setdPort(int dPort) {
+        this.dPort = dPort;
+    }
+
+    public String getdDataBaseName() {
+        return dDataBaseName;
+    }
+
+    public void setdDataBaseName(String dDataBaseName) {
+        this.dDataBaseName = dDataBaseName;
+    }
+
+    public String getdTableName() {
+        return dTableName;
+    }
+
+    public void setdTableName(String dTableName) {
+        this.dTableName = dTableName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public String getConstraint() {
+        return constraint;
+    }
+
+    public void setConstraint(String constraint) {
+        this.constraint = constraint;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public LocalDate getDatelastrun() {
+        return datelastrun;
+    }
+
+    public void setDatelastrun(LocalDate datelastrun) {
+        this.datelastrun = datelastrun;
+    }
+
+    public LocalDate getSchDate() {
+        return schDate;
+    }
+
+    public void setSchDate(LocalDate schDate) {
+        this.schDate = schDate;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public int getOccurence() {
+        return occurence;
+    }
+
+    public void setOccurence(int occurence) {
+        this.occurence = occurence;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public Connection getsConnection() {
+        return sConnection;
+    }
+
+    public void setsConnection(Connection sConnection) {
+        this.sConnection = sConnection;
+    }
+
+    public Connection getdConnection() {
+        return dConnection;
+    }
+
+    public void setdConnection(Connection dConnection) {
+        this.dConnection = dConnection;
+    }
+    
+    
     
 
 }

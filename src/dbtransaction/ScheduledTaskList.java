@@ -104,7 +104,8 @@ public class ScheduledTaskList {
     public void setDeatils(String deatils) {
         this.deatils = deatils;
     }
-ArrayList<ScheduledTaskList> scheduledTask(){
+    ArrayList<ScheduledTaskList> scheduledTask(){
+        
       ArrayList<ScheduledTaskList> scheduledTask=new ArrayList<>();
       try {
              Class.forName("org.postgresql.Driver");
