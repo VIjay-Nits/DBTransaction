@@ -113,7 +113,7 @@ public class RunningTaskList {
             Connection connection=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
             System.out.println("postgres connected");
             LocalDate currentdate= LocalDate.now();
-            currentdate=currentdate.plusDays(11);
+            currentdate=currentdate.plusDays(0);
             
              System.out.println(currentdate);
             String query="SELECT * FROM usersdb where datenextrun='"+currentdate+"'";
@@ -126,7 +126,8 @@ public class RunningTaskList {
               runTaskAl.add(new RunningTaskList(result));
              // taskDetails.add(result);
             }
-            //result.close();
+            connection.close();
+            result.close();
             st.close();
              
          }catch (SQLException ex) {

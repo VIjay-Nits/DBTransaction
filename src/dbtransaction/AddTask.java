@@ -465,7 +465,7 @@ public class AddTask extends javax.swing.JFrame {
     
     
     
-    private void verifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifyActionPerformed
+    private void verifyActionPerformed(java.awt.event.ActionEvent evt) {                                       
         userNameSource=sUserNameFE.getText().trim();
         passwordSource=sPasswordFE.getText().trim();
         userNameDestination=dUserNameFE.getText().trim();
@@ -512,7 +512,7 @@ public class AddTask extends javax.swing.JFrame {
                 Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
             }
         
-    //GEN-LAST:event_tableNameFocusLost
+                                       
 
       
             
@@ -535,7 +535,7 @@ public class AddTask extends javax.swing.JFrame {
        
         
         
-    }//GEN-LAST:event_verifyActionPerformed
+    }                                      
 
     private void sDatabaseNameFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sDatabaseNameFEActionPerformed
         // TODO add your handling code here:

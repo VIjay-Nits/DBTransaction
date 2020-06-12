@@ -126,6 +126,7 @@ public class ScheduledTaskList {
             while(result.next()){
               scheduledTask.add(new ScheduledTaskList(result));
             }
+            connection.close();
             result.close();
             st.close();
              

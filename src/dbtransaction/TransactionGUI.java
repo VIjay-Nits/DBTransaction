@@ -5,6 +5,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,162 +34,35 @@ public class TransactionGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButtonRunTask = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jButtonSchTask = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        taskPaneFE = new javax.swing.JScrollPane();
-        taskTableFE = new javax.swing.JTable();
         runPaneFE = new javax.swing.JScrollPane();
         runTableFE = new javax.swing.JTable();
         historyPaneFE = new javax.swing.JScrollPane();
         historyTableFE = new javax.swing.JTable();
+        taskPaneFE = new javax.swing.JScrollPane();
+        taskTableFE = new javax.swing.JTable();
+        deletepanelFE = new javax.swing.JPanel();
+        DeleteconfirmFE = new javax.swing.JButton();
+        deletecomboFE = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        addTaskButtonFE = new javax.swing.JButton();
+        deleteTaskButtonFE = new javax.swing.JButton();
+        runningTaskButtonFE = new javax.swing.JButton();
+        historyButtonFE = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        SchTaskButtonFE = new javax.swing.JButton();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Transaction");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setAlignmentX(0.0F);
-
-        jButton1.setBackground(new java.awt.Color(204, 204, 204));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Add Task");
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton1.setMaximumSize(new java.awt.Dimension(65, 25));
-        jButton1.setMinimumSize(new java.awt.Dimension(65, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Delete Task");
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        jButtonRunTask.setBackground(new java.awt.Color(204, 204, 204));
-        jButtonRunTask.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonRunTask.setText("Running Tasks");
-        jButtonRunTask.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButtonRunTask.setMinimumSize(new java.awt.Dimension(101, 25));
-        jButtonRunTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRunTaskActionPerformed(evt);
-            }
-        });
-
-        jButton4.setBackground(new java.awt.Color(204, 204, 204));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setText("History");
-        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton4.setMaximumSize(new java.awt.Dimension(51, 25));
-        jButton4.setMinimumSize(new java.awt.Dimension(51, 25));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setBackground(new java.awt.Color(204, 204, 204));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setText("Profile");
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton5.setMinimumSize(new java.awt.Dimension(43, 25));
-
-        jButton6.setBackground(new java.awt.Color(204, 204, 204));
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton6.setText("Logout");
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jButton6.setMinimumSize(new java.awt.Dimension(51, 25));
-
-        jLabel7.setBackground(new java.awt.Color(0, 102, 204));
-        jLabel7.setText("User name");
-
-        jButtonSchTask.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButtonSchTask.setText("Scheduled Tasks");
-        jButtonSchTask.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSchTaskActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonSchTask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonRunTask, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 45, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSchTask, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonRunTask, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         jLayeredPane1.setBackground(new java.awt.Color(0, 255, 255));
-
-        taskTableFE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        taskTableFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        taskTableFE.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Task Name", "Source", "Destination", "Source Table Name", "Destination Table Name", "Sch. Date", "Deatils"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        taskTableFE.setEnabled(false);
-        taskTableFE.setRowHeight(25);
-        taskTableFE.setSurrendersFocusOnKeystroke(true);
-        taskPaneFE.setViewportView(taskTableFE);
-        taskTableFE.getAccessibleContext().setAccessibleName("");
-        taskTableFE.getAccessibleContext().setAccessibleDescription("");
 
         runTableFE.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,20 +92,85 @@ public class TransactionGUI extends javax.swing.JFrame {
         ));
         historyPaneFE.setViewportView(historyTableFE);
 
-        jLayeredPane1.setLayer(taskPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        taskTableFE.setAutoCreateRowSorter(true);
+        taskTableFE.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        taskTableFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        taskTableFE.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Task Name", "Source", "Destination", "Source Table Name", "Destination Table Name", "Sch. Date", "Deatils"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        taskTableFE.setEnabled(false);
+        taskTableFE.setRowHeight(25);
+        taskTableFE.setSurrendersFocusOnKeystroke(true);
+        taskPaneFE.setViewportView(taskTableFE);
+        taskTableFE.getAccessibleContext().setAccessibleName("");
+        taskTableFE.getAccessibleContext().setAccessibleDescription("");
+
+        DeleteconfirmFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        DeleteconfirmFE.setText("Delete");
+        DeleteconfirmFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteconfirmFEActionPerformed(evt);
+            }
+        });
+
+        deletecomboFE.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Select Task:");
+
+        javax.swing.GroupLayout deletepanelFELayout = new javax.swing.GroupLayout(deletepanelFE);
+        deletepanelFE.setLayout(deletepanelFELayout);
+        deletepanelFELayout.setHorizontalGroup(
+            deletepanelFELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(deletepanelFELayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(deletepanelFELayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(deletecomboFE, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(deletepanelFELayout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(DeleteconfirmFE))
+        );
+        deletepanelFELayout.setVerticalGroup(
+            deletepanelFELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(deletepanelFELayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(deletecomboFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(DeleteconfirmFE))
+        );
+
         jLayeredPane1.setLayer(runPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(historyPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(taskPaneFE, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(deletepanelFE, javax.swing.JLayeredPane.PALETTE_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1063, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(350, 350, 350)
+                .addComponent(deletepanelFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(413, 413, 413))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 1039, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(taskPaneFE, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -245,11 +184,12 @@ public class TransactionGUI extends javax.swing.JFrame {
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 457, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(deletepanelFE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(159, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
@@ -258,6 +198,120 @@ public class TransactionGUI extends javax.swing.JFrame {
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(historyPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addContainerGap()))
+        );
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setAlignmentX(0.0F);
+
+        addTaskButtonFE.setBackground(new java.awt.Color(204, 204, 204));
+        addTaskButtonFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        addTaskButtonFE.setText("Add Task");
+        addTaskButtonFE.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        addTaskButtonFE.setMaximumSize(new java.awt.Dimension(65, 25));
+        addTaskButtonFE.setMinimumSize(new java.awt.Dimension(65, 25));
+        addTaskButtonFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTaskButtonFEActionPerformed(evt);
+            }
+        });
+
+        deleteTaskButtonFE.setBackground(new java.awt.Color(204, 204, 204));
+        deleteTaskButtonFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        deleteTaskButtonFE.setText("Delete Task");
+        deleteTaskButtonFE.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        deleteTaskButtonFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteTaskButtonFEActionPerformed(evt);
+            }
+        });
+
+        runningTaskButtonFE.setBackground(new java.awt.Color(204, 204, 204));
+        runningTaskButtonFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        runningTaskButtonFE.setText("Running Tasks");
+        runningTaskButtonFE.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        runningTaskButtonFE.setMinimumSize(new java.awt.Dimension(101, 25));
+        runningTaskButtonFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runningTaskButtonFEActionPerformed(evt);
+            }
+        });
+
+        historyButtonFE.setBackground(new java.awt.Color(204, 204, 204));
+        historyButtonFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        historyButtonFE.setText("History");
+        historyButtonFE.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        historyButtonFE.setMaximumSize(new java.awt.Dimension(51, 25));
+        historyButtonFE.setMinimumSize(new java.awt.Dimension(51, 25));
+        historyButtonFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyButtonFEActionPerformed(evt);
+            }
+        });
+
+        jButton5.setBackground(new java.awt.Color(204, 204, 204));
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton5.setText("Profile");
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton5.setMinimumSize(new java.awt.Dimension(43, 25));
+
+        jButton6.setBackground(new java.awt.Color(204, 204, 204));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton6.setText("Logout");
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButton6.setMinimumSize(new java.awt.Dimension(51, 25));
+
+        jLabel7.setBackground(new java.awt.Color(0, 102, 204));
+        jLabel7.setText("User name");
+
+        SchTaskButtonFE.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        SchTaskButtonFE.setText("Scheduled Tasks");
+        SchTaskButtonFE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SchTaskButtonFEActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(SchTaskButtonFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(historyButtonFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(deleteTaskButtonFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addTaskButtonFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(runningTaskButtonFE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 45, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(addTaskButtonFE, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(deleteTaskButtonFE, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(historyButtonFE, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SchTaskButtonFE, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(runningTaskButtonFE, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -271,7 +325,7 @@ public class TransactionGUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 210, Short.MAX_VALUE)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLayeredPane1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,61 +339,165 @@ public class TransactionGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addTaskButtonFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaskButtonFEActionPerformed
       AddTask add=new AddTask();
        java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddTask().setVisible(true);
             }
         });
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addTaskButtonFEActionPerformed
 
-    private void jButtonSchTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSchTaskActionPerformed
+    private void SchTaskButtonFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SchTaskButtonFEActionPerformed
         try {
-            taskTableFE.setVisible(true);
-            taskPaneFE.setVisible(true);
+            deletepanelFE.setVisible(true);
+            deletepanelFE.setVisible(false);
             runPaneFE.setVisible(false);
-            runTableFE.setVisible(false);
             historyPaneFE.setVisible(false);
-            historyTableFE.setVisible(false);
+            taskPaneFE.setVisible(true);
             new ScheduledTaskList().displaySchTask(taskTableFE);
         } catch (SQLException ex) {
             Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButtonSchTaskActionPerformed
+    }//GEN-LAST:event_SchTaskButtonFEActionPerformed
 
-    private void jButtonRunTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRunTaskActionPerformed
-              try {          
-                        taskTableFE.setVisible(false);
-                        taskPaneFE.setVisible(false);
-                        runPaneFE.setVisible(true);
-                        runTableFE.setVisible(true);
-                        historyPaneFE.setVisible(false);
-                        historyTableFE.setVisible(false);
-                        new RunningTaskList().displayRunTask(runTableFE);
-                        new RunningTransaction();
+    private void runningTaskButtonFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runningTaskButtonFEActionPerformed
+              try {    
+                    deletepanelFE.setVisible(true);  
+                    deletepanelFE.setVisible(false);
+                    runPaneFE.setVisible(true);
+                    historyPaneFE.setVisible(false);
+                    taskPaneFE.setVisible(false);
+                    new RunningTaskList().displayRunTask(runTableFE);
+                    new RunningTransaction();
                   } catch (SQLException ex) {
             Logger.getLogger(TransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
                         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonRunTaskActionPerformed
+    }//GEN-LAST:event_runningTaskButtonFEActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void historyButtonFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyButtonFEActionPerformed
         try{
-            taskTableFE.setVisible(false);
-            taskPaneFE.setVisible(false);
+            deletepanelFE.setVisible(true);
+            deletepanelFE.setVisible(false);
             runPaneFE.setVisible(false);
-            runTableFE.setVisible(false);
             historyPaneFE.setVisible(true);
-            historyTableFE.setVisible(true);
+            taskPaneFE.setVisible(false);
             new HistoryTaskList().displayHistoryTask(historyTableFE);
         }catch(SQLException e){
             System.out.println("PROBLEM IN HISTORY TASK LIST 338");
-           
         }
         
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_historyButtonFEActionPerformed
+
+    private void deleteTaskButtonFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteTaskButtonFEActionPerformed
+       
+       deletepanelFE.setVisible(true);
+            runPaneFE.setVisible(false);
+            historyPaneFE.setVisible(false);
+            taskPaneFE.setVisible(false);
+        Vector<String>tasknames=new Vector<>();
+        ConnectionDB conn=new ConnectionDB("postgres","postmanager");
+        if(conn.isConnectionCreated("PostgreSQL")){
+            
+            try{
+            Connection connection=conn.connection();
+            Statement st = connection.createStatement();
+           try{ResultSet results = st.executeQuery("SELECT taskname FROM usersdb");
+                ResultSetMetaData metadata = results.getMetaData();
+                
+                int columnCount = metadata.getColumnCount();
+// Get the column names; column indices start from 1
+            
+            while(results.next()){tasknames.add(results.getString("taskname"));}
+            connection.close();
+            conn.connection().close();
+            
+            deletecomboFE.setModel(new javax.swing.DefaultComboBoxModel<>(tasknames));
+            
+           }catch(Exception re){
+                JOptionPane.showMessageDialog(null, "Problem with the server connection");
+           
+            }
+            
+            
+               
+            }catch(SQLException e){
+                System.out.println("SQL exception");
+                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
+            }
+         }
+    }//GEN-LAST:event_deleteTaskButtonFEActionPerformed
+
+    private void DeleteconfirmFEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteconfirmFEActionPerformed
+           Vector<String>tasknames=new Vector<>(); 
+        ConnectionDB conn=new ConnectionDB("postgres","postmanager");
+        if(conn.isConnectionCreated("PostgreSQL")){
+            
+            try{
+            Connection connection=conn.connection();
+            Statement st = connection.createStatement();
+            String tname=(String)deletecomboFE.getItemAt(deletecomboFE.getSelectedIndex());
+           try{st.executeUpdate("DELETE FROM usersdb WHERE taskname='"+tname+"'");
+               ResultSet results = st.executeQuery("SELECT taskname FROM usersdb");
+                ResultSetMetaData metadata = results.getMetaData();
+                
+                int columnCount = metadata.getColumnCount();
+// Get the column names; column indices start from 1
+            
+            while(results.next()){tasknames.add(results.getString("taskname"));}
+            connection.close();
+            conn.connection().close();
+            
+            deletecomboFE.setModel(new javax.swing.DefaultComboBoxModel<>(tasknames));
+            
+           }catch(Exception re){
+                JOptionPane.showMessageDialog(null, "Problem with the server connection");
+           
+            }
+            
+            
+               
+            }catch(SQLException e){
+                System.out.println("SQL exception");
+                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
+            }
+        
+
+
+//       ConnectionDB conn=new ConnectionDB("postgres","postmanager");
+//        if(conn.isConnectionCreated("PostgreSQL")){
+//            
+//            try{
+//            Connection connection=conn.connection();
+//            Statement st = connection.createStatement();
+//           try{ResultSet results = st.executeQuery("SELECT taskname FROM usersdb");
+//                ResultSetMetaData metadata = results.getMetaData();
+//                
+//                int columnCount = metadata.getColumnCount();
+//// Get the column names; column indices start from 1
+//            
+//            while(results.next()){tasknames.add(results.getString("taskname"));}
+//            connection.close();
+//            conn.connection().close();
+//            
+//            deletecomboFE.setModel(new javax.swing.DefaultComboBoxModel<>(tasknames));
+//            
+//           }catch(Exception re){
+//                JOptionPane.showMessageDialog(null, "Problem with the server connection");
+//           
+//            }
+//            
+//            
+//               
+//            }catch(SQLException e){
+//                System.out.println("SQL exception");
+//                Logger.getLogger(AddTask.class.getName()).log(Level.SEVERE, null, e);
+//            }
+//        
+        }
+    }//GEN-LAST:event_DeleteconfirmFEActionPerformed
     
     
     
@@ -350,8 +508,12 @@ public class TransactionGUI extends javax.swing.JFrame {
     
     
     TransactionGUI()  {
-        initComponents();
         
+        initComponents();
+        deletepanelFE.setVisible(false);
+            runPaneFE.setVisible(false);
+            historyPaneFE.setVisible(false);
+            taskPaneFE.setVisible(false);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -386,20 +548,25 @@ public class TransactionGUI extends javax.swing.JFrame {
         this.taskTableFE = taskTable;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DeleteconfirmFE;
+    private javax.swing.JButton SchTaskButtonFE;
+    private javax.swing.JButton addTaskButtonFE;
+    private javax.swing.JButton deleteTaskButtonFE;
+    private javax.swing.JComboBox<String> deletecomboFE;
+    private javax.swing.JPanel deletepanelFE;
+    private javax.swing.JButton historyButtonFE;
     private javax.swing.JScrollPane historyPaneFE;
     private javax.swing.JTable historyTableFE;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButtonRunTask;
-    private javax.swing.JButton jButtonSchTask;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JScrollPane runPaneFE;
     private javax.swing.JTable runTableFE;
+    private javax.swing.JButton runningTaskButtonFE;
     private javax.swing.JScrollPane taskPaneFE;
     public javax.swing.JTable taskTableFE;
     // End of variables declaration//GEN-END:variables

@@ -354,6 +354,8 @@ public class RunningTransaction {
        // System.out.println(out.toString());
         dppstmt.clearBatch();
         dConnection.commit();
+        dConnection.close();
+        sConnection.close();
         
         try {
                 Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");

@@ -112,6 +112,7 @@ public class HistoryTaskList {
             while(result.next()){
               hisTask.add(new HistoryTaskList(result));
             }
+            connection.close();
             result.close();
             st.close();
              
