@@ -247,13 +247,17 @@ public class TransactionGUI extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 457, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(taskPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(runPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(historyPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(historyPaneFE, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -322,12 +326,19 @@ public class TransactionGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRunTaskActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        taskTableFE.setVisible(false);
-        taskPaneFE.setVisible(false);
-        runPaneFE.setVisible(false);
-        runTableFE.setVisible(false);
-        historyPaneFE.setVisible(true);
-        historyTableFE.setVisible(true);
+        try{
+            taskTableFE.setVisible(false);
+            taskPaneFE.setVisible(false);
+            runPaneFE.setVisible(false);
+            runTableFE.setVisible(false);
+            historyPaneFE.setVisible(true);
+            historyTableFE.setVisible(true);
+            new HistoryTaskList().displayHistoryTask(historyTableFE);
+        }catch(SQLException e){
+            System.out.println("PROBLEM IN HISTORY TASK LIST 338");
+           
+        }
+        
     }//GEN-LAST:event_jButton4ActionPerformed
     
     

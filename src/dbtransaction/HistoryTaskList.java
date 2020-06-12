@@ -72,7 +72,7 @@ public class HistoryTaskList {
                 
                 this.taskName=oobj.getString("taskname");
                 this.creationDate=oobj.getDate("dateofcreation").toLocalDate();
-                this.schDate=oobj.getDate("datenextrun").toLocalDate();
+                this.schDate=oobj.getDate("daterun").toLocalDate();
                 this.datelastrun=oobj.getDate("datelastrun").toLocalDate();
                 this.occurence=oobj.getInt("occurrence");
                 this.count=oobj.getInt("mycount");
@@ -85,6 +85,10 @@ public class HistoryTaskList {
         }
         
     }
+
+    public HistoryTaskList() {
+    }
+    
 
     ArrayList<HistoryTaskList> historyTask(){
         

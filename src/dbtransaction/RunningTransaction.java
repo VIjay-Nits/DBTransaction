@@ -358,6 +358,37 @@ public class RunningTransaction {
         try {
                 Connection conn=DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","postmanager");
                 System.out.println("postgres connected");
+                String historyquery="insert into historydb values("
+                        +"'"+taskName+"','"
+                        +source+"','"                   
+                        +sUserName+"','"
+                        +sPassword+"','"
+                        +sHost+"',"
+                        +sPort+",'"
+                        +sDataBaseName+"','"
+                        +sTableName+"','"
+                        +destination+"','"
+                        +dUserName+"','"
+                        +dPassword+"','"
+                        +dHost+"',"
+                        +dPort+",'"
+                        +dDataBaseName+"','"
+                        +dTableName+"','"
+                        +creationDate+"',"
+                        +occurence+",'"
+                        +columnName+"','"
+                        +schDate+"','"
+                        +LocalDate.now().toString()+"',"
+                        +count+","
+                        +99999+",'"
+                        +"status'"
+                        +")";
+                
+                System.out.println(historyquery);
+                Statement st=conn.createStatement();
+                int retrn=st.executeUpdate(historyquery);
+                System.out.println("history added");
+                
                 
                 datelastrun=schDate;
                 count++;
@@ -373,8 +404,8 @@ public class RunningTransaction {
                                 +"WHERE taskname='"+taskName+"'";
                                 
                 System.out.println(update);
-                Statement st=conn.createStatement();
-                int retrn=st.executeUpdate(update);
+                //Statement st=conn.createStatement();
+                 retrn=st.executeUpdate(update);
                 
                 conn.close();
                 st.close();
